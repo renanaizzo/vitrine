@@ -1,0 +1,112 @@
+/*
+  vitrine.css — APARÊNCIA DA VITRINE
+  A vitrine é discreta de propósito: quem tem que brilhar são as demos.
+*/
+
+:root {
+  --marinho: #16243a;
+  --marinho-suave: #4a5870;
+  --fundo: #f5f7fa;
+  --branco: #ffffff;
+  --borda: #dbe1ea;
+  --destaque: #2f6bff;
+  --fonte: "Instrument Sans", system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--fonte);
+  line-height: 1.5;
+  color: var(--marinho);
+  background: var(--fundo);
+}
+
+:focus-visible { outline: 3px solid var(--destaque); outline-offset: 3px; }
+
+/* ---------- Topo ---------- */
+.topo {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3.5rem 1rem 2.5rem;
+}
+.topo__marca { margin: 0 0 1.5rem; font-weight: 600; color: var(--marinho-suave); }
+.topo__titulo {
+  margin: 0;
+  max-width: 16ch;              /* quebra o título em linhas curtas */
+  font-size: clamp(2.2rem, 7vw, 4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.topo__texto { max-width: 60ch; margin: 1.25rem 0 0; font-size: 1.1rem; color: var(--marinho-suave); }
+
+/* ---------- Lista de cartões ---------- */
+.vitrine { max-width: 1100px; margin: 0 auto; padding: 0 1rem 3rem; }
+.vitrine__lista {
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  gap: 1.25rem;
+  /* Quantas colunas couberem, cada uma com no mínimo 280px */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.cartao {
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.cartao__link { display: block; color: inherit; text-decoration: none; height: 100%; }
+.cartao__link:hover .cartao__acao { text-decoration: underline; }
+.cartao__texto { padding: 1.1rem 1.25rem 1.4rem; }
+.cartao__texto h2 { margin: 0 0 0.4rem; font-size: 1.25rem; }
+.cartao__texto p { margin: 0 0 1rem; color: var(--marinho-suave); }
+.cartao__acao { font-weight: 700; color: var(--destaque); }
+.cartao__selo {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--marinho-suave);
+}
+.cartao--em-breve .miniatura { filter: saturate(0.55); }
+
+/* ---------- Miniaturas: cada uma usa a identidade da sua demo ---------- */
+.miniatura {
+  height: 170px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+.miniatura__nome { font-size: 2.3rem; line-height: 0.95; }
+
+.miniatura--lanchonete {
+  background: #1e6b57;
+}
+.miniatura--lanchonete .miniatura__nome {
+  font-family: "Alfa Slab One", serif;
+  color: #e9b320;
+  text-shadow: 3px 3px 0 #0f3d32;
+}
+
+.miniatura--hamburgueria {
+  background: #2a1a14;
+}
+.miniatura--hamburgueria .miniatura__nome {
+  font-family: "Bowlby One", sans-serif;
+  color: #ff7a2f;
+}
+
+.miniatura--acai {
+  background: #4b1d5e;
+}
+.miniatura--acai .miniatura__nome {
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  color: #c9f27a;
+}
+
+.rodape { padding: 1rem 1rem 3rem; text-align: center; color: var(--marinho-suave); }

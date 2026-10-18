@@ -1,0 +1,9 @@
+# .gitignore — arquivos que o Git deve IGNORAR (nunca entram no histórico)
+
+# Configuração local com o seu número real de WhatsApp
+config.local.js
+
+# Lixo que o Windows e o Mac criam sozinhos
+Thumbs.db
+desktop.ini
+.DS_Store

@@ -1,0 +1,291 @@
+/*
+  estilos.css — APARÊNCIA DA DEMO "CHAPA QUENTE"
+  ----------------------------------------------
+  "Mobile-first": o estilo base é para celular; telas maiores
+  ganham ajustes no @media lá embaixo.
+*/
+
+/* ---------- 1. VARIÁVEIS (as "cores da marca" num lugar só) ---------- */
+:root {
+  --azulejo: #1e6b57;        /* verde de parede de lanchonete */
+  --azulejo-escuro: #0f3d32;
+  --mostarda: #e9b320;
+  --papel: #fffdf4;          /* papel da comanda */
+  --linha-papel: #dfe7f2;    /* pauta azulada do bloquinho */
+  --tinta: #1f1f1a;          /* texto principal */
+  --tinta-suave: #5b5b52;
+  --tomate: #c7372f;         /* erros e "esgotado" */
+  --fundo: #eef3f0;
+
+  --fonte-letreiro: "Alfa Slab One", Georgia, serif;
+  --fonte-texto: "Work Sans", system-ui, sans-serif;
+  --raio: 10px;
+}
+
+/* ---------- 2. BASE ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Garante que "hidden" sempre esconda, mesmo em elementos com display próprio */
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  font-family: var(--fonte-texto);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--tinta);
+  /* Fundo de azulejo: duas linhas finas repetidas formam a grade */
+  background-color: var(--fundo);
+  background-image:
+    linear-gradient(#d9e3dd 1px, transparent 1px),
+    linear-gradient(90deg, #d9e3dd 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+h1, h2, h3, h4 { margin: 0; line-height: 1.15; }
+
+/* Contorno visível para quem navega com o teclado (acessibilidade) */
+:focus-visible { outline: 3px solid var(--mostarda); outline-offset: 2px; }
+
+.aviso-demo {
+  margin: 0;
+  padding: 0.4rem 1rem;
+  background: var(--tinta);
+  color: #fff;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ---------- 3. BOTÕES ---------- */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;              /* tamanho bom para o dedo */
+  padding: 0.7rem 1.4rem;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  font: 700 1rem var(--fonte-texto);
+  text-decoration: none;
+  cursor: pointer;
+}
+.botao--mostarda { background: var(--mostarda); color: var(--tinta); }
+.botao--verde    { background: var(--azulejo); color: #fff; }
+.botao--verde:hover { background: var(--azulejo-escuro); }
+.botao--contorno { background: transparent; border-color: var(--tinta); color: var(--tinta); }
+.botao--pequeno {
+  min-height: 40px;
+  padding: 0.4rem 1rem;
+  background: var(--azulejo);
+  color: #fff;
+  font-size: 0.9rem;
+}
+.botao--largo { width: 100%; }
+
+/* ---------- 4. LETREIRO (cabeçalho) ---------- */
+.letreiro {
+  padding: 2.5rem 1rem 3rem;
+  background: var(--azulejo);
+  color: #fff;
+  text-align: center;
+}
+.letreiro__nome {
+  font-family: var(--fonte-letreiro);
+  font-weight: 400;
+  font-size: clamp(3.2rem, 16vw, 6.5rem); /* cresce com a tela, com limites */
+  line-height: 0.9;
+  color: var(--mostarda);
+  /* Sombra "em degrau", como letra pintada em placa */
+  text-shadow: 4px 4px 0 var(--azulejo-escuro);
+}
+.letreiro__frase { margin: 1rem 0 0.25rem; font-size: 1.15rem; font-weight: 500; }
+.letreiro__horario { margin: 0 0 1.5rem; opacity: 0.85; font-size: 0.95rem; }
+
+/* ---------- 5. LAYOUT GERAL ---------- */
+.conteudo {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 6rem; /* espaço embaixo para a barra fixa */
+}
+
+.cardapio > h2,
+.comanda__titulo {
+  font-family: var(--fonte-letreiro);
+  font-weight: 400;
+  font-size: 2rem;
+  color: var(--azulejo-escuro);
+}
+
+/* ---------- 6. CARDÁPIO ---------- */
+.cardapio__categoria {
+  margin: 1.75rem 0 0.75rem;
+  font-size: 1.1rem;
+  color: var(--azulejo);
+}
+.cardapio__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+
+.item {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 0.75rem 1rem;
+  align-items: center;
+  padding: 0.9rem;
+  background: #fff;
+  border-radius: var(--raio);
+  border: 1px solid #d5ddd8;
+}
+.item__foto {
+  width: 64px; height: 64px;
+  display: grid; place-items: center;
+  font-size: 2.1rem;
+  background: var(--fundo);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.item__foto img { width: 100%; height: 100%; object-fit: cover; }
+.item__nome { font-size: 1.05rem; }
+.item__descricao { margin: 0.2rem 0 0; color: var(--tinta-suave); font-size: 0.92rem; }
+.item__acao {
+  grid-column: 1 / -1;            /* no celular ocupa a linha toda */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.item__preco { font-weight: 700; font-size: 1.1rem; }
+.item__esgotado { color: var(--tomate); font-weight: 700; font-size: 0.9rem; }
+.item--indisponivel { opacity: 0.6; }
+
+/* ---------- 7. COMANDA (o bloquinho de pedido) ---------- */
+.comanda {
+  margin-top: 2.5rem;
+  padding: 1.75rem 1.25rem 1.5rem 2.25rem;
+  background-color: var(--papel);
+  /* Pauta do papel + linha vermelha de margem */
+  background-image:
+    linear-gradient(90deg, transparent 1.4rem, #f0a7a1 1.4rem, #f0a7a1 calc(1.4rem + 1px), transparent calc(1.4rem + 1px)),
+    repeating-linear-gradient(transparent 0 1.9rem, var(--linha-papel) 1.9rem calc(1.9rem + 1px));
+  border-radius: 4px;
+  box-shadow: 0 2px 0 #d8d2bd, 0 10px 24px -12px rgba(15, 61, 50, 0.45);
+  position: relative;
+}
+/* Picote no topo da folha */
+.comanda::before {
+  content: "";
+  position: absolute;
+  top: -6px; left: 0; right: 0;
+  height: 12px;
+  background: radial-gradient(circle at 6px 6px, var(--fundo) 5px, transparent 5.5px) 0 0 / 16px 12px repeat-x;
+}
+
+.comanda__itens { list-style: none; margin: 1rem 0 0; padding: 0; }
+.comanda__item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.25rem 0.5rem;
+  align-items: center;
+  padding: 0.45rem 0;
+  border-bottom: 1px dashed #c9c3ad;
+}
+.comanda__qtd { font-weight: 700; color: var(--azulejo); }
+.comanda__valor { font-weight: 500; }
+.comanda__controles { grid-column: 2 / -1; display: flex; gap: 0.5rem; }
+.comanda__controles button {
+  width: 40px; height: 36px;
+  border: 1.5px solid var(--tinta);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.comanda__vazia { color: var(--tinta-suave); font-style: italic; }
+
+.comanda__totais { margin: 1rem 0 1.5rem; }
+.comanda__totais div { display: flex; justify-content: space-between; padding: 0.15rem 0; }
+.comanda__totais dt, .comanda__totais dd { margin: 0; }
+.comanda__total { font-size: 1.3rem; font-weight: 700; border-top: 2px solid var(--tinta); margin-top: 0.4rem; padding-top: 0.4rem !important; }
+
+/* ---------- 8. FORMULÁRIO ---------- */
+.formulario { display: grid; gap: 0.35rem; }
+.formulario label { font-weight: 500; margin-top: 0.6rem; }
+.formulario input[type="text"],
+.formulario select,
+.formulario textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.6rem 0.75rem;
+  border: 1.5px solid #9aa59f;
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;   /* 16px evita o zoom automático do iPhone ao tocar no campo */
+}
+.formulario fieldset { border: 0; padding: 0; margin: 0.6rem 0 0; }
+.formulario legend { font-weight: 500; padding: 0; }
+.formulario .opcao { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.35rem; font-weight: 400; }
+.formulario .opcao input { width: 20px; height: 20px; accent-color: var(--azulejo); }
+.formulario__erro { min-height: 1.5em; margin: 0.5rem 0 0; color: var(--tomate); font-weight: 700; }
+
+/* ---------- 9. BARRA FIXA (celular) ---------- */
+.barra-pedido {
+  position: fixed;
+  left: 0.75rem; right: 0.75rem; bottom: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  min-height: 56px;
+  padding: 0.6rem 1.2rem;
+  background: var(--tinta);
+  color: #fff;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.5);
+}
+.barra-pedido strong { color: var(--mostarda); }
+
+/* ---------- 10. JANELA DE REVISÃO ---------- */
+.revisao {
+  width: min(92vw, 460px);
+  border: 0;
+  border-radius: 14px;
+  padding: 1.5rem;
+}
+.revisao::backdrop { background: rgba(15, 61, 50, 0.6); }
+.revisao h2 { font-family: var(--fonte-letreiro); font-weight: 400; color: var(--azulejo-escuro); }
+.revisao__dica { color: var(--tinta-suave); font-size: 0.92rem; }
+.revisao__mensagem {
+  max-height: 45vh;
+  overflow: auto;
+  padding: 1rem;
+  background: #e7f6e9;          /* tom de balão de conversa */
+  border-radius: 10px;
+  font: 0.92rem/1.45 var(--fonte-texto);
+  white-space: pre-wrap;        /* respeita as quebras de linha da mensagem */
+}
+.revisao__nota { color: var(--tomate); font-weight: 700; }
+.revisao__botoes { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: flex-end; margin-top: 1rem; }
+
+.rodape { padding: 2rem 1rem 6rem; text-align: center; color: var(--tinta-suave); font-size: 0.85rem; }
+
+/* ---------- 11. TELAS MAIORES (a partir de 900px) ---------- */
+@media (min-width: 900px) {
+  .conteudo {
+    display: grid;
+    grid-template-columns: 1fr 380px;   /* cardápio | comanda */
+    gap: 2.5rem;
+    align-items: start;
+    padding-bottom: 3rem;
+  }
+  .item { grid-template-columns: 64px 1fr auto; }
+  .item__acao { grid-column: auto; flex-direction: column; align-items: flex-end; gap: 0.4rem; }
+  .comanda { margin-top: 0; position: sticky; top: 1.5rem; }
+  .barra-pedido { display: none !important; } /* no computador a comanda já fica visível */
+  .rodape { padding-bottom: 2rem; }
+}
+
+/* Respeita quem pediu menos animação no sistema */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
