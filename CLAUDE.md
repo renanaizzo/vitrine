@@ -14,7 +14,8 @@ Vitrine de landing pages com pedido por WhatsApp, em HTML + CSS + JS puro, sem f
 Todos os negócios são fictícios. Estrutura e instruções: ver README.md.
 
 - `demos/lanchonete` ("Esquina do Salgado"): pronta, use como referência de padrão.
-  Vende salgados, pastéis, mini pizzas, fogazzas, pão de queijo e sucos.
+  Vende salgados, pastéis, mini pizzas, fogaças (grafia regional, não "fogazza"),
+  pão de queijo, doces e sucos.
   NÃO vende hambúrguer (isso é da hamburgueria, para as demos não se repetirem).
 - Próximas: `demos/hamburgueria` (adicionais e combos que mudam o preço) e
   `demos/acai` (monte seu copo: tamanho, complementos grátis até um limite, extras pagos).
