@@ -41,16 +41,25 @@ function buscarItem(id) {
 /* ============================================================
    BLOCO 3 — DESENHAR O CARDÁPIO
    Agrupa os itens por categoria e cria o HTML de cada um.
+   Também cria a barra de categorias (um botão por categoria, mais o "Todos").
    ============================================================ */
+const TODOS = "Todos";
+
 function desenharCardapio() {
   const lista = el("lista-cardapio");
 
   // Descobre as categorias, na ordem em que aparecem no cardapio.js
   const categorias = [...new Set(CARDAPIO.map((item) => item.categoria))];
 
+  // aria-pressed diz ao leitor de tela se o botão está "apertado" (selecionado)
+  el("barra-categorias").innerHTML = [TODOS, ...categorias]
+    .map((categoria) => `<button type="button" class="categorias__botao" data-categoria="${categoria}" aria-pressed="false">${categoria}</button>`)
+    .join("");
+
   let html = "";
   for (const categoria of categorias) {
-    html += `<h3 class="cardapio__categoria">${categoria}</h3><ul class="cardapio__lista">`;
+    html += `<section class="cardapio__secao" data-categoria="${categoria}">
+      <h3 class="cardapio__categoria">${categoria}</h3><ul class="cardapio__lista">`;
 
     const itensDaCategoria = CARDAPIO.filter((item) => item.categoria === categoria);
     for (const item of itensDaCategoria) {
@@ -77,9 +86,33 @@ function desenharCardapio() {
           </div>
         </li>`;
     }
-    html += `</ul>`;
+    html += `</ul></section>`;
   }
   lista.innerHTML = html;
+}
+
+// Mostra só a categoria escolhida (ou todas, com "Todos") e acende o botão dela.
+// As outras seções continuam no HTML, apenas escondidas com "hidden".
+function mostrarCategoria(escolhida) {
+  for (const secao of document.querySelectorAll(".cardapio__secao")) {
+    secao.hidden = escolhida !== TODOS && secao.dataset.categoria !== escolhida;
+  }
+
+  const barra = el("barra-categorias");
+  for (const botao of barra.querySelectorAll("button")) {
+    const ativo = botao.dataset.categoria === escolhida;
+    botao.classList.toggle("categorias__botao--ativo", ativo);
+    botao.setAttribute("aria-pressed", ativo);
+    // No celular a barra rola para o lado: se o botão ativo estiver fora da vista, traz ele de volta
+    const foraDaVista =
+      botao.offsetLeft < barra.scrollLeft ||
+      botao.offsetLeft + botao.offsetWidth > barra.scrollLeft + barra.clientWidth;
+    if (ativo && foraDaVista) barra.scrollLeft = botao.offsetLeft - 16;
+  }
+
+  // Se a barra já está grudada no topo (página rolada para baixo),
+  // volta para o começo da lista, senão a pessoa ficaria olhando um espaço vazio
+  if (barra.getBoundingClientRect().top <= 0) el("titulo-cardapio").scrollIntoView();
 }
 
 /* ============================================================
@@ -245,12 +278,13 @@ function abrirRevisao(evento) {
    Um "evento" é algo que o usuário faz: clicar, digitar, escolher.
    ============================================================ */
 
-// Um único "ouvinte" para todos os botões + e −  (técnica chamada delegação de eventos)
+// Um único "ouvinte" para todos os botões + e − e os de categoria (técnica chamada delegação de eventos)
 document.addEventListener("click", (evento) => {
   const botao = evento.target.closest("button");
   if (!botao) return;
   if (botao.dataset.adicionar) alterarQuantidade(botao.dataset.adicionar, +1);
   if (botao.dataset.diminuir) alterarQuantidade(botao.dataset.diminuir, -1);
+  if (botao.dataset.categoria) mostrarCategoria(botao.dataset.categoria);
 });
 
 el("form-pedido").addEventListener("change", atualizarCamposDoFormulario);
@@ -267,5 +301,6 @@ new IntersectionObserver((entradas) => {
 // Início: desenha tudo uma vez
 el("horario").textContent = CONFIG.horario;
 desenharCardapio();
+mostrarCategoria(CARDAPIO[0].categoria); // abre na primeira categoria (Salgados)
 preencherPagamentos();
 atualizarCamposDoFormulario();
