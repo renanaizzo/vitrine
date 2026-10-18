@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <!-- Faz a página se ajustar à largura do celular -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Chapa Quente · Lanches no capricho (demonstração)</title>
-  <meta name="description" content="Peça lanches da Chapa Quente pelo WhatsApp. Site de demonstração.">
+  <title>Esquina do Salgado · Salgados, pastéis e fogazzas (demonstração)</title>
+  <meta name="description" content="Peça salgados, pastéis, mini pizzas e sucos da Esquina do Salgado pelo WhatsApp. Site de demonstração.">
 
   <!-- Fontes do Google: Alfa Slab One (letreiro) e Work Sans (texto) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,8 +21,8 @@
 
   <!-- CABEÇALHO: o "letreiro" da lanchonete -->
   <header class="letreiro">
-    <h1 class="letreiro__nome">Chapa<br>Quente</h1>
-    <p class="letreiro__frase">Lanche feito na hora, entregue no bairro.</p>
+    <h1 class="letreiro__nome">Esquina do<br>Salgado</h1>
+    <p class="letreiro__frase">Salgado quentinho, pastel crocante e suco feito na hora.</p>
     <p class="letreiro__horario" id="horario"></p>
     <a class="botao botao--mostarda" href="#cardapio">Ver o cardápio</a>
   </header>
@@ -40,7 +40,7 @@
       <h2 id="titulo-comanda" class="comanda__titulo">Seu pedido</h2>
 
       <ul id="itens-comanda" class="comanda__itens"><!-- app.js preenche --></ul>
-      <p id="comanda-vazia" class="comanda__vazia">Toque em “Adicionar” num lanche para começar.</p>
+      <p id="comanda-vazia" class="comanda__vazia">Toque em “Adicionar” num item para começar.</p>
 
       <dl class="comanda__totais">
         <div><dt>Subtotal</dt><dd id="subtotal">R$ 0,00</dd></div>
@@ -73,7 +73,7 @@
         </div>
 
         <label for="observacao">Observação (opcional)</label>
-        <textarea id="observacao" name="observacao" rows="2" placeholder="Ex.: sem cebola no X-Salada"></textarea>
+        <textarea id="observacao" name="observacao" rows="2" placeholder="Ex.: pastel bem sequinho"></textarea>
 
         <p id="erro-form" class="formulario__erro" role="alert"></p>
 
@@ -102,7 +102,7 @@
   </dialog>
 
   <footer class="rodape">
-    <p>Chapa Quente é um negócio fictício, criado para demonstração.</p>
+    <p>Esquina do Salgado é um negócio fictício, criado para demonstração.</p>
   </footer>
 
   <!--

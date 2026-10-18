@@ -1,6 +1,6 @@
 /*
-  estilos.css — APARÊNCIA DA DEMO "CHAPA QUENTE"
-  ----------------------------------------------
+  estilos.css — APARÊNCIA DA DEMO "ESQUINA DO SALGADO"
+  ----------------------------------------------------
   "Mobile-first": o estilo base é para celular; telas maiores
   ganham ajustes no @media lá embaixo.
 */
@@ -92,11 +92,15 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.15; }
 .letreiro__nome {
   font-family: var(--fonte-letreiro);
   font-weight: 400;
-  font-size: clamp(3.2rem, 16vw, 6.5rem); /* cresce com a tela, com limites */
+  font-size: clamp(2.6rem, 12vw, 6.5rem); /* celular: menor, para "Esquina do" caber numa linha */
   line-height: 0.9;
   color: var(--mostarda);
   /* Sombra "em degrau", como letra pintada em placa */
   text-shadow: 4px 4px 0 var(--azulejo-escuro);
+}
+/* Telas a partir de 600px (tablet e computador): volta ao tamanho original */
+@media (min-width: 600px) {
+  .letreiro__nome { font-size: clamp(3.2rem, 16vw, 6.5rem); }
 }
 .letreiro__frase { margin: 1rem 0 0.25rem; font-size: 1.15rem; font-weight: 500; }
 .letreiro__horario { margin: 0 0 1.5rem; opacity: 0.85; font-size: 0.95rem; }

@@ -11,7 +11,7 @@
 /* ============================================================
    BLOCO 1 — ESTADO
    "Estado" é a memória do site enquanto a página está aberta.
-   O carrinho guarda só  id → quantidade.  Ex.: { "x-burguer": 2 }
+   O carrinho guarda só  id → quantidade.  Ex.: { "coxinha-frango": 2 }
    ============================================================ */
 const carrinho = {};
 

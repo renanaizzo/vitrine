@@ -8,7 +8,7 @@
 */
 
 const CONFIG = {
-  nomeLoja: "Chapa Quente",
+  nomeLoja: "Esquina do Salgado",
 
   // Número no formato internacional: 55 + DDD + número, só dígitos.
   // Fictício de propósito. Veja config.local.js para os testes.
@@ -18,10 +18,10 @@ const CONFIG = {
   // Online fica "true" para ninguém mandar pedido de mentira.
   modoDemo: true,
 
-  // Valores em CENTAVOS (500 = R$ 5,00). Explicação no README.
-  taxaEntrega: 500,
+  // Valores em CENTAVOS (350 = R$ 3,50). Explicação no README.
+  taxaEntrega: 350,
 
   formasPagamento: ["Pix", "Cartão (maquininha na entrega)", "Dinheiro"],
 
-  horario: "Terça a domingo, das 18h às 23h",
+  horario: "Segunda a sábado, das 9h às 19h",
 };
