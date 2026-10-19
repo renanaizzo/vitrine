@@ -880,18 +880,16 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.1; }
 }
 
 
-/* ---------- BOTÃO "VOLTAR" NO TOPO (volta para a vitrine) ---------- */
-.topo__voltar {
-  display: inline-flex; align-items: center; gap: 0.35rem;
-  height: 40px; padding: 0 0.85rem;
-  border: var(--borda); border-radius: 12px;
-  background: var(--painel); color: var(--tinta);
-  box-shadow: 2px 2px 0 var(--cor-sombra);
-  font-weight: 800; font-size: 0.85rem; text-decoration: none; white-space: nowrap;
+/* ---------- BOTÃO "VOLTAR" AO LADO DO AVISO (volta para a vitrine) ---------- */
+.aviso-demo { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 0.3rem 0.7rem; }
+.aviso-demo__voltar {
+  padding: 0.1rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
 }
-.topo__voltar:hover { color: var(--mostarda); }
-/* No celular, o texto longo some ("Voltar") e o nome da loja sai do cabeçalho para caber tudo
-   (o nome continua grande logo abaixo, no topo da página) */
-.topo__voltar-extra { display: none; }
-@media (max-width: 479px) { .topo__nome { display: none; } }
-@media (min-width: 900px) { .topo__voltar-extra { display: inline; } }
+.aviso-demo__voltar:hover { background: rgba(255, 255, 255, 0.22); }
