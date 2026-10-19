@@ -116,11 +116,11 @@ body {
 .miniatura__bolha--1 { width: 64px; height: 64px; font-size: 1.9rem; left: 8%; bottom: 10%; }
 .miniatura__bolha--2 { width: 48px; height: 48px; font-size: 1.4rem; right: 8%; top: 12%; }
 
-/* Hamburgueria: fundo creme com letras de fogo (claro, para não repetir o escuro da lanchonete) */
+/* Hamburgueria: carvão com letras de fogo e brilho de brasa embaixo */
 .miniatura--hamburgueria {
   background:
-    radial-gradient(ellipse at 50% 120%, rgba(255, 106, 0, 0.45), transparent 60%),
-    #fff4dc;
+    radial-gradient(ellipse at 50% 120%, rgba(255, 106, 0, 0.5), transparent 60%),
+    #110d0b;
 }
 .miniatura--hamburgueria .miniatura__nome {
   font-family: "Bowlby One", sans-serif;
