@@ -1,16 +1,19 @@
 /*
   vitrine.css — APARÊNCIA DA VITRINE
   A vitrine é discreta de propósito: quem tem que brilhar são as demos.
+  Tema escuro em GRAFITE neutro (sem cor própria), para não competir com as miniaturas.
+  Os nomes das variáveis vêm da versão clara; os valores agora são do tema escuro.
 */
 
 :root {
-  --marinho: #16243a;
-  --marinho-suave: #4a5870;
-  --fundo: #f5f7fa;
-  --branco: #ffffff;
-  --borda: #dbe1ea;
-  --destaque: #2f6bff;
+  --marinho: #eef1f6;          /* texto principal (claro) */
+  --marinho-suave: #9ba5b6;
+  --fundo: #0d0f14;            /* grafite quase preto */
+  --branco: #161a22;           /* fundo dos cartões */
+  --borda: #262c38;
+  --destaque: #8fb0ff;         /* azul claro: lê bem no escuro */
   --fonte: "Instrument Sans", system-ui, sans-serif;
+  color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -57,7 +60,10 @@ body {
   border: 1px solid var(--borda);
   border-radius: 14px;
   overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s;
 }
+/* O cartão sobe um pouco ao passar o mouse (só os que são link) */
+.cartao:has(.cartao__link:hover) { transform: translateY(-4px); border-color: #3a4252; }
 .cartao__link { display: block; color: inherit; text-decoration: none; height: 100%; }
 .cartao__link:hover .cartao__acao { text-decoration: underline; }
 .cartao__texto { padding: 1.1rem 1.25rem 1.4rem; }
@@ -133,13 +139,13 @@ body {
   filter: drop-shadow(3px 3px 0 #161210);
 }
 
-/* Açaí: claro "holográfico" (mesmas cores da demo) */
+/* Açaí: roxo escuro "holográfico" (mesmas cores da demo) */
 .miniatura--acai {
   background:
     radial-gradient(circle at 90% 10%, rgba(255, 79, 163, 0.45), transparent 50%),
-    radial-gradient(circle at 5% 95%, rgba(198, 244, 50, 0.5), transparent 45%),
-    radial-gradient(circle at 20% 10%, rgba(139, 44, 245, 0.3), transparent 50%),
-    #f4ecff;
+    radial-gradient(circle at 5% 95%, rgba(198, 244, 50, 0.3), transparent 45%),
+    radial-gradient(circle at 20% 10%, rgba(139, 44, 245, 0.35), transparent 50%),
+    #0e0616;
 }
 .miniatura--acai .miniatura__nome {
   font-family: "Sora", sans-serif;
