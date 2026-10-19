@@ -20,7 +20,21 @@ vitrine/
             ├── config.local.js          → SEU número (ignorado pelo Git; você cria)
             ├── cardapio.js              → só os dados do cardápio
             └── app.js                   → a lógica (carrinho, mensagem, WhatsApp)
+    ├── hamburgueria/          → mesma estrutura, com produtos que têm OPÇÕES
+    └── acai/                  → mesma estrutura e mesmo app.js da hamburgueria
 ```
+
+As três demos são independentes: para fazer o site de um cliente, copie a pasta da demo
+mais parecida (sem o `config.local.js`) e troque `config.js`, `cardapio.js` e as cores.
+
+## Produtos com opções (hamburgueria e açaí)
+
+Nessas duas demos, um produto pode ter `opcoes`: ponto da carne, adicionais, combo,
+tamanho do copo, complementos... O "+" abre a janela "Monte seu pedido", e o preço
+muda conforme as escolhas. Todos os campos estão explicados no começo de
+`demos/hamburgueria/js/cardapio.js`.
+
+O `app.js` é **o mesmo arquivo** nas duas pastas. Mudou um? Copie para o outro.
 
 ## Como abrir
 

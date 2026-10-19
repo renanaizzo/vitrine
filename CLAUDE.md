@@ -17,8 +17,9 @@ Todos os negócios são fictícios. Estrutura e instruções: ver README.md.
   Vende salgados, pastéis, mini pizzas, fogaças (grafia regional, não "fogazza"),
   pão de queijo, doces e sucos.
   NÃO vende hambúrguer (isso é da hamburgueria, para as demos não se repetirem).
-- Próximas: `demos/hamburgueria` (adicionais e combos que mudam o preço) e
-  `demos/acai` (monte seu copo: tamanho, complementos grátis até um limite, extras pagos).
+- Também prontas: `demos/hamburgueria` ("Brasa Burger": adicionais e combos que mudam o preço) e
+  `demos/acai` ("Açaí da Praça": monte seu copo, complementos grátis até um limite, extras pagos).
+  As duas usam o mesmo `app.js` (motor de opções); mudou num, copie para o outro.
 - Demos podem se inspirar em negócios reais (produtos, faixa de preço), mas nunca copiar
   nome, marca, textos ou fotos.
 
