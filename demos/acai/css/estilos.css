@@ -726,3 +726,6 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
 }
+
+/* Link "Ver outros exemplos" na faixa de aviso do topo (volta para a vitrine) */
+.aviso-demo a { margin-left: 0.4rem; color: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
