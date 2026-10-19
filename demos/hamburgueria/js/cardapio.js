@@ -25,6 +25,7 @@
                   Ex.: { grupo: "combo", diferenteDe: "so-lanche" } → bebida só aparece se virou combo.
     opcoes      → lista de { id, nome, preco } (preco = quanto SOMA; 0 = grátis)
                   resumo: false → a opção não aparece no resumo do pedido (ex.: "Só o lanche")
+                  curto: "..."  → (opcional) nome menor usado só no resumo e na mensagem
 
   Cardápio FICTÍCIO para demonstração.
 */

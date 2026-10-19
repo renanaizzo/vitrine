@@ -166,7 +166,7 @@ function resumoEscolhas(item, escolhas) {
     const nomes = (escolhas[grupo.id] || [])
       .map((id) => grupo.opcoes.find((o) => o.id === id))
       .filter((opcao) => opcao && opcao.resumo !== false)
-      .map((opcao) => (grupo.prefixo || "") + opcao.nome);
+      .map((opcao) => (grupo.prefixo || "") + (opcao.curto || opcao.nome)); // "curto": nome menor só para o resumo
     if (nomes.length === 0) continue;
     partes.push(grupo.rotulo ? `${grupo.rotulo}: ${nomes.join(", ")}` : nomes.join(" · "));
   }
