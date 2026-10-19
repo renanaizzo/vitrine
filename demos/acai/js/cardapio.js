@@ -9,8 +9,8 @@
     → a quantidade de complementos grátis depende do TAMANHO escolhido;
       cada complemento além do limite custa precoExtra (R$ 2,00).
 
-  E o "escolhasProntas" nos copos da casa: a janela já abre com tudo marcado,
-  e o cliente pode mudar o que quiser.
+  Os copos da casa são RECEITAS FIXAS: preço próprio e só o grupo EXTRAS como opção.
+  Quem quiser outra combinação monta do zero no "Monte seu copo".
 
   Cardápio FICTÍCIO para demonstração.
 */
@@ -115,71 +115,67 @@ const CARDAPIO = [
     opcoes: OPCOES_COPO,
   },
 
-  /* ---------- COPOS DA CASA (já vêm montados; dá para mudar tudo) ---------- */
+  /* ---------- COPOS DA CASA (receitas fixas: o cliente só acrescenta extras;
+     quem quiser outra combinação usa o "Monte seu copo") ---------- */
   {
     id: "classico-da-praca",
     nome: "Clássico da praça",
     descricao: "500 ml de açaí tradicional, granola, banana, leite em pó e leite condensado.",
-    preco: 0,
+    preco: 1900,
     grupo: "Copos da casa",
     categoria: "Copos da casa",
     foto: "",
     emoji: "🍌",
     disponivel: true,
-    opcoes: OPCOES_COPO,
-    escolhasProntas: { tamanho: ["500"], base: ["tradicional"], complementos: ["granola", "banana", "leite-po"], calda: ["leite-condensado"] },
+    opcoes: [EXTRAS], // receita fixa: só dá para acrescentar extras
   },
   {
     id: "tropical",
     nome: "Tropical",
     descricao: "500 ml de açaí com banana, morango, kiwi, coco ralado, granola e mel.",
-    preco: 0,
+    preco: 1900,
     grupo: "Copos da casa",
     categoria: "Copos da casa",
     foto: "",
     emoji: "🥝",
     disponivel: true,
-    opcoes: OPCOES_COPO,
-    escolhasProntas: { tamanho: ["500"], base: ["com-banana"], complementos: ["morango", "kiwi", "coco", "granola"], calda: ["mel"] },
+    opcoes: [EXTRAS],
   },
   {
     id: "fit",
     nome: "Fit",
     descricao: "300 ml de açaí zero açúcar, granola, banana e morango. Sem calda.",
-    preco: 0,
+    preco: 1600,
     grupo: "Copos da casa",
     categoria: "Copos da casa",
     foto: "",
     emoji: "🍓",
     disponivel: true,
-    opcoes: OPCOES_COPO,
-    escolhasProntas: { tamanho: ["300"], base: ["zero"], complementos: ["granola", "banana", "morango"], calda: ["sem"] },
+    opcoes: [EXTRAS],
   },
   {
     id: "chocolatra",
     nome: "Chocólatra",
     descricao: "700 ml com confete, paçoca, leite em pó, flocos de arroz, calda de chocolate e creme de avelã.",
-    preco: 0,
+    preco: 2900,
     grupo: "Copos da casa",
     categoria: "Copos da casa",
     foto: "",
     emoji: "🍫",
     disponivel: true,
-    opcoes: OPCOES_COPO,
-    escolhasProntas: { tamanho: ["700"], base: ["tradicional"], complementos: ["confete", "pacoca", "leite-po", "flocos"], calda: ["chocolate"], extras: ["avela"] },
+    opcoes: [EXTRAS],
   },
   {
     id: "cupuacu-cremoso",
     nome: "Cupuaçu cremoso",
     descricao: "500 ml de creme de cupuaçu, granola, coco ralado e leite condensado.",
-    preco: 0,
+    preco: 1900,
     grupo: "Copos da casa",
     categoria: "Copos da casa",
     foto: "",
     emoji: "🥥",
     disponivel: false, // ← exemplo de item esgotado
-    opcoes: OPCOES_COPO,
-    escolhasProntas: { tamanho: ["500"], base: ["cupuacu"], complementos: ["granola", "coco"], calda: ["leite-condensado"] },
+    opcoes: [EXTRAS],
   },
 
   /* ---------- PARA LEVAR ---------- */

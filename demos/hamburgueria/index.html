@@ -25,17 +25,18 @@
 </head>
 <body>
 
-  <p class="aviso-demo">Site de demonstração: negócio fictício. <a href="../../index.html">← Ver outros exemplos</a></p>
+  <p class="aviso-demo">Site de demonstração: negócio fictício.</p>
 
   <!-- TOPO FIXO -->
   <header class="topo">
+    <!-- Volta para a vitrine (página inicial) para escolher outro exemplo -->
+    <a class="topo__voltar" href="../../index.html" aria-label="Voltar para a página inicial e ver outros exemplos"><span aria-hidden="true">←</span> Voltar<span class="topo__voltar-extra"> aos exemplos</span></a>
     <a class="topo__marca" href="#inicio" aria-label="Brasa Burger, voltar ao início">
       <span class="topo__logo" aria-hidden="true">B</span>
       <span class="topo__nome">Brasa Burger</span>
     </a>
     <nav class="topo__links" aria-label="Atalhos">
       <a href="#cardapio">Cardápio</a>
-      <a href="#como-funciona">Monte o seu</a>
       <a href="#visite">Onde estamos</a>
     </nav>
     <a class="sacola" id="sacola" href="#comanda" aria-label="Ver seu pedido">
@@ -98,6 +99,14 @@
   <main class="conteudo">
     <section id="cardapio" class="cardapio" aria-labelledby="titulo-cardapio">
       <h2 id="titulo-cardapio" class="titulo-secao">Cardápio</h2>
+
+      <!-- MONTE EM 3 TOQUES: fica antes dos lanches, para o cliente já saber que é rápido -->
+      <ol class="toques" aria-label="Como montar seu lanche em 3 toques">
+        <li class="toque"><span class="toque__emoji" aria-hidden="true">🥩</span><strong>Escolha o ponto</strong><span>mal, ao ponto ou bem passado</span></li>
+        <li class="toque"><span class="toque__emoji" aria-hidden="true">🥓</span><strong>Turbine</strong><span>bacon, cheddar, ovo… ou tire algo</span></li>
+        <li class="toque"><span class="toque__emoji" aria-hidden="true">🍟</span><strong>Vire combo</strong><span>batata + refri, escolha a bebida</span></li>
+      </ol>
+
       <nav id="barra-categorias" class="categorias" aria-label="Categorias do cardápio">
         <div id="linha-grupos" class="categorias__linha"></div>
         <div id="linha-subcategorias" class="categorias__linha categorias__linha--sub" hidden></div>
@@ -152,17 +161,6 @@
       </form>
     </section>
   </main>
-
-  <!-- COMO FUNCIONA -->
-  <section id="como-funciona" class="secao" aria-labelledby="titulo-como">
-    <p class="sobretitulo">Monte o seu</p>
-    <h2 id="titulo-como" class="titulo-secao">Três toques e o burger é seu</h2>
-    <ol class="passos">
-      <li class="passo"><span class="passo__emoji" aria-hidden="true">🥩</span><h3>Escolha o ponto</h3><p>Mal passado, ao ponto ou bem passado. Smash e frango saem sempre no ponto certo.</p></li>
-      <li class="passo"><span class="passo__emoji" aria-hidden="true">🥓</span><h3>Turbine</h3><p>Bacon, cheddar, ovo, cebola caramelizada, blend extra... ou tire o que não curte.</p></li>
-      <li class="passo"><span class="passo__emoji" aria-hidden="true">🍟</span><h3>Vire combo</h3><p>Batata e refri por um preço camarada. Escolha a bebida e pronto.</p></li>
-    </ol>
-  </section>
 
   <!-- ONDE ESTAMOS -->
   <section id="visite" class="secao" aria-labelledby="titulo-visite">
