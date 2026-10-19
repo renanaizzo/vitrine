@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brasa Burger · Hambúrguer artesanal (demonstração)</title>
+  <meta name="description" content="Monte seu hambúrguer do seu jeito e peça pelo WhatsApp. Site de demonstração.">
+  <meta name="theme-color" content="#fff4dc">
+
+  <!-- Fontes: Bowlby One (títulos, letreiro de diner) e DM Sans (texto) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <p class="aviso-demo">Site de demonstração: negócio fictício.</p>
+
+  <!-- TOPO FIXO -->
+  <header class="topo">
+    <a class="topo__marca" href="#inicio" aria-label="Brasa Burger, voltar ao início">
+      <span class="topo__logo" aria-hidden="true">B</span>
+      <span class="topo__nome">Brasa Burger</span>
+    </a>
+    <nav class="topo__links" aria-label="Atalhos">
+      <a href="#cardapio">Cardápio</a>
+      <a href="#como-funciona">Monte o seu</a>
+      <a href="#visite">Onde estamos</a>
+    </nav>
+    <a class="sacola" id="sacola" href="#comanda" aria-label="Ver seu pedido">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 7h12l1 13H5L6 7Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 9V6a3 3 0 0 1 6 0v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span class="sacola__qtd" id="sacola-qtd" hidden>0</span>
+    </a>
+  </header>
+
+  <!-- HERO -->
+  <section id="inicio" class="hero">
+    <div class="hero__texto">
+      <p class="selo" id="selo-aberto"><span class="selo__ponto"></span><span id="selo-texto">Confira o horário</span></p>
+      <h1 class="hero__titulo">O burger que você <mark>monta</mark> do seu jeito.</h1>
+      <p class="hero__frase">Escolha o ponto da carne, coloque bacon, cheddar ou ovo e transforme em combo com um toque. O preço muda na hora, sem surpresa.</p>
+      <div class="hero__botoes">
+        <a class="botao botao--vermelho" href="#cardapio">Montar meu burger</a>
+        <a class="botao botao--branco" href="#comanda">Meu pedido</a>
+      </div>
+      <p class="hero__horario" id="horario" data-config="horario"></p>
+    </div>
+
+    <!-- "Pôster" do hero: só decoração -->
+    <div class="poster" aria-hidden="true">
+      <div class="poster__prato">🍔</div>
+      <!-- Selo redondo que gira: o texto segue um círculo (textPath do SVG) -->
+      <svg class="poster__giro" viewBox="0 0 200 200">
+        <defs><path id="circulo" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0"/></defs>
+        <text><textPath href="#circulo" textLength="545" lengthAdjust="spacing">BLEND 160 G • PÃO BRIOCHE • FEITO NA CHAPA •</textPath></text>
+      </svg>
+      <span class="adesivo adesivo--1">No ponto que você pede</span>
+      <span class="adesivo adesivo--2">Vira combo!</span>
+    </div>
+  </section>
+
+  <!-- Faixa quadriculada de diner -->
+  <div class="xadrez" aria-hidden="true"></div>
+
+  <!-- ATALHOS POR GRUPO -->
+  <section class="grupos" aria-labelledby="titulo-grupos">
+    <h2 id="titulo-grupos" class="titulo-secao">Tá com fome de quê?</h2>
+    <div id="grade-grupos" class="grupos__grade"><!-- app.js preenche --></div>
+  </section>
+
+  <main class="conteudo">
+    <section id="cardapio" class="cardapio" aria-labelledby="titulo-cardapio">
+      <h2 id="titulo-cardapio" class="titulo-secao">Cardápio</h2>
+      <nav id="barra-categorias" class="categorias" aria-label="Categorias do cardápio">
+        <div id="linha-grupos" class="categorias__linha"></div>
+        <div id="linha-subcategorias" class="categorias__linha categorias__linha--sub" hidden></div>
+      </nav>
+      <div id="lista-cardapio"><!-- app.js preenche aqui --></div>
+    </section>
+
+    <!-- COMANDA -->
+    <section id="comanda" class="comanda" aria-labelledby="titulo-comanda">
+      <h2 id="titulo-comanda" class="comanda__titulo">Seu pedido</h2>
+
+      <ul id="itens-comanda" class="comanda__itens"><!-- app.js preenche --></ul>
+      <p id="comanda-vazia" class="comanda__vazia">Sua sacola está vazia. Toque no <b>+</b> de um lanche para montar.</p>
+
+      <dl class="comanda__totais">
+        <div><dt>Subtotal</dt><dd id="subtotal">R$ 0,00</dd></div>
+        <div id="linha-entrega"><dt>Entrega</dt><dd id="valor-entrega">R$ 0,00</dd></div>
+        <div class="comanda__total"><dt>Total</dt><dd id="total">R$ 0,00</dd></div>
+      </dl>
+
+      <form id="form-pedido" class="formulario" novalidate>
+        <label for="nome">Seu nome</label>
+        <input id="nome" name="nome" type="text" autocomplete="name" required>
+
+        <fieldset>
+          <legend>Como quer receber?</legend>
+          <div class="alternar">
+            <label class="opcao-receber"><input type="radio" name="recebimento" value="entrega" checked> <span>🛵 Entrega</span></label>
+            <label class="opcao-receber"><input type="radio" name="recebimento" value="retirada"> <span>🏪 Retirar</span></label>
+          </div>
+        </fieldset>
+
+        <div id="bloco-endereco">
+          <label for="endereco">Endereço (rua, número e bairro)</label>
+          <input id="endereco" name="endereco" type="text" autocomplete="street-address">
+        </div>
+
+        <label for="pagamento">Forma de pagamento</label>
+        <select id="pagamento" name="pagamento"><!-- app.js preenche --></select>
+
+        <div id="bloco-troco" hidden>
+          <label for="troco">Troco para quanto? (deixe vazio se não precisar)</label>
+          <input id="troco" name="troco" type="text" inputmode="decimal" placeholder="Ex.: 100">
+        </div>
+
+        <label for="observacao">Observação do pedido (opcional)</label>
+        <textarea id="observacao" name="observacao" rows="2" placeholder="Ex.: interfone quebrado, ligar ao chegar"></textarea>
+
+        <p id="erro-form" class="formulario__erro" role="alert"></p>
+
+        <button type="submit" class="botao botao--whats botao--largo">Revisar e enviar pelo WhatsApp</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- COMO FUNCIONA -->
+  <section id="como-funciona" class="secao" aria-labelledby="titulo-como">
+    <p class="sobretitulo">Monte o seu</p>
+    <h2 id="titulo-como" class="titulo-secao">Três toques e o burger é seu</h2>
+    <ol class="passos">
+      <li class="passo"><span class="passo__emoji" aria-hidden="true">🥩</span><h3>Escolha o ponto</h3><p>Mal passado, ao ponto ou bem passado. Smash e frango saem sempre no ponto certo.</p></li>
+      <li class="passo"><span class="passo__emoji" aria-hidden="true">🥓</span><h3>Turbine</h3><p>Bacon, cheddar, ovo, cebola caramelizada, blend extra... ou tire o que não curte.</p></li>
+      <li class="passo"><span class="passo__emoji" aria-hidden="true">🍟</span><h3>Vire combo</h3><p>Batata e refri por um preço camarada. Escolha a bebida e pronto.</p></li>
+    </ol>
+  </section>
+
+  <!-- ONDE ESTAMOS -->
+  <section id="visite" class="secao" aria-labelledby="titulo-visite">
+    <p class="sobretitulo">Onde estamos</p>
+    <h2 id="titulo-visite" class="titulo-secao">Vem comer na chapa</h2>
+    <dl class="infos">
+      <div class="info"><dt>📍 Endereço</dt><dd><span data-config="endereco"></span><br><span data-config="cidade"></span></dd></div>
+      <div class="info"><dt>🕘 Horário</dt><dd data-config="horario"></dd></div>
+      <div class="info"><dt>🛵 Entrega</dt><dd>Taxa de <span data-config="taxaEntrega"></span> na região.</dd></div>
+      <div class="info"><dt>💳 Pagamento</dt><dd data-config="formasPagamento"></dd></div>
+    </dl>
+  </section>
+
+  <!-- PERGUNTAS FREQUENTES -->
+  <section id="perguntas" class="secao" data-secao="perguntas" aria-labelledby="titulo-perguntas">
+    <p class="sobretitulo">Dúvidas</p>
+    <h2 id="titulo-perguntas" class="titulo-secao">Perguntas frequentes</h2>
+    <div class="perguntas">
+      <details>
+        <summary>Qual o tamanho do hambúrguer?</summary>
+        <p>Os clássicos usam blend de 160 g; o Brasa, 180 g. Os smash têm 90 g cada, prensados bem finos.</p>
+      </details>
+      <details>
+        <summary>Posso pedir mal passado?</summary>
+        <p>Pode, nos burgers de blend alto. Os smash e o frango são sempre servidos bem passados.</p>
+      </details>
+      <details>
+        <summary>Quanto custa a entrega?</summary>
+        <p><span data-config="taxaEntrega"></span> para a região. Para bairros mais distantes, combinamos pelo WhatsApp.</p>
+      </details>
+      <details>
+        <summary>Quais formas de pagamento vocês aceitam?</summary>
+        <p><span data-config="formasPagamento"></span>.</p>
+      </details>
+      <details>
+        <summary>Tem opção vegetariana?</summary>
+        <p>Tem: o Veggie de grão-de-bico. Quando esgota, aparece marcado no cardápio.</p>
+      </details>
+    </div>
+  </section>
+
+  <footer class="rodape">
+    <div class="xadrez" aria-hidden="true"></div>
+    <div class="rodape__conteudo">
+      <p class="rodape__marca">Brasa Burger</p>
+      <p><span data-config="endereco"></span> · <span data-config="cidade"></span></p>
+      <p data-config="horario"></p>
+      <p class="rodape__base">© <span data-config="ano"></span> Brasa Burger · Negócio fictício, criado para demonstração.</p>
+    </div>
+  </footer>
+
+  <!-- BARRA FIXA no celular -->
+  <a id="barra-pedido" class="barra-pedido" href="#comanda" hidden>
+    <span id="barra-qtd">0 itens</span>
+    <strong id="barra-total">R$ 0,00</strong>
+    <span class="barra-pedido__ver">Ver pedido →</span>
+  </a>
+
+  <!-- JANELA "MONTE SEU PEDIDO": as opções são desenhadas pelo app.js -->
+  <dialog id="montar" class="montar" aria-labelledby="montar-nome">
+    <header class="montar__topo">
+      <span class="montar__emoji" id="montar-emoji" aria-hidden="true"></span>
+      <div>
+        <h2 id="montar-nome" class="montar__nome"></h2>
+        <p id="montar-descricao" class="montar__descricao"></p>
+      </div>
+      <button type="button" id="montar-fechar" class="montar__fechar" aria-label="Fechar">×</button>
+    </header>
+
+    <div class="montar__corpo" id="montar-corpo">
+      <div id="montar-opcoes"><!-- app.js preenche --></div>
+      <label for="montar-obs" class="montar__rotulo">Alguma observação?</label>
+      <textarea id="montar-obs" rows="2" placeholder="Ex.: pão sem gergelim, molho à parte"></textarea>
+    </div>
+
+    <footer class="montar__rodape">
+      <p id="montar-erro" class="formulario__erro" role="alert"></p>
+      <div class="montar__acoes">
+        <div class="contador contador--janela">
+          <button type="button" id="montar-menos" class="contador__botao" aria-label="Menos um">−</button>
+          <span id="montar-qtd" class="contador__qtd" aria-live="polite">1</span>
+          <button type="button" id="montar-mais" class="contador__botao" aria-label="Mais um">+</button>
+        </div>
+        <button type="button" id="montar-confirmar" class="botao botao--vermelho montar__confirmar">
+          Adicionar · <span id="montar-total">R$ 0,00</span>
+        </button>
+      </div>
+    </footer>
+  </dialog>
+
+  <!-- JANELA DE REVISÃO -->
+  <dialog id="revisao" class="revisao">
+    <h2>Confira a mensagem</h2>
+    <p class="revisao__dica">É isso que vai aparecer no WhatsApp. Você ainda poderá editar lá antes de enviar.</p>
+    <pre id="previa-mensagem" class="revisao__mensagem"></pre>
+    <p id="nota-demo" class="revisao__nota" hidden>Modo demonstração: o WhatsApp não será aberto.</p>
+    <div class="revisao__botoes">
+      <button type="button" id="botao-voltar" class="botao botao--branco">Voltar e editar</button>
+      <a id="link-whatsapp" class="botao botao--whats" href="#" target="_blank" rel="noopener">Abrir o WhatsApp</a>
+    </div>
+  </dialog>
+
+  <!-- ORDEM IMPORTA: config → config.local (só no seu PC) → cardápio → lógica -->
+  <script src="js/config.js"></script>
+  <script src="js/config.local.js"></script>
+  <script src="js/cardapio.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
