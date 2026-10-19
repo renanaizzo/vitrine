@@ -6,11 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Esquina do Salgado · Salgados, pastéis e fogaças (demonstração)</title>
   <meta name="description" content="Peça salgados, pastéis, mini pizzas e sucos da Esquina do Salgado pelo WhatsApp. Site de demonstração.">
+  <!-- Cor da barra do navegador no celular (combina com o fundo escuro) -->
+  <meta name="theme-color" content="#120d0a">
 
-  <!-- Fontes do Google: Alfa Slab One (letreiro) e Work Sans (texto) -->
+  <!-- Fontes do Google: Unbounded (títulos, cara futurista) e Manrope (texto) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Work+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/estilos.css">
 </head>
@@ -19,30 +21,74 @@
   <!-- Faixa avisando que é uma demonstração -->
   <p class="aviso-demo">Site de demonstração: negócio fictício.</p>
 
-  <!-- CABEÇALHO: o "letreiro" da lanchonete -->
-  <header class="letreiro">
-    <h1 class="letreiro__nome">Esquina do<br>Salgado</h1>
-    <p class="letreiro__frase">Salgado quentinho, pastel crocante e suco feito na hora.</p>
-    <p class="letreiro__horario" id="horario"></p>
-    <a class="botao botao--mostarda" href="#cardapio">Ver o cardápio</a>
+  <!-- TOPO FIXO: marca + atalhos + sacola (efeito de vidro fosco) -->
+  <header class="topo">
+    <a class="topo__marca" href="#inicio" aria-label="Esquina do Salgado, voltar ao início">
+      <span class="topo__logo" aria-hidden="true">ES</span>
+      <span class="topo__nome">Esquina do Salgado</span>
+    </a>
+    <nav class="topo__links" aria-label="Atalhos">
+      <a href="#cardapio">Cardápio</a>
+      <a href="#comanda">Pedido</a>
+    </nav>
+    <a class="sacola" id="sacola" href="#comanda" aria-label="Ver seu pedido">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 7h12l1 13H5L6 7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 9V6a3 3 0 0 1 6 0v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="sacola__qtd" id="sacola-qtd" hidden>0</span>
+    </a>
   </header>
+
+  <!-- BANNER DE ABERTURA ("hero") -->
+  <section id="inicio" class="hero">
+    <!-- Luzes desfocadas ao fundo: só decoração -->
+    <div class="hero__luzes" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <div class="hero__texto">
+      <p class="selo" id="selo-aberto"><span class="selo__ponto"></span><span id="selo-texto">Confira o horário</span></p>
+      <h1 class="hero__titulo">Salgado <span class="degrade">quentinho</span>,<br>do jeito que você gosta.</h1>
+      <p class="hero__frase">Fritos e assados na hora, pastel crocante, fogaça, mini pizza e suco de fruta. Peça em poucos toques e receba pelo WhatsApp.</p>
+      <div class="hero__botoes">
+        <a class="botao botao--brasa" href="#cardapio">Ver o cardápio</a>
+        <a class="botao botao--vidro" href="#comanda">Meu pedido</a>
+      </div>
+      <p class="hero__horario" id="horario"></p>
+    </div>
+
+    <!-- Emojis flutuando em "bolhas de vidro": só decoração -->
+    <div class="hero__vitrine" aria-hidden="true">
+      <span class="bolha bolha--1">🥟</span>
+      <span class="bolha bolha--2">🍕</span>
+      <span class="bolha bolha--3">🍗</span>
+      <span class="bolha bolha--4">🥤</span>
+      <span class="bolha bolha--5">🍫</span>
+    </div>
+  </section>
+
+  <!-- ATALHOS POR GRUPO: um bloco por grupo do cardápio (app.js preenche) -->
+  <section class="grupos" aria-labelledby="titulo-grupos">
+    <h2 id="titulo-grupos" class="titulo-secao">O que vai ser hoje?</h2>
+    <div id="grade-grupos" class="grupos__grade"><!-- app.js preenche --></div>
+  </section>
 
   <main class="conteudo">
 
     <!-- CARDÁPIO: os itens são desenhados pelo JavaScript a partir de cardapio.js -->
     <section id="cardapio" class="cardapio" aria-labelledby="titulo-cardapio">
-      <h2 id="titulo-cardapio">Cardápio</h2>
-      <!-- BARRA DE CATEGORIAS: um botão por categoria (mostra só ela) + "Todos"; fica grudada no topo ao rolar -->
-      <nav id="barra-categorias" class="categorias" aria-label="Categorias do cardápio"><!-- app.js preenche --></nav>
+      <h2 id="titulo-cardapio" class="titulo-secao">Cardápio</h2>
+      <!-- BARRA DE CATEGORIAS (fica grudada no topo ao rolar), em duas linhas que o app.js preenche:
+           em cima os grupos (Salgados, Pastéis...); embaixo as categorias do grupo escolhido -->
+      <nav id="barra-categorias" class="categorias" aria-label="Categorias do cardápio">
+        <div id="linha-grupos" class="categorias__linha"></div>
+        <div id="linha-subcategorias" class="categorias__linha categorias__linha--sub" hidden></div>
+      </nav>
       <div id="lista-cardapio"><!-- app.js preenche aqui --></div>
     </section>
 
-    <!-- COMANDA: o carrinho, com cara de bloquinho de pedido -->
+    <!-- COMANDA: o carrinho -->
     <section id="comanda" class="comanda" aria-labelledby="titulo-comanda">
       <h2 id="titulo-comanda" class="comanda__titulo">Seu pedido</h2>
 
       <ul id="itens-comanda" class="comanda__itens"><!-- app.js preenche --></ul>
-      <p id="comanda-vazia" class="comanda__vazia">Toque em “Adicionar” num item para começar.</p>
+      <p id="comanda-vazia" class="comanda__vazia">Sua sacola está vazia. Toque no <b>+</b> de um item para começar.</p>
 
       <dl class="comanda__totais">
         <div><dt>Subtotal</dt><dd id="subtotal">R$ 0,00</dd></div>
@@ -57,8 +103,11 @@
 
         <fieldset>
           <legend>Como quer receber?</legend>
-          <label class="opcao"><input type="radio" name="recebimento" value="entrega" checked> Entrega</label>
-          <label class="opcao"><input type="radio" name="recebimento" value="retirada"> Retirar no balcão</label>
+          <!-- Os dois "radio" viram botões lado a lado pelo CSS -->
+          <div class="alternar">
+            <label class="opcao"><input type="radio" name="recebimento" value="entrega" checked> <span>🛵 Entrega</span></label>
+            <label class="opcao"><input type="radio" name="recebimento" value="retirada"> <span>🏪 Retirar</span></label>
+          </div>
         </fieldset>
 
         <div id="bloco-endereco">
@@ -79,7 +128,7 @@
 
         <p id="erro-form" class="formulario__erro" role="alert"></p>
 
-        <button type="submit" class="botao botao--verde botao--largo">Revisar e enviar pelo WhatsApp</button>
+        <button type="submit" class="botao botao--whats botao--largo">Revisar e enviar pelo WhatsApp</button>
       </form>
     </section>
   </main>
@@ -88,7 +137,7 @@
   <a id="barra-pedido" class="barra-pedido" href="#comanda" hidden>
     <span id="barra-qtd">0 itens</span>
     <strong id="barra-total">R$ 0,00</strong>
-    <span>Ver pedido</span>
+    <span class="barra-pedido__ver">Ver pedido →</span>
   </a>
 
   <!-- JANELA DE REVISÃO: mostra a mensagem antes de abrir o WhatsApp -->
@@ -98,13 +147,14 @@
     <pre id="previa-mensagem" class="revisao__mensagem"></pre>
     <p id="nota-demo" class="revisao__nota" hidden>Modo demonstração: o WhatsApp não será aberto.</p>
     <div class="revisao__botoes">
-      <button type="button" id="botao-voltar" class="botao botao--contorno">Voltar e editar</button>
-      <a id="link-whatsapp" class="botao botao--verde" href="#" target="_blank" rel="noopener">Abrir o WhatsApp</a>
+      <button type="button" id="botao-voltar" class="botao botao--vidro">Voltar e editar</button>
+      <a id="link-whatsapp" class="botao botao--whats" href="#" target="_blank" rel="noopener">Abrir o WhatsApp</a>
     </div>
   </dialog>
 
   <footer class="rodape">
-    <p>Esquina do Salgado é um negócio fictício, criado para demonstração.</p>
+    <p class="rodape__marca">Esquina do Salgado</p>
+    <p>Negócio fictício, criado para demonstração.</p>
   </footer>
 
   <!--

@@ -24,4 +24,9 @@ const CONFIG = {
   formasPagamento: ["Pix", "Cartão (maquininha na entrega)", "Dinheiro"],
 
   horario: "Segunda a sábado, das 9h às 19h",
+
+  // O mesmo horário em números, para o selo "Aberto agora / Fechado" do topo.
+  // dias: 0 = domingo, 1 = segunda ... 6 = sábado. Horas de 0 a 24.
+  // Mudou o horário? Mude o texto acima E os números aqui.
+  funcionamento: { dias: [1, 2, 3, 4, 5, 6], abre: 9, fecha: 19 },
 };

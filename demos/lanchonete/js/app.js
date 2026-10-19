@@ -18,6 +18,9 @@ const carrinho = {};
 // A comanda está aparecendo na tela? (atualizado pelo IntersectionObserver, no Bloco 9)
 let comandaNaTela = false;
 
+// Quantos itens havia na última atualização (para a sacola "pular" só quando aumenta)
+let quantidadeAnterior = 0;
+
 /* ============================================================
    BLOCO 2 — FUNÇÕES AUXILIARES
    ============================================================ */
@@ -40,79 +43,152 @@ function buscarItem(id) {
 
 /* ============================================================
    BLOCO 3 — DESENHAR O CARDÁPIO
-   Agrupa os itens por categoria e cria o HTML de cada um.
-   Também cria a barra de categorias (um botão por categoria, mais o "Todos").
+   O cardápio tem dois níveis: GRUPO (ex.: "Pastéis") e, dentro dele,
+   CATEGORIA (ex.: "Pastéis especiais").
+   A barra de cima tem um botão por grupo (mais o "Todos");
+   a de baixo aparece ao escolher um grupo e mostra as categorias dele.
    ============================================================ */
 const TODOS = "Todos";
 
+// Qual grupo está aberto agora (para não redesenhar a barra de baixo à toa)
+let grupoAtual = null;
+
+// Tira os repetidos de uma lista, mantendo a ordem: ["a","b","a"] → ["a","b"]
+function semRepetir(lista) {
+  return [...new Set(lista)];
+}
+
+// Categorias de um grupo, na ordem em que aparecem no cardapio.js
+function categoriasDoGrupo(grupo) {
+  return semRepetir(CARDAPIO.filter((item) => item.grupo === grupo).map((item) => item.categoria));
+}
+
+// O HTML de um cartão de produto.
+// "posicao" (0, 1, 2...) atrasa um pouquinho a animação de entrada de cada cartão, em cascata.
+function desenharItem(item, posicao) {
+  // Foto, se houver; senão, o emoji
+  const imagem = item.foto
+    ? `<img src="${item.foto}" alt="${item.nome}" loading="lazy" width="72" height="72">`
+    : `<span aria-hidden="true">${item.emoji}</span>`;
+
+  // Contador "− 0 +", ou aviso de esgotado.
+  // O "−" e o número só aparecem (pelo CSS) quando o item já está no carrinho.
+  const acao = item.disponivel
+    ? `<div class="contador">
+        <button type="button" class="contador__botao contador__menos" data-diminuir="${item.id}" aria-label="Tirar um ${item.nome}">−</button>
+        <span class="contador__qtd" aria-live="polite">0</span>
+        <button type="button" class="contador__botao contador__mais" data-adicionar="${item.id}" aria-label="Adicionar ${item.nome}">+</button>
+      </div>`
+    : `<span class="item__esgotado">Esgotado</span>`;
+
+  return `
+    <li class="item ${item.disponivel ? "" : "item--indisponivel"}" data-item="${item.id}" style="--posicao: ${posicao}">
+      <div class="item__foto">${imagem}</div>
+      <div class="item__texto">
+        <h5 class="item__nome">${item.nome}</h5>
+        <p class="item__descricao">${item.descricao}</p>
+      </div>
+      <div class="item__acao">
+        <span class="item__preco">${formatarPreco(item.preco)}</span>
+        ${acao}
+      </div>
+    </li>`;
+}
+
+// Um botão da barra. "dados" vira atributos data-*, que o clique lê depois.
+// aria-pressed diz ao leitor de tela se o botão está "apertado" (selecionado)
+function botaoDaBarra(texto, dados) {
+  const atributos = Object.entries(dados)
+    .map(([chave, valor]) => `data-${chave}="${valor}"`)
+    .join(" ");
+  return `<button type="button" class="categorias__botao" ${atributos} aria-pressed="false">${texto}</button>`;
+}
+
 function desenharCardapio() {
-  const lista = el("lista-cardapio");
+  const grupos = semRepetir(CARDAPIO.map((item) => item.grupo));
 
-  // Descobre as categorias, na ordem em que aparecem no cardapio.js
-  const categorias = [...new Set(CARDAPIO.map((item) => item.categoria))];
-
-  // aria-pressed diz ao leitor de tela se o botão está "apertado" (selecionado)
-  el("barra-categorias").innerHTML = [TODOS, ...categorias]
-    .map((categoria) => `<button type="button" class="categorias__botao" data-categoria="${categoria}" aria-pressed="false">${categoria}</button>`)
+  el("linha-grupos").innerHTML = [TODOS, ...grupos]
+    .map((grupo) => botaoDaBarra(grupo, { grupo }))
     .join("");
 
   let html = "";
-  for (const categoria of categorias) {
-    html += `<section class="cardapio__secao" data-categoria="${categoria}">
-      <h3 class="cardapio__categoria">${categoria}</h3><ul class="cardapio__lista">`;
+  for (const grupo of grupos) {
+    html += `<section class="cardapio__grupo" data-grupo="${grupo}">
+      <h3 class="cardapio__grupo-titulo">${grupo}</h3>`;
 
-    const itensDaCategoria = CARDAPIO.filter((item) => item.categoria === categoria);
-    for (const item of itensDaCategoria) {
-      // Foto, se houver; senão, o emoji
-      const imagem = item.foto
-        ? `<img src="${item.foto}" alt="${item.nome}" loading="lazy" width="72" height="72">`
-        : `<span aria-hidden="true">${item.emoji}</span>`;
-
-      // Botão de adicionar, ou aviso de esgotado
-      const acao = item.disponivel
-        ? `<button type="button" class="botao botao--pequeno" data-adicionar="${item.id}">Adicionar</button>`
-        : `<span class="item__esgotado">Esgotado</span>`;
-
-      html += `
-        <li class="item ${item.disponivel ? "" : "item--indisponivel"}">
-          <div class="item__foto">${imagem}</div>
-          <div class="item__texto">
-            <h4 class="item__nome">${item.nome}</h4>
-            <p class="item__descricao">${item.descricao}</p>
-          </div>
-          <div class="item__acao">
-            <span class="item__preco">${formatarPreco(item.preco)}</span>
-            ${acao}
-          </div>
-        </li>`;
+    for (const categoria of categoriasDoGrupo(grupo)) {
+      html += `<div class="cardapio__secao" data-categoria="${categoria}">
+        <h4 class="cardapio__categoria">${categoria}</h4><ul class="cardapio__lista">`;
+      CARDAPIO.filter((i) => i.categoria === categoria).forEach((item, posicao) => {
+        html += desenharItem(item, posicao);
+      });
+      html += `</ul></div>`;
     }
-    html += `</ul></section>`;
+    html += `</section>`;
   }
-  lista.innerHTML = html;
+  el("lista-cardapio").innerHTML = html;
+
+  // Blocos de atalho acima do cardápio: um por grupo, com o emoji do primeiro item dele.
+  // Têm data-grupo (abre a aba certa) e data-rolar (desce até o cardápio).
+  el("grade-grupos").innerHTML = grupos
+    .map((grupo) => {
+      const itens = CARDAPIO.filter((item) => item.grupo === grupo);
+      return `
+        <button type="button" class="grupo" data-grupo="${grupo}" data-rolar>
+          <span class="grupo__emoji" aria-hidden="true">${itens[0].emoji}</span>
+          <span class="grupo__nome">${grupo}</span>
+          <span class="grupo__qtd">${itens.length} opções</span>
+        </button>`;
+    })
+    .join("");
 }
 
-// Mostra só a categoria escolhida (ou todas, com "Todos") e acende o botão dela.
-// As outras seções continuam no HTML, apenas escondidas com "hidden".
-function mostrarCategoria(escolhida) {
-  for (const secao of document.querySelectorAll(".cardapio__secao")) {
-    secao.hidden = escolhida !== TODOS && secao.dataset.categoria !== escolhida;
-  }
-
-  const barra = el("barra-categorias");
-  for (const botao of barra.querySelectorAll("button")) {
-    const ativo = botao.dataset.categoria === escolhida;
+// Acende o botão escolhido numa linha da barra e apaga os outros.
+// "chave" é qual data-* comparar: "grupo" na linha de cima, "categoria" na de baixo.
+function acenderBotao(linha, chave, valor) {
+  for (const botao of linha.querySelectorAll("button")) {
+    const ativo = botao.dataset[chave] === valor;
     botao.classList.toggle("categorias__botao--ativo", ativo);
     botao.setAttribute("aria-pressed", ativo);
-    // No celular a barra rola para o lado: se o botão ativo estiver fora da vista, traz ele de volta
+    // No celular a linha rola para o lado: se o botão ativo estiver fora da vista, traz ele de volta
     const foraDaVista =
-      botao.offsetLeft < barra.scrollLeft ||
-      botao.offsetLeft + botao.offsetWidth > barra.scrollLeft + barra.clientWidth;
-    if (ativo && foraDaVista) barra.scrollLeft = botao.offsetLeft - 16;
+      botao.offsetLeft < linha.scrollLeft ||
+      botao.offsetLeft + botao.offsetWidth > linha.scrollLeft + linha.clientWidth;
+    if (ativo && foraDaVista) linha.scrollLeft = botao.offsetLeft - 16;
+  }
+}
+
+// Mostra só o grupo escolhido (ou todos) e, dentro dele, só a categoria escolhida (ou todas).
+// O resto continua no HTML, apenas escondido com "hidden".
+function mostrarCardapio(grupo, categoria = TODOS) {
+  for (const secao of document.querySelectorAll(".cardapio__grupo")) {
+    secao.hidden = grupo !== TODOS && secao.dataset.grupo !== grupo;
+  }
+  for (const secao of document.querySelectorAll(".cardapio__secao")) {
+    secao.hidden = categoria !== TODOS && secao.dataset.categoria !== categoria;
   }
 
-  // Se a barra já está grudada no topo (página rolada para baixo),
-  // volta para o começo da lista, senão a pessoa ficaria olhando um espaço vazio
-  if (barra.getBoundingClientRect().top <= 0) el("titulo-cardapio").scrollIntoView();
+  // Barra de baixo: só redesenha quando o grupo muda.
+  // Em "Todos", ou num grupo com uma categoria só, ela não faz sentido e some.
+  const sub = el("linha-subcategorias");
+  if (grupo !== grupoAtual) {
+    const categorias = grupo === TODOS ? [] : categoriasDoGrupo(grupo);
+    sub.hidden = categorias.length < 2;
+    sub.innerHTML = [TODOS, ...categorias]
+      .map((c) => botaoDaBarra(c, { grupo, categoria: c }))
+      .join("");
+    grupoAtual = grupo;
+  }
+
+  acenderBotao(el("linha-grupos"), "grupo", grupo);
+  acenderBotao(sub, "categoria", categoria);
+
+  // Se a barra já está grudada (página rolada para baixo), volta para o começo da lista,
+  // senão a pessoa ficaria olhando um espaço vazio.
+  // Ela gruda logo abaixo do topo fixo: a posição de "grudar" vem do "top" dela no CSS.
+  const barra = el("barra-categorias");
+  const pontoDeGrudar = parseFloat(getComputedStyle(barra).top) || 0;
+  if (barra.getBoundingClientRect().top <= pontoDeGrudar + 1) el("titulo-cardapio").scrollIntoView();
 }
 
 /* ============================================================
@@ -182,6 +258,41 @@ function atualizarComanda() {
   el("barra-pedido").hidden = t.quantidade === 0 || comandaNaTela;
   el("barra-qtd").textContent = t.quantidade === 1 ? "1 item" : `${t.quantidade} itens`;
   el("barra-total").textContent = formatarPreco(t.total);
+
+  // Contador "− n +" de cada cartão do cardápio
+  for (const cartao of document.querySelectorAll(".item[data-item]")) {
+    const qtd = carrinho[cartao.dataset.item] || 0;
+    cartao.classList.toggle("item--no-carrinho", qtd > 0);
+    const numero = cartao.querySelector(".contador__qtd");
+    if (numero) numero.textContent = qtd;
+  }
+
+  // Número na sacola do topo. Se aumentou, a sacola dá um "pulo" (classe que o CSS anima).
+  el("sacola-qtd").hidden = t.quantidade === 0;
+  el("sacola-qtd").textContent = t.quantidade;
+  if (t.quantidade > quantidadeAnterior) {
+    const sacola = el("sacola");
+    sacola.classList.remove("sacola--pulo");
+    void sacola.offsetWidth; // truque: força o navegador a "esquecer" a animação, para ela rodar de novo
+    sacola.classList.add("sacola--pulo");
+  }
+  quantidadeAnterior = t.quantidade;
+}
+
+/* ============================================================
+   BLOCO 5B — SELO "ABERTO AGORA / FECHADO"
+   Compara o dia e a hora do aparelho com CONFIG.funcionamento.
+   ============================================================ */
+function atualizarSelo() {
+  const f = CONFIG.funcionamento;
+  if (!f) return; // sem horário em números no config.js: fica o texto padrão
+
+  const agora = new Date();
+  const hora = agora.getHours() + agora.getMinutes() / 60; // 14h30 → 14.5
+  const aberto = f.dias.includes(agora.getDay()) && hora >= f.abre && hora < f.fecha;
+
+  el("selo-aberto").classList.toggle("selo--fechado", !aberto);
+  el("selo-texto").textContent = aberto ? `Aberto agora · até ${f.fecha}h` : "Fechado agora · peça no próximo horário";
 }
 
 /* ============================================================
@@ -284,7 +395,10 @@ document.addEventListener("click", (evento) => {
   if (!botao) return;
   if (botao.dataset.adicionar) alterarQuantidade(botao.dataset.adicionar, +1);
   if (botao.dataset.diminuir) alterarQuantidade(botao.dataset.diminuir, -1);
-  if (botao.dataset.categoria) mostrarCategoria(botao.dataset.categoria);
+  // Botões da barra: os de grupo só têm data-grupo; os de categoria têm os dois
+  if (botao.dataset.grupo) mostrarCardapio(botao.dataset.grupo, botao.dataset.categoria || TODOS);
+  // Blocos de atalho do topo: depois de abrir a aba, desce até o cardápio
+  if (botao.dataset.rolar !== undefined) el("titulo-cardapio").scrollIntoView();
 });
 
 el("form-pedido").addEventListener("change", atualizarCamposDoFormulario);
@@ -300,7 +414,9 @@ new IntersectionObserver((entradas) => {
 
 // Início: desenha tudo uma vez
 el("horario").textContent = CONFIG.horario;
+atualizarSelo();
+setInterval(atualizarSelo, 60 * 1000); // confere de novo a cada minuto (60 mil milissegundos)
 desenharCardapio();
-mostrarCategoria(CARDAPIO[0].categoria); // abre na primeira categoria (Salgados)
+mostrarCardapio(CARDAPIO[0].grupo); // abre no primeiro grupo (Salgados)
 preencherPagamentos();
 atualizarCamposDoFormulario();
