@@ -116,14 +116,21 @@ body {
 .miniatura__bolha--1 { width: 64px; height: 64px; font-size: 1.9rem; left: 8%; bottom: 10%; }
 .miniatura__bolha--2 { width: 48px; height: 48px; font-size: 1.4rem; right: 8%; top: 12%; }
 
-/* Hamburgueria: claro, vermelho e mostarda (estilo "diner"), para não repetir o escuro/laranja da lanchonete */
+/* Hamburgueria: fundo creme com letras de fogo (claro, para não repetir o escuro da lanchonete) */
 .miniatura--hamburgueria {
-  background: #fff4dc;
+  background:
+    radial-gradient(ellipse at 50% 120%, rgba(255, 106, 0, 0.45), transparent 60%),
+    #fff4dc;
 }
 .miniatura--hamburgueria .miniatura__nome {
   font-family: "Bowlby One", sans-serif;
-  color: #d62828;
-  text-shadow: 3px 3px 0 #f4b400;
+  /* Letras pintadas com o degradê de fogo; a sombra preta vem do "drop-shadow"
+     (text-shadow cobriria o degradê) */
+  background: linear-gradient(0deg, #e3261b, #ff6a00 45%, #ffc300);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(3px 3px 0 #161210);
 }
 
 /* Açaí: claro "holográfico" (mesmas cores da demo) */

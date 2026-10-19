@@ -13,10 +13,16 @@
   --papel: #fffaf0;
   --tinta: #161210;          /* preto quente: bordas, sombras e texto */
   --tinta-suave: #5c5149;
-  --vermelho: #d62828;
-  --vermelho-escuro: #a51d1d;
-  --mostarda: #f4b400;
-  --mostarda-clara: #ffe08a;
+  /* Paleta de FOGO: brasa (vermelho) → labareda (laranja) → ponta da chama (amarelo) */
+  --vermelho: #e3261b;
+  --vermelho-escuro: #b3170f;
+  --laranja: #ff6a00;
+  --mostarda: #ffc300;          /* amarelo-chama (o nome ficou "mostarda" para não mexer no resto) */
+  --mostarda-clara: #ffe7a3;
+  /* Degradê de fogo: usado em botões, destaques e na faixa de labaredas.
+     Texto em cima dele sempre PRETO: branco sobre laranja fica difícil de ler. */
+  --fogo: linear-gradient(120deg, var(--mostarda), var(--laranja) 55%, var(--vermelho));
+  --fogo-vertical: linear-gradient(0deg, var(--vermelho), var(--laranja) 45%, var(--mostarda));
   --verde: #2f9e5b;
   --whats: #25d366;
 
@@ -98,7 +104,14 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.1; }
 /* Ao passar o mouse o botão "levanta"; ao apertar, "afunda" e a sombra some */
 .botao:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--tinta); }
 .botao:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--tinta); }
-.botao--vermelho { background: var(--vermelho); color: #fff; }
+/* Botão principal: degradê de fogo que "anda" devagar, como chama mexendo */
+.botao--vermelho {
+  background: var(--fogo);
+  background-size: 180% 100%;
+  color: var(--tinta);
+  animation: fogo-andando 3.5s ease-in-out infinite alternate;
+}
+@keyframes fogo-andando { to { background-position: 100% 0; } }
 .botao--branco { background: #fff; color: var(--tinta); }
 .botao--whats { background: var(--whats); color: var(--tinta); }
 .botao--largo { width: 100%; }
@@ -123,8 +136,8 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.1; }
   width: 40px; height: 40px;
   border: var(--borda);
   border-radius: 50%;
-  background: var(--vermelho);
-  color: var(--mostarda);
+  background: var(--fogo);
+  color: var(--tinta);
   font: 400 1.2rem var(--fonte-titulo);
   box-shadow: 2px 2px 0 var(--tinta);
 }
@@ -198,7 +211,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.1; }
 .hero__titulo mark {
   display: inline-block;
   padding: 0 0.15em;
-  background: var(--mostarda);
+  background: var(--fogo);
   color: var(--tinta);
   border: var(--borda);
   box-shadow: var(--sombra);
@@ -214,6 +227,27 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.1; }
   justify-self: center;
   width: min(100%, 360px);
   aspect-ratio: 1;
+  isolation: isolate;          /* as chamas (z-index -1) ficam atrás do prato, mas dentro do pôster */
+}
+/* Labaredas atrás do prato. Cada chama "tremula" num ritmo diferente. */
+.poster__chamas {
+  position: absolute;
+  z-index: -1;
+  left: 6%; right: 6%; bottom: 14%;
+  height: 78%;
+  overflow: visible;
+}
+.chama {
+  transform-box: fill-box;          /* o "centro" da animação é a própria chama... */
+  transform-origin: 50% 100%;       /* ...pela base, para ela crescer para cima */
+  animation: tremular 1.6s ease-in-out infinite;
+}
+.chama--2 { animation-duration: 1.9s; animation-delay: -0.6s; }
+.chama--3 { animation-duration: 1.4s; animation-delay: -1s; }
+@keyframes tremular {
+  0%, 100% { transform: scale(1, 1) skewX(0deg); }
+  35% { transform: scale(0.96, 1.08) skewX(-3deg); }
+  70% { transform: scale(1.03, 0.95) skewX(2deg); }
 }
 .poster__prato {
   position: absolute;
@@ -222,9 +256,9 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.1; }
   place-items: center;
   border: var(--borda);
   border-radius: 50%;
-  background:
-    repeating-conic-gradient(var(--vermelho) 0 15deg, #e84a3a 15deg 30deg);  /* raios de "sol" atrás do lanche */
-  box-shadow: var(--sombra-grande);
+  /* "Brasa": centro amarelo e quente, bordas vermelhas */
+  background: radial-gradient(circle at 50% 60%, var(--mostarda) 0 22%, var(--laranja) 52%, var(--vermelho) 78%, var(--vermelho-escuro));
+  box-shadow: var(--sombra-grande), 0 0 60px rgba(255, 106, 0, 0.55);
   font-size: clamp(5rem, 24vw, 8rem);
   animation: balancar 4s ease-in-out infinite;
 }
@@ -251,7 +285,38 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.1; }
 .adesivo--1 { left: -2%; bottom: 8%; background: var(--mostarda); transform: rotate(-7deg); }
 .adesivo--2 { right: 0; top: 6%; background: #fff; transform: rotate(8deg); }
 
-/* Faixa quadriculada (o piso clássico de diner) */
+/* Faixa de labaredas: um retângulo com degradê de fogo, "recortado" por uma máscara
+   em forma de chamas (um SVG repetido na horizontal). Duas camadas defasadas tremulam. */
+.faixa-fogo {
+  position: relative;
+  height: 46px;
+  margin-top: -10px;
+  border-bottom: var(--borda);
+}
+.faixa-fogo::before,
+.faixa-fogo::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 100%;
+  background: var(--fogo-vertical);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 46'%3E%3Cpath fill='white' d='M0 46C4 34 2 26 9 16c1 10 6 12 8 4 3-8 1-14 4-20 6 12 12 16 11 28 3-4 5-9 4-14 7 9 9 18 6 26 3-2 5-6 5-11 6 7 9 13 13 17Z'/%3E%3C/svg%3E") repeat-x bottom / 60px 100%;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 46'%3E%3Cpath fill='white' d='M0 46C4 34 2 26 9 16c1 10 6 12 8 4 3-8 1-14 4-20 6 12 12 16 11 28 3-4 5-9 4-14 7 9 9 18 6 26 3-2 5-6 5-11 6 7 9 13 13 17Z'/%3E%3C/svg%3E") repeat-x bottom / 60px 100%;
+  transform-origin: bottom;
+  animation: tremular-faixa 1.3s ease-in-out infinite alternate;
+}
+/* Segunda fileira, deslocada e mais baixa, para dar profundidade */
+.faixa-fogo::after {
+  height: 70%;
+  -webkit-mask-position: 30px bottom;
+  mask-position: 30px bottom;
+  opacity: 0.85;
+  animation-duration: 1.7s;
+  animation-direction: alternate-reverse;
+}
+@keyframes tremular-faixa { to { transform: scaleY(0.82); } }
+
+/* Faixa quadriculada (o piso clássico de diner) — agora só no rodapé */
 .xadrez {
   height: 22px;
   border-block: var(--borda);
@@ -407,7 +472,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.1; }
   cursor: pointer;
 }
 .contador__botao:active { transform: translate(2px, 2px); box-shadow: none; }
-.contador__mais { background: var(--vermelho); color: #fff; }
+.contador__mais { background: var(--fogo); color: var(--tinta); }
 .contador__menos, .contador__qtd { display: none; }
 .item--no-carrinho .contador__menos { display: grid; }
 .item--no-carrinho .contador__qtd { display: block; min-width: 1.4rem; text-align: center; font-weight: 800; }
@@ -524,7 +589,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.1; }
   align-items: start;
   padding: 1.1rem 1.1rem 1rem;
   border-bottom: var(--borda);
-  background: var(--mostarda);
+  background: var(--fogo);
   border-radius: 20px 20px 0 0;
 }
 .montar__emoji {
@@ -670,15 +735,15 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.1; }
   padding: 0.6rem 1.2rem;
   border: var(--borda);
   border-radius: 16px;
-  background: var(--vermelho);
-  color: #fff;
+  background: var(--fogo);
+  color: var(--tinta);
   font-weight: 800;
   text-decoration: none;
   box-shadow: var(--sombra);
   animation: subir 0.3s ease;
 }
 @keyframes subir { from { transform: translateY(120%); } }
-.barra-pedido strong { color: var(--mostarda); }
+.barra-pedido strong { font-size: 1.1rem; }
 
 .revisao {
   width: min(92vw, 480px);

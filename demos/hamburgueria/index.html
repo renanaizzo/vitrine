@@ -50,6 +50,22 @@
 
     <!-- "Pôster" do hero: só decoração -->
     <div class="poster" aria-hidden="true">
+      <!-- Três labaredas em SVG, pintadas com um degradê de fogo (vermelho embaixo, amarelo na ponta) -->
+      <svg class="poster__chamas" viewBox="0 0 200 140" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="fogo" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0" stop-color="#e3261b"/>
+            <stop offset="0.5" stop-color="#ff6a00"/>
+            <stop offset="1" stop-color="#ffc300"/>
+          </linearGradient>
+        </defs>
+        <path class="chama chama--1" fill="url(#fogo)" stroke="#161210" stroke-width="2.5"
+              d="M30 140C2 140-4 104 14 82c2 14 10 18 12 8 3-16-4-30 8-52 6 20 22 30 22 58 5-5 7-12 6-20 12 16 14 64-32 64Z"/>
+        <path class="chama chama--2" fill="url(#fogo)" stroke="#161210" stroke-width="2.5"
+              d="M100 140c-40 0-50-40-28-70 3 16 13 18 14 6 2-20-6-40 14-76 8 28 30 40 30 76 6-6 9-15 8-26 16 22 18 90-38 90Z"/>
+        <path class="chama chama--3" fill="url(#fogo)" stroke="#161210" stroke-width="2.5"
+              d="M170 140c-30 0-38-30-22-54 2 12 9 14 10 4 2-14-3-26 9-46 5 18 20 28 20 52 4-4 6-10 5-17 12 15 14 61-22 61Z"/>
+      </svg>
       <div class="poster__prato">🍔</div>
       <!-- Selo redondo que gira: o texto segue um círculo (textPath do SVG) -->
       <svg class="poster__giro" viewBox="0 0 200 200">
@@ -61,8 +77,8 @@
     </div>
   </section>
 
-  <!-- Faixa quadriculada de diner -->
-  <div class="xadrez" aria-hidden="true"></div>
+  <!-- Faixa de labaredas (desenhada só com CSS) -->
+  <div class="faixa-fogo" aria-hidden="true"></div>
 
   <!-- ATALHOS POR GRUPO -->
   <section class="grupos" aria-labelledby="titulo-grupos">
