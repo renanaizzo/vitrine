@@ -40,6 +40,35 @@ Abra `demos/lanchonete/js/cardapio.js` e mude o número de `preco`.
 Os preços ficam em **centavos** (`1800` = R$ 18,00). Isso evita erros de conta com vírgula:
 no JavaScript, `0.1 + 0.2` dá `0.30000000000000004`, enquanto `10 + 20` dá exatamente `30`.
 
+## Como adicionar um produto
+
+Em `cardapio.js`, copie um item parecido e mude os campos. Dois deles definem as abas:
+
+- `grupo` → aba de cima (ex.: `"Pastéis"`)
+- `categoria` → aba de baixo, dentro do grupo (ex.: `"Pastéis especiais"`).
+  O nome precisa ser **único** no cardápio inteiro.
+
+As abas aparecem na ordem dos itens no arquivo. Um grupo novo vira aba e bloco de atalho sozinho.
+
+## Como ligar e desligar partes da página
+
+Em `config.js`, o objeto `secoes` mostra (`true`) ou esconde (`false`) partes inteiras:
+
+| Chave        | O que some com `false`                                                  |
+|--------------|-------------------------------------------------------------------------|
+| `festas`     | seção "Festas e eventos" e os pacotes de cento prontos                  |
+| `congelados` | produtos congelados, "Como fritar e aquecer" e frases sobre congelados  |
+| `sobre`      | seção "Nossa história"                                                  |
+| `perguntas`  | perguntas frequentes                                                    |
+
+Como funciona: no HTML, um elemento com `data-secao="congelados"` some quando a chave está `false`;
+no `cardapio.js`, um item com `secao: "congelados"` também.
+
+Horário, endereço, taxa e formas de pagamento aparecem em vários lugares, mas são escritos
+**só no `config.js`**: no HTML, `data-config="horario"` recebe o valor de `CONFIG.horario`.
+O horário existe duas vezes no `config.js`: em texto (`horario`) e em números
+(`funcionamento`, usado pelo selo "Aberto agora"). Mudou um, mude o outro.
+
 ## Se a página ficar em branco
 
 Aperte **F12** → aba **Console**. O erro vermelho mostra o arquivo e a linha.

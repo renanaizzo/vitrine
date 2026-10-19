@@ -29,7 +29,9 @@
     </a>
     <nav class="topo__links" aria-label="Atalhos">
       <a href="#cardapio">Cardápio</a>
-      <a href="#comanda">Pedido</a>
+      <a href="#festas" data-secao="festas">Festas</a>
+      <a href="#sobre" data-secao="sobre">Sobre</a>
+      <a href="#visite">Onde estamos</a>
     </nav>
     <a class="sacola" id="sacola" href="#comanda" aria-label="Ver seu pedido">
       <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 7h12l1 13H5L6 7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 9V6a3 3 0 0 1 6 0v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -133,6 +135,187 @@
     </section>
   </main>
 
+  <!--
+    SEÇÕES INFORMATIVAS
+    data-secao="x"  → some quando CONFIG.secoes.x é false (config.js)
+    data-config="x" → o texto vem de CONFIG.x (config.js), preenchido pelo app.js
+  -->
+
+  <!-- FESTAS E EVENTOS -->
+  <section id="festas" class="secao" data-secao="festas" aria-labelledby="titulo-festas">
+    <div class="festas">
+      <div class="festas__texto">
+        <p class="sobretitulo">Festas e eventos</p>
+        <h2 id="titulo-festas" class="titulo-secao">Aniversário, reunião ou <span class="degrade">festa da firma</span>?</h2>
+        <p class="secao__intro">
+          Mini salgados por cento, fritos na hora da retirada<span data-secao="congelados"> ou congelados para você fritar em casa</span>.
+          Encomende com <strong data-config="antecedenciaFesta">24 horas</strong> de antecedência.
+        </p>
+        <ul class="lista-check">
+          <li>Mini coxinha, risole, bolinha de queijo, kibe, esfiha e pastel</li>
+          <li>Docinhos para a mesa de doces</li>
+          <li>Entrega ou retirada com hora marcada</li>
+          <li data-secao="congelados">Congelados duram até 3 meses no freezer</li>
+        </ul>
+        <div class="hero__botoes">
+          <button type="button" class="botao botao--brasa" data-grupo="Para festas" data-rolar>Ver pacotes de festa</button>
+          <button type="button" class="botao botao--vidro" data-orcamento>Pedir orçamento</button>
+        </div>
+      </div>
+
+      <!-- CALCULADORA: quantos salgados para X convidados (conta feita no app.js) -->
+      <div class="calculadora">
+        <label for="convidados" class="calculadora__rotulo">Quantos convidados?</label>
+        <div class="calculadora__campo">
+          <button type="button" class="contador__botao" data-convidados="-10" aria-label="Menos 10 convidados">−</button>
+          <input id="convidados" type="number" inputmode="numeric" min="1" max="999" value="30">
+          <button type="button" class="contador__botao contador__mais" data-convidados="10" aria-label="Mais 10 convidados">+</button>
+        </div>
+        <p class="calculadora__resultado" aria-live="polite">
+          <span class="calculadora__numero degrade" id="calc-salgados">360</span>
+          <span>salgados, ou <strong id="calc-centos">4 centos</strong></span>
+        </p>
+        <p class="calculadora__dica">Conta usada: 12 salgados por convidado, arredondado para o cento de cima.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FRITAR E AQUECER (só para quem vende congelados) -->
+  <section id="como-fritar" class="secao" data-secao="congelados" aria-labelledby="titulo-fritar">
+    <p class="sobretitulo">Comprou congelado?</p>
+    <h2 id="titulo-fritar" class="titulo-secao">Como fritar e aquecer</h2>
+    <p class="secao__intro">Siga estes passos e o salgado fica igualzinho ao da vitrine: sequinho por fora, macio por dentro.</p>
+
+    <div class="fritar">
+      <ol class="passos">
+        <li class="passo">
+          <h3>Não descongele</h3>
+          <p>Frite direto do freezer. Descongelado, ele abre e encharca de óleo.</p>
+        </li>
+        <li class="passo">
+          <h3>Óleo bem quente: 180 °C</h3>
+          <p>Sem termômetro? Mergulhe um palito de madeira: se borbulhar em volta, está pronto.</p>
+        </li>
+        <li class="passo">
+          <h3>Poucos de cada vez</h3>
+          <p>Muitos juntos esfriam o óleo. Frite de 3 a 4 minutos, até dourar.</p>
+        </li>
+        <li class="passo">
+          <h3>Escorra bem</h3>
+          <p>Em papel-toalha ou numa grade, e sirva em seguida.</p>
+        </li>
+      </ol>
+
+      <div class="metodos">
+        <div class="metodo">
+          <span class="metodo__icone" aria-hidden="true">🌀</span>
+          <div><h3>Air fryer</h3><p>180 °C por 12 a 15 minutos, sem óleo. Chacoalhe na metade.</p></div>
+        </div>
+        <div class="metodo">
+          <span class="metodo__icone" aria-hidden="true">🔥</span>
+          <div><h3>Forno (para reaquecer)</h3><p>Pré-aqueça a 200 °C e deixe 8 a 10 minutos. Volta a ficar crocante.</p></div>
+        </div>
+        <div class="metodo">
+          <span class="metodo__icone" aria-hidden="true">🧀</span>
+          <div><h3>Pão de queijo</h3><p>Forno a 180 °C por 25 a 30 minutos, sem descongelar.</p></div>
+        </div>
+        <div class="metodo metodo--evite">
+          <span class="metodo__icone" aria-hidden="true">🚫</span>
+          <div><h3>Micro-ondas</h3><p>Evite: a casquinha amolece.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSSA HISTÓRIA (texto fictício) -->
+  <section id="sobre" class="secao" data-secao="sobre" aria-labelledby="titulo-sobre">
+    <div class="sobre">
+      <div>
+        <p class="sobretitulo">Nossa história</p>
+        <h2 id="titulo-sobre" class="titulo-secao">Começou com uma fritadeira e <span class="degrade">uma fila na calçada</span>.</h2>
+        <p class="secao__intro">
+          A Esquina do Salgado abriu em 2011 com uma receita de coxinha de família e um balcão de dois metros.
+          A fila cresceu, o cardápio também, mas o jeito continua o mesmo: massa feita todo dia,
+          recheio caprichado e nada de salgado de ontem na vitrine.
+        </p>
+      </div>
+      <ul class="numeros">
+        <li><strong class="degrade">2011</strong><span>desde</span></li>
+        <li><strong class="degrade" data-config="totalItens">60</strong><span>opções no cardápio</span></li>
+        <li><strong class="degrade">0</strong><span>salgado requentado</span></li>
+      </ul>
+    </div>
+    <div class="valores">
+      <div class="valor"><span aria-hidden="true">🥣</span><h3>Massa feita todo dia</h3><p>Preparada de manhã, na nossa cozinha.</p></div>
+      <div class="valor"><span aria-hidden="true">⏱️</span><h3>Frito na hora</h3><p>Seu pedido vai para o óleo quando chega.</p></div>
+      <div class="valor"><span aria-hidden="true">🧄</span><h3>Tempero de verdade</h3><p>Alho, cebola e cheiro-verde, nada de caldo pronto.</p></div>
+    </div>
+  </section>
+
+  <!-- ONDE ESTAMOS -->
+  <section id="visite" class="secao" aria-labelledby="titulo-visite">
+    <p class="sobretitulo">Onde estamos</p>
+    <h2 id="titulo-visite" class="titulo-secao">Passe aqui ou peça em casa</h2>
+    <div class="visite">
+      <dl class="infos">
+        <div class="info"><dt>📍 Endereço</dt><dd><span data-config="endereco"></span><br><span data-config="cidade"></span></dd></div>
+        <div class="info"><dt>🕘 Horário</dt><dd data-config="horario"></dd></div>
+        <div class="info"><dt>🛵 Entrega</dt><dd>Taxa de <span data-config="taxaEntrega"></span> na região. Bairros mais distantes, combine pelo WhatsApp.</dd></div>
+        <div class="info"><dt>💳 Pagamento</dt><dd data-config="formasPagamento"></dd></div>
+      </dl>
+      <!-- Mapa desenhado só com CSS: o endereço é fictício, então não há mapa de verdade -->
+      <div class="mapa" role="img" aria-label="Ilustração de mapa com a localização da loja">
+        <span class="mapa__rua mapa__rua--h1"></span>
+        <span class="mapa__rua mapa__rua--h2"></span>
+        <span class="mapa__rua mapa__rua--v1"></span>
+        <span class="mapa__rua mapa__rua--v2"></span>
+        <span class="mapa__praca"></span>
+        <span class="mapa__pino"><span>ES</span></span>
+        <span class="mapa__nota">Endereço fictício</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERGUNTAS FREQUENTES: <details> abre e fecha sozinho, sem JavaScript -->
+  <section id="perguntas" class="secao" data-secao="perguntas" aria-labelledby="titulo-perguntas">
+    <p class="sobretitulo">Dúvidas</p>
+    <h2 id="titulo-perguntas" class="titulo-secao">Perguntas frequentes</h2>
+    <div class="perguntas">
+      <details>
+        <summary>Qual o horário de funcionamento?</summary>
+        <p><span data-config="horario"></span>. Pedidos pelo site chegam no nosso WhatsApp e são confirmados por lá.</p>
+      </details>
+      <details>
+        <summary>Quanto custa a entrega?</summary>
+        <p><span data-config="taxaEntrega"></span> para a região. Para bairros mais distantes, combinamos o valor pelo WhatsApp antes de confirmar.</p>
+      </details>
+      <details>
+        <summary>Quais formas de pagamento vocês aceitam?</summary>
+        <p><span data-config="formasPagamento"></span>. Não parcelamos.</p>
+      </details>
+      <details>
+        <summary>Posso retirar no balcão?</summary>
+        <p>Pode. No pedido, escolha “Retirar”. Para encomendas grandes, combinamos o horário para tudo sair quentinho.</p>
+      </details>
+      <details data-secao="festas">
+        <summary>Com quanto tempo de antecedência encomendo para festa?</summary>
+        <p>Com pelo menos <span data-config="antecedenciaFesta"></span>. Acima de 500 salgados, peça com 48 horas.</p>
+      </details>
+      <details data-secao="festas">
+        <summary>Quantos salgados por convidado?</summary>
+        <p>Em média 12 por pessoa, se forem a refeição principal; 6 a 8 se tiver outros pratos. Use a calculadora da seção Festas.</p>
+      </details>
+      <details data-secao="congelados">
+        <summary>Quanto tempo duram os congelados?</summary>
+        <p>Até 3 meses no freezer (−18 °C). Depois de descongelado, não congele de novo.</p>
+      </details>
+      <details>
+        <summary>Têm opções sem carne?</summary>
+        <p>Sim: bolinha de queijo, pão de queijo, pastéis de queijo e palmito, esfiha e mini pizza de mussarela, fogaça de queijo e todos os doces. Atenção: todos os nossos produtos contêm glúten.</p>
+      </details>
+    </div>
+  </section>
+
   <!-- BARRA FIXA no celular: atalho até a comanda -->
   <a id="barra-pedido" class="barra-pedido" href="#comanda" hidden>
     <span id="barra-qtd">0 itens</span>
@@ -153,8 +336,43 @@
   </dialog>
 
   <footer class="rodape">
-    <p class="rodape__marca">Esquina do Salgado</p>
-    <p>Negócio fictício, criado para demonstração.</p>
+    <div class="rodape__grade">
+      <div>
+        <a class="topo__marca" href="#inicio">
+          <span class="topo__logo" aria-hidden="true">ES</span>
+          <span class="topo__nome">Esquina do Salgado</span>
+        </a>
+        <p>Salgado quentinho, pastel crocante e suco feito na hora.</p>
+        <!-- Redes sociais: links fictícios (href="#") -->
+        <div class="redes">
+          <a href="#" aria-label="Instagram (fictício)">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook (fictício)">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H7v4h3v7h4v-7h3l1-4h-4V8Z" fill="currentColor"/></svg>
+          </a>
+          <a href="#" aria-label="WhatsApp (fictício)">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-2-2l.8-1-1-2L9 9.5Z" fill="currentColor"/></svg>
+          </a>
+        </div>
+      </div>
+      <nav aria-label="Rodapé">
+        <h2 class="rodape__titulo">Navegue</h2>
+        <ul>
+          <li><a href="#cardapio">Cardápio</a></li>
+          <li data-secao="festas"><a href="#festas">Festas e eventos</a></li>
+          <li data-secao="congelados"><a href="#como-fritar">Como fritar</a></li>
+          <li data-secao="sobre"><a href="#sobre">Nossa história</a></li>
+          <li data-secao="perguntas"><a href="#perguntas">Perguntas frequentes</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 class="rodape__titulo">Visite</h2>
+        <p><span data-config="endereco"></span><br><span data-config="cidade"></span></p>
+        <p data-config="horario"></p>
+      </div>
+    </div>
+    <p class="rodape__base">© <span data-config="ano"></span> Esquina do Salgado · Negócio fictício, criado para demonstração.</p>
   </footer>
 
   <!--

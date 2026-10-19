@@ -29,4 +29,21 @@ const CONFIG = {
   // dias: 0 = domingo, 1 = segunda ... 6 = sábado. Horas de 0 a 24.
   // Mudou o horário? Mude o texto acima E os números aqui.
   funcionamento: { dias: [1, 2, 3, 4, 5, 6], abre: 9, fecha: 19 },
+
+  // Endereço FICTÍCIO, mostrado na seção "Visite a gente"
+  endereco: "Rua das Laranjeiras, 250 · Vila Aurora",
+  cidade: "São Paulo (SP)",
+
+  // Antecedência para encomendas de festa (aparece nos textos da página)
+  antecedenciaFesta: "24 horas",
+
+  // LIGA/DESLIGA partes da página. true = mostra; false = esconde.
+  // Ex.: negócio que não vende congelados → congelados: false
+  // (somem os produtos congelados, a seção "Como fritar" e as perguntas sobre isso).
+  secoes: {
+    festas: true,       // seção "Festas e eventos" e os pacotes de cento prontos
+    congelados: true,   // produtos congelados, "Como fritar e aquecer" e textos sobre congelados
+    sobre: true,        // seção "Nossa história"
+    perguntas: true,    // perguntas frequentes
+  },
 };

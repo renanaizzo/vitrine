@@ -21,6 +21,15 @@ let comandaNaTela = false;
 // Quantos itens havia na última atualização (para a sacola "pular" só quando aumenta)
 let quantidadeAnterior = 0;
 
+// Uma parte da página está ligada no config.js? (se a chave não existir, conta como ligada)
+function secaoLigada(nome) {
+  return !CONFIG.secoes || CONFIG.secoes[nome] !== false;
+}
+
+// O cardápio que vale nesta página: o do cardapio.js, menos os itens de seções desligadas.
+// O resto do código usa SEMPRE esta lista, nunca o CARDAPIO direto.
+const cardapioAtivo = CARDAPIO.filter((item) => !item.secao || secaoLigada(item.secao));
+
 /* ============================================================
    BLOCO 2 — FUNÇÕES AUXILIARES
    ============================================================ */
@@ -38,7 +47,7 @@ function el(id) {
 
 // Procura um item do cardápio pelo id
 function buscarItem(id) {
-  return CARDAPIO.find((item) => item.id === id);
+  return cardapioAtivo.find((item) => item.id === id);
 }
 
 /* ============================================================
@@ -60,7 +69,7 @@ function semRepetir(lista) {
 
 // Categorias de um grupo, na ordem em que aparecem no cardapio.js
 function categoriasDoGrupo(grupo) {
-  return semRepetir(CARDAPIO.filter((item) => item.grupo === grupo).map((item) => item.categoria));
+  return semRepetir(cardapioAtivo.filter((item) => item.grupo === grupo).map((item) => item.categoria));
 }
 
 // O HTML de um cartão de produto.
@@ -85,6 +94,7 @@ function desenharItem(item, posicao) {
     <li class="item ${item.disponivel ? "" : "item--indisponivel"}" data-item="${item.id}" style="--posicao: ${posicao}">
       <div class="item__foto">${imagem}</div>
       <div class="item__texto">
+        ${item.congelado ? `<span class="etiqueta">❄️ Congelado</span>` : ""}
         <h5 class="item__nome">${item.nome}</h5>
         <p class="item__descricao">${item.descricao}</p>
       </div>
@@ -105,7 +115,7 @@ function botaoDaBarra(texto, dados) {
 }
 
 function desenharCardapio() {
-  const grupos = semRepetir(CARDAPIO.map((item) => item.grupo));
+  const grupos = semRepetir(cardapioAtivo.map((item) => item.grupo));
 
   el("linha-grupos").innerHTML = [TODOS, ...grupos]
     .map((grupo) => botaoDaBarra(grupo, { grupo }))
@@ -119,7 +129,7 @@ function desenharCardapio() {
     for (const categoria of categoriasDoGrupo(grupo)) {
       html += `<div class="cardapio__secao" data-categoria="${categoria}">
         <h4 class="cardapio__categoria">${categoria}</h4><ul class="cardapio__lista">`;
-      CARDAPIO.filter((i) => i.categoria === categoria).forEach((item, posicao) => {
+      cardapioAtivo.filter((i) => i.categoria === categoria).forEach((item, posicao) => {
         html += desenharItem(item, posicao);
       });
       html += `</ul></div>`;
@@ -132,7 +142,7 @@ function desenharCardapio() {
   // Têm data-grupo (abre a aba certa) e data-rolar (desce até o cardápio).
   el("grade-grupos").innerHTML = grupos
     .map((grupo) => {
-      const itens = CARDAPIO.filter((item) => item.grupo === grupo);
+      const itens = cardapioAtivo.filter((item) => item.grupo === grupo);
       return `
         <button type="button" class="grupo" data-grupo="${grupo}" data-rolar>
           <span class="grupo__emoji" aria-hidden="true">${itens[0].emoji}</span>
@@ -370,7 +380,27 @@ function abrirRevisao(evento) {
   el("erro-form").textContent = erro;
   if (erro) return;
 
-  const mensagem = montarMensagem();
+  mostrarRevisao(montarMensagem());
+}
+
+// Mensagem pronta para pedir orçamento de festa (a pessoa completa os dados no WhatsApp)
+function pedirOrcamento() {
+  mostrarRevisao(
+    [
+      `*Orçamento para festa – ${CONFIG.nomeLoja}*`,
+      "",
+      "Olá! Quero um orçamento:",
+      "• Data e horário:",
+      "• Número de convidados:",
+      "• Salgados e doces que eu gostaria:",
+      "• Pronto ou congelado:",
+      "• Entrega ou retirada:",
+    ].join("\n")
+  );
+}
+
+// Abre a janela de revisão com qualquer mensagem e prepara o link do WhatsApp
+function mostrarRevisao(mensagem) {
   const link = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(mensagem)}`;
 
   el("previa-mensagem").textContent = mensagem;
@@ -399,6 +429,7 @@ document.addEventListener("click", (evento) => {
   if (botao.dataset.grupo) mostrarCardapio(botao.dataset.grupo, botao.dataset.categoria || TODOS);
   // Blocos de atalho do topo: depois de abrir a aba, desce até o cardápio
   if (botao.dataset.rolar !== undefined) el("titulo-cardapio").scrollIntoView();
+  if (botao.dataset.orcamento !== undefined) pedirOrcamento();
 });
 
 el("form-pedido").addEventListener("change", atualizarCamposDoFormulario);
@@ -413,10 +444,63 @@ new IntersectionObserver((entradas) => {
 }).observe(el("comanda"));
 
 // Início: desenha tudo uma vez
+/* ============================================================
+   BLOCO 10 — INFORMAÇÕES DA LOJA E LIGA/DESLIGA DAS SEÇÕES
+   ============================================================ */
+
+// Esconde tudo que tem data-secao="x" quando CONFIG.secoes.x está false
+function aplicarSecoes() {
+  for (const parte of document.querySelectorAll("[data-secao]")) {
+    parte.hidden = !secaoLigada(parte.dataset.secao);
+  }
+}
+
+// Preenche os textos que vêm do config.js. No HTML, um elemento com
+// data-config="endereco" recebe CONFIG.endereco, e assim por diante.
+// Assim, mudar o horário ou o endereço no config.js muda a página inteira.
+function preencherInformacoes() {
+  const textos = {
+    ...CONFIG,
+    taxaEntrega: formatarPreco(CONFIG.taxaEntrega),
+    formasPagamento: CONFIG.formasPagamento.join(", "),
+    ano: new Date().getFullYear(),
+    totalItens: cardapioAtivo.length,
+  };
+  for (const elemento of document.querySelectorAll("[data-config]")) {
+    const valor = textos[elemento.dataset.config];
+    if (valor !== undefined) elemento.textContent = valor;
+  }
+}
+
+// CALCULADORA DE FESTA: 12 salgados por convidado, arredondado para o cento de cima
+const SALGADOS_POR_CONVIDADO = 12;
+
+function calcularFesta() {
+  // Aceita só números de 1 a 999 (se apagar o campo, conta como 1)
+  const convidados = Math.min(999, Math.max(1, parseInt(el("convidados").value, 10) || 1));
+  const centos = Math.ceil((convidados * SALGADOS_POR_CONVIDADO) / 100);
+  el("calc-salgados").textContent = convidados * SALGADOS_POR_CONVIDADO;
+  el("calc-centos").textContent = centos === 1 ? "1 cento" : `${centos} centos`;
+}
+
+el("convidados").addEventListener("input", calcularFesta);
+
+// Botões − e + da calculadora: somam ou tiram 10 convidados
+document.addEventListener("click", (evento) => {
+  const botao = evento.target.closest("[data-convidados]");
+  if (!botao) return;
+  const campo = el("convidados");
+  campo.value = Math.max(1, (parseInt(campo.value, 10) || 0) + Number(botao.dataset.convidados));
+  calcularFesta();
+});
+
+aplicarSecoes();
+preencherInformacoes();
+calcularFesta();
 el("horario").textContent = CONFIG.horario;
 atualizarSelo();
 setInterval(atualizarSelo, 60 * 1000); // confere de novo a cada minuto (60 mil milissegundos)
 desenharCardapio();
-mostrarCardapio(CARDAPIO[0].grupo); // abre no primeiro grupo (Salgados)
+mostrarCardapio(cardapioAtivo[0].grupo); // abre no primeiro grupo (Salgados)
 preencherPagamentos();
 atualizarCamposDoFormulario();

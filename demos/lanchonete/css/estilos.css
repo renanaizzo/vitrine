@@ -694,21 +694,272 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
 .revisao__nota { color: #ff9a8d; font-weight: 700; }
 .revisao__botoes { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: flex-end; margin-top: 1rem; }
 
+/* Etiqueta "❄️ Congelado" no cartão */
+.etiqueta {
+  display: inline-block;
+  margin-bottom: 0.3rem;
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(120, 200, 255, 0.12);
+  border: 1px solid rgba(120, 200, 255, 0.35);
+  color: #a9dcff;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+/* ---------- 13. SEÇÕES INFORMATIVAS (festas, como fritar, sobre, visite, perguntas) ---------- */
+.secao {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3.5rem 1rem 0;
+}
+/* Textinho em cima do título ("Festas e eventos") */
+.sobretitulo {
+  margin: 0 0 0.6rem;
+  color: var(--ambar);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.secao__intro { max-width: 40rem; margin: 1rem 0 0; color: var(--texto-suave); font-size: 1.05rem; }
+.secao h3 { font-size: 1rem; font-weight: 800; }
+.secao p { line-height: 1.55; }
+
+/* Painel com borda e brilho, reaproveitado por várias seções */
+.festas,
+.calculadora,
+.passo,
+.metodo,
+.valor,
+.info,
+.mapa,
+.perguntas details {
+  background: linear-gradient(160deg, rgba(255, 236, 220, 0.07), rgba(255, 236, 220, 0.02));
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+}
+
+/* Festas */
+.festas {
+  position: relative;
+  display: grid;
+  gap: 2rem;
+  padding: 1.75rem 1.25rem;
+  border-radius: 32px;
+  overflow: hidden;
+}
+/* Luz laranja no canto do painel */
+.festas::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 380px; height: 380px;
+  right: -120px; top: -140px;
+  border-radius: 50%;
+  background: var(--brasa);
+  filter: blur(90px);
+  opacity: 0.35;
+}
+.festas { isolation: isolate; }
+.lista-check { list-style: none; margin: 1.25rem 0 1.5rem; padding: 0; display: grid; gap: 0.5rem; }
+.lista-check li { display: flex; gap: 0.6rem; }
+.lista-check li::before {
+  content: "✓";
+  flex-shrink: 0;
+  display: grid; place-items: center;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 194, 61, 0.15);
+  color: var(--ambar);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.calculadora {
+  align-self: start;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+.calculadora__rotulo { font-weight: 800; }
+.calculadora__campo { display: flex; justify-content: center; align-items: center; gap: 0.6rem; margin: 0.9rem 0; }
+.calculadora__campo input {
+  width: 5.5rem;
+  min-height: 52px;
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--texto);
+  font: 700 1.4rem var(--fonte-titulo);
+  text-align: center;
+}
+.calculadora__resultado { margin: 0.5rem 0 0; display: grid; gap: 0.2rem; }
+.calculadora__numero { font: 800 3rem/1 var(--fonte-titulo); letter-spacing: -0.04em; }
+.calculadora__dica { margin: 0.9rem 0 0; color: var(--texto-suave); font-size: 0.8rem; }
+
+/* Como fritar: passos numerados (o número vem de um "contador" do CSS) */
+.fritar { display: grid; gap: 1.25rem; margin-top: 1.75rem; }
+.passos { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; counter-reset: passo; }
+.passo {
+  counter-increment: passo;
+  position: relative;
+  padding: 1.1rem 1.1rem 1.1rem 4.4rem;
+}
+.passo::before {
+  content: counter(passo);
+  position: absolute;
+  left: 1.1rem; top: 1.1rem;
+  display: grid; place-items: center;
+  width: 2.4rem; height: 2.4rem;
+  border-radius: 12px;
+  background: var(--degrade);
+  color: var(--tinta-escura);
+  font: 800 1rem var(--fonte-titulo);
+}
+.passo p, .metodo p, .valor p { margin: 0.3rem 0 0; color: var(--texto-suave); font-size: 0.92rem; }
+.metodos { display: grid; gap: 0.75rem; }
+.metodo { display: flex; gap: 0.9rem; align-items: flex-start; padding: 1rem 1.1rem; }
+.metodo__icone { font-size: 1.6rem; line-height: 1; }
+.metodo--evite { border-style: dashed; opacity: 0.8; }
+
+/* Sobre */
+.sobre { display: grid; gap: 2rem; }
+.numeros { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; align-self: end; }
+.numeros li { display: grid; gap: 0.2rem; }
+.numeros strong { font: 800 clamp(1.8rem, 7vw, 2.6rem)/1 var(--fonte-titulo); letter-spacing: -0.04em; }
+.numeros span { color: var(--texto-suave); font-size: 0.85rem; }
+.valores { display: grid; gap: 0.75rem; margin-top: 2rem; }
+.valor { padding: 1.25rem; }
+.valor > span { display: block; margin-bottom: 0.6rem; font-size: 1.8rem; }
+
+/* Onde estamos */
+.visite { display: grid; gap: 1rem; margin-top: 1.75rem; }
+.infos { margin: 0; display: grid; gap: 0.75rem; }
+.info { padding: 1rem 1.1rem; }
+.info dt { font-weight: 800; }
+.info dd { margin: 0.3rem 0 0; color: var(--texto-suave); }
+
+/* Mapa desenhado: ruas são faixas, a praça é um retângulo verde, o pino pulsa */
+.mapa {
+  position: relative;
+  min-height: 280px;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(255, 214, 180, 0.04) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, rgba(255, 214, 180, 0.04) 1px, transparent 1px) 0 0 / 28px 28px,
+    #17110d;
+}
+.mapa__rua { position: absolute; background: rgba(255, 236, 220, 0.09); }
+.mapa__rua--h1 { left: 0; right: 0; top: 32%; height: 14px; }
+.mapa__rua--h2 { left: 0; right: 0; top: 74%; height: 9px; }
+.mapa__rua--v1 { top: 0; bottom: 0; left: 28%; width: 12px; }
+.mapa__rua--v2 { top: 0; bottom: 0; left: 70%; width: 18px; transform: skewX(-12deg); }
+.mapa__praca {
+  position: absolute;
+  left: 36%; top: 46%; width: 24%; height: 20%;
+  border-radius: 12px;
+  background: rgba(37, 211, 102, 0.12);
+  border: 1px solid rgba(37, 211, 102, 0.25);
+}
+.mapa__pino {
+  position: absolute;
+  left: calc(28% + 6px); top: calc(32% + 7px);
+  transform: translate(-50%, -100%);
+  display: grid; place-items: center;
+  width: 46px; height: 46px;
+  border-radius: 50% 50% 50% 0;          /* gota de mapa */
+  rotate: -45deg;
+  background: var(--degrade);
+  box-shadow: 0 0 0 0 rgba(255, 122, 26, 0.6);
+  color: var(--tinta-escura);
+  font: 800 0.75rem var(--fonte-titulo);
+  animation: pulsar-pino 2s infinite;
+}
+.mapa__pino > span { rotate: 45deg; } /* desfaz o giro só no texto, para o "ES" ficar reto */
+@keyframes pulsar-pino {
+  70% { box-shadow: 0 0 0 18px rgba(255, 122, 26, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 122, 26, 0); }
+}
+.mapa__nota {
+  position: absolute;
+  right: 0.75rem; bottom: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--texto-suave);
+  font-size: 0.72rem;
+}
+
+/* Perguntas frequentes (<details> abre e fecha sozinho) */
+.perguntas { display: grid; gap: 0.6rem; margin-top: 1.75rem; max-width: 52rem; }
+.perguntas details { padding: 0 1.1rem; transition: border-color 0.2s; }
+.perguntas details[open] { border-color: rgba(255, 122, 26, 0.5); }
+.perguntas summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  font-weight: 800;
+  cursor: pointer;
+  list-style: none;              /* tira o triângulo padrão... */
+}
+.perguntas summary::-webkit-details-marker { display: none; } /* ...também no Safari */
+/* ...e põe um "+" que vira "×" quando abre */
+.perguntas summary::after {
+  content: "+";
+  flex-shrink: 0;
+  display: grid; place-items: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--vidro-forte);
+  color: var(--ambar);
+  font-size: 1.2rem;
+  transition: transform 0.2s;
+}
+.perguntas details[open] summary::after { transform: rotate(45deg); }
+.perguntas details p { margin: 0 0 1rem; color: var(--texto-suave); }
+
+/* ---------- 14. RODAPÉ ---------- */
 .rodape {
+  margin-top: 4rem;
   padding: 2.5rem 1rem 6rem;
   border-top: 1px solid var(--borda);
-  text-align: center;
+  background: rgba(0, 0, 0, 0.25);
   color: var(--texto-suave);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
-.rodape p { margin: 0.25rem 0; }
-.rodape__marca { font: 700 1rem var(--fonte-titulo); color: var(--texto); }
+.rodape__grade { max-width: 1200px; margin: 0 auto; display: grid; gap: 2rem; }
+.rodape__grade .topo__marca { margin-bottom: 0.75rem; }
+.rodape__titulo { margin-bottom: 0.75rem; color: var(--texto); font: 700 0.85rem var(--fonte-titulo); }
+.rodape ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+.rodape a { color: var(--texto-suave); text-decoration: none; }
+.rodape a:hover { color: var(--ambar); }
+.redes { display: flex; gap: 0.6rem; margin-top: 1rem; }
+.redes a {
+  display: grid; place-items: center;
+  width: 42px; height: 42px;
+  border-radius: 14px;
+  background: var(--vidro-forte);
+  border: 1px solid var(--borda);
+  color: var(--texto);
+}
+.rodape__base {
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--borda);
+  font-size: 0.8rem;
+}
 
-/* ---------- 13. TELAS MAIORES ---------- */
+/* ---------- 15. TELAS MAIORES ---------- */
 
 /* A partir de 640px (tablet): 2 cartões por linha */
 @media (min-width: 640px) {
   .cardapio__lista { grid-template-columns: 1fr 1fr; }
+  .valores, .metodos { grid-template-columns: 1fr 1fr; }
+  .rodape__grade { grid-template-columns: 1.4fr 1fr 1fr; }
 }
 
 /* A partir de 900px (computador): hero em duas colunas e comanda ao lado do cardápio */
@@ -730,7 +981,8 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   .grupos { padding-inline: 2rem; }
   .grupos__grade {
     grid-auto-flow: row;
-    grid-template-columns: repeat(5, 1fr);   /* os 5 blocos lado a lado, sem rolagem */
+    /* todos os blocos lado a lado, sem rolagem; "auto-fit" se ajusta a quantos grupos houver */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     margin-inline: 0;
     padding-inline: 0;
     overflow: visible;
@@ -747,10 +999,19 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   .categorias__linha { padding-inline: 0.7rem; }
   .comanda { margin-top: 0; position: sticky; top: calc(var(--altura-topo) + 1rem); }
   .barra-pedido { display: none !important; } /* no computador a comanda já fica visível */
-  .rodape { padding-bottom: 2rem; }
+  .rodape { padding: 3rem 2rem 2rem; }
+
+  .secao { padding: 5rem 2rem 0; }
+  .festas { grid-template-columns: 1.3fr 1fr; align-items: center; padding: 3rem; }
+  .fritar { grid-template-columns: 1fr 1fr; align-items: start; }
+  .metodos { grid-template-columns: 1fr; }
+  .sobre { grid-template-columns: 1.3fr 1fr; align-items: end; }
+  .valores { grid-template-columns: repeat(3, 1fr); }
+  .visite { grid-template-columns: 1fr 1.2fr; }
+  .mapa { min-height: 100%; }
 }
 
-/* ---------- 14. MOVIMENTO ---------- */
+/* ---------- 16. MOVIMENTO ---------- */
 /* Respeita quem pediu menos animação no sistema: desliga tudo que se mexe */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
