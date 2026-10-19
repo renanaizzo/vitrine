@@ -521,6 +521,8 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   transition: transform 0.15s;
 }
 .contador__botao:active { transform: scale(0.88); }
+/* Botão desativado (ex.: "−" com 1 convidado): apagado, sem efeito de clique */
+.contador__botao:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 .contador__mais {
   border-color: transparent;
   background: var(--degrade);

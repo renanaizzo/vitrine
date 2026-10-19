@@ -472,25 +472,44 @@ function preencherInformacoes() {
   }
 }
 
-// CALCULADORA DE FESTA: 12 salgados por convidado, arredondado para o cento de cima
+// CALCULADORA DE FESTA: 12 salgados por convidado
 const SALGADOS_POR_CONVIDADO = 12;
+const MIN_CONVIDADOS = 1;
+const MAX_CONVIDADOS = 999;
 
-function calcularFesta() {
-  // Aceita só números de 1 a 999 (se apagar o campo, conta como 1)
-  const convidados = Math.min(999, Math.max(1, parseInt(el("convidados").value, 10) || 1));
-  const centos = Math.ceil((convidados * SALGADOS_POR_CONVIDADO) / 100);
-  el("calc-salgados").textContent = convidados * SALGADOS_POR_CONVIDADO;
-  el("calc-centos").textContent = centos === 1 ? "1 cento" : `${centos} centos`;
+// Lê o campo e devolve um número válido entre 1 e 999 (vazio ou 0 contam como 1)
+function lerConvidados() {
+  const numero = parseInt(el("convidados").value, 10) || MIN_CONVIDADOS;
+  return Math.min(MAX_CONVIDADOS, Math.max(MIN_CONVIDADOS, numero));
 }
 
-el("convidados").addEventListener("input", calcularFesta);
+function calcularFesta() {
+  const convidados = lerConvidados();
+  el("calc-salgados").textContent = convidados * SALGADOS_POR_CONVIDADO;
+  // "−" desativado no mínimo e "+" no máximo: não dá para passar dos limites
+  el("menos-convidados").disabled = convidados <= MIN_CONVIDADOS;
+  el("mais-convidados").disabled = convidados >= MAX_CONVIDADOS;
+}
 
-// Botões − e + da calculadora: somam ou tiram 10 convidados
+// Enquanto digita: tira tudo que não for algarismo (sinal de menos, vírgula, letras).
+// \D = "qualquer caractere que NÃO é dígito"; o "g" troca todos, não só o primeiro.
+el("convidados").addEventListener("input", () => {
+  el("convidados").value = el("convidados").value.replace(/\D/g, "");
+  calcularFesta();
+});
+
+// Ao sair do campo: se ficou vazio ou 0, volta para um número válido (1)
+el("convidados").addEventListener("change", () => {
+  el("convidados").value = lerConvidados();
+  calcularFesta();
+});
+
+// Botões − e + da calculadora: somam ou tiram 10 convidados, sem passar dos limites
 document.addEventListener("click", (evento) => {
   const botao = evento.target.closest("[data-convidados]");
   if (!botao) return;
-  const campo = el("convidados");
-  campo.value = Math.max(1, (parseInt(campo.value, 10) || 0) + Number(botao.dataset.convidados));
+  const novo = lerConvidados() + Number(botao.dataset.convidados);
+  el("convidados").value = Math.min(MAX_CONVIDADOS, Math.max(MIN_CONVIDADOS, novo));
   calcularFesta();
 });
 

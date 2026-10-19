@@ -178,15 +178,17 @@
       <div class="calculadora">
         <label for="convidados" class="calculadora__rotulo">Quantos convidados?</label>
         <div class="calculadora__campo">
-          <button type="button" class="contador__botao" data-convidados="-10" aria-label="Menos 10 convidados">−</button>
-          <input id="convidados" type="number" inputmode="numeric" min="1" max="999" value="30">
-          <button type="button" class="contador__botao contador__mais" data-convidados="10" aria-label="Mais 10 convidados">+</button>
+          <button type="button" class="contador__botao" id="menos-convidados" data-convidados="-10" aria-label="Menos 10 convidados">−</button>
+          <!-- type="text" + inputmode="numeric": o celular abre o teclado de números,
+               e o app.js consegue limpar o que não for algarismo (no type="number" não consegue) -->
+          <input id="convidados" type="text" inputmode="numeric" maxlength="3" value="30" autocomplete="off">
+          <button type="button" class="contador__botao contador__mais" id="mais-convidados" data-convidados="10" aria-label="Mais 10 convidados">+</button>
         </div>
         <p class="calculadora__resultado" aria-live="polite">
           <span class="calculadora__numero degrade" id="calc-salgados">360</span>
-          <span>salgados, ou <strong id="calc-centos">4 centos</strong></span>
+          <span>salgados</span>
         </p>
-        <p class="calculadora__dica">Conta usada: 12 salgados por convidado, arredondado para o cento de cima.</p>
+        <p class="calculadora__dica">Conta usada: 12 salgados por convidado.</p>
       </div>
     </div>
   </section>
