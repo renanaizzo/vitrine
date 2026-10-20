@@ -6,6 +6,8 @@
   <title>Brasa Burger · Hambúrguer artesanal (demonstração)</title>
   <meta name="description" content="Monte seu hambúrguer do seu jeito e peça pelo WhatsApp. Site de demonstração.">
   <!-- Prévia do link (Open Graph) e ícone da aba -->
+  <meta name="author" content="Renan Aizzo">
+  <meta property="og:site_name" content="Renan Aizzo · sites para o comércio local">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Brasa Burger · demonstração">
   <meta property="og:description" content="Monte seu burger: ponto da carne, adicionais e vira combo, com o preço mudando na hora. Negócio fictício.">
@@ -105,11 +107,17 @@
         <li class="toque"><span class="toque__emoji" aria-hidden="true">🍟</span><strong>Vire combo</strong><span>batata + refri, escolha a bebida</span></li>
       </ol>
 
+      <!-- BUSCA: filtra o cardápio enquanto a pessoa digita (ignora acentos e maiúsculas) -->
+      <div class="busca">
+        <svg class="busca__icone" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="busca" class="busca__campo" type="search" placeholder="Buscar no cardápio (ex.: bacon)" aria-label="Buscar no cardápio" autocomplete="off">
+      </div>
       <nav id="barra-categorias" class="categorias" aria-label="Categorias do cardápio">
         <div id="linha-grupos" class="categorias__linha"></div>
         <div id="linha-subcategorias" class="categorias__linha categorias__linha--sub" hidden></div>
       </nav>
       <div id="lista-cardapio"><!-- app.js preenche aqui --></div>
+      <p id="busca-vazia" class="busca__vazia" hidden>Nenhum item encontrado. Tente outra palavra.</p>
     </section>
 
     <!-- COMANDA -->
@@ -206,7 +214,7 @@
       <p class="rodape__marca">Brasa Burger</p>
       <p><span data-config="endereco"></span> · <span data-config="cidade"></span></p>
       <p data-config="horario"></p>
-      <p class="rodape__base">© <span data-config="ano"></span> Brasa Burger · Negócio fictício, criado para demonstração.</p>
+      <p class="rodape__base">© <span data-config="ano"></span> Brasa Burger · Negócio fictício, criado para demonstração. Site por Renan Aizzo.</p>
     </div>
   </footer>
 

@@ -75,7 +75,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
 .aviso-demo {
   margin: 0;
   padding: 0.35rem 1rem;
-  background: #000;
+  background: #0a0706;   /* quase-preto (preto puro deixa o contraste duro) */
   color: var(--texto-suave);
   font-size: 0.8rem;
   text-align: center;
@@ -1040,3 +1040,21 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   white-space: nowrap;
 }
 .aviso-demo__voltar:hover { background: rgba(255, 255, 255, 0.22); }
+
+/* ---------- BUSCA NO CARDÁPIO ---------- */
+.busca { position: relative; margin: 1rem 0 0; }
+.busca__icone { position: absolute; left: 0.95rem; top: 50%; translate: 0 -50%; color: var(--texto-suave); pointer-events: none; }
+.busca__campo {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.7rem 1rem 0.7rem 2.7rem;   /* espaço à esquerda para a lupa */
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--texto);
+  font: inherit;
+  font-size: 1rem;                       /* 16px: evita o zoom automático do iPhone */
+}
+.busca__campo::placeholder { color: var(--texto-suave); opacity: 0.8; }
+.busca__campo:focus { outline: none; border-color: var(--brasa); box-shadow: 0 0 0 4px rgba(255, 122, 26, 0.18); }
+.busca__vazia { margin: 1.5rem 0; padding: 1.5rem; text-align: center; color: var(--texto-suave); }

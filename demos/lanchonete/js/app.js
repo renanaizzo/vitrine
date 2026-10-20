@@ -91,7 +91,7 @@ function desenharItem(item, posicao) {
     : `<span class="item__esgotado">Esgotado</span>`;
 
   return `
-    <li class="item ${item.disponivel ? "" : "item--indisponivel"}" data-item="${item.id}" style="--posicao: ${posicao}">
+    <li class="item ${item.disponivel ? "" : "item--indisponivel"}" data-item="${item.id}" data-busca="${textoDeBusca(item)}" style="--posicao: ${posicao}">
       <div class="item__foto">${imagem}</div>
       <div class="item__texto">
         ${item.congelado ? `<span class="etiqueta">❄️ Congelado</span>` : ""}
@@ -170,7 +170,51 @@ function acenderBotao(linha, chave, valor) {
 
 // Mostra só o grupo escolhido (ou todos) e, dentro dele, só a categoria escolhida (ou todas).
 // O resto continua no HTML, apenas escondido com "hidden".
+/* ---------- BUSCA NO CARDÁPIO ---------- */
+
+// Tira acentos e maiúsculas, para "Pastéis", "pasteis" e "PASTEIS" serem a mesma coisa.
+// normalize("NFD") separa a letra do acento ("é" vira "e" + "´"); o replace apaga os acentos.
+function normalizar(texto) {
+  return texto.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+}
+
+// O texto em que a busca procura: nome, descrição e categoria do item
+function textoDeBusca(item) {
+  return normalizar(`${item.nome} ${item.descricao} ${item.categoria}`);
+}
+
+// Chamada a cada letra digitada: esconde os cartões que não batem com o que foi escrito
+function buscar() {
+  const termo = normalizar(el("busca").value.trim());
+  if (termo === "") {
+    mostrarCardapio(TODOS); // apagou a busca: volta ao cardápio inteiro
+    return;
+  }
+
+  let achados = 0;
+  for (const cartao of document.querySelectorAll(".item")) {
+    const bate = cartao.dataset.busca.includes(termo);
+    cartao.hidden = !bate;
+    if (bate) achados++;
+  }
+  // Seções e grupos sem nenhum cartão visível também somem
+  for (const secao of document.querySelectorAll(".cardapio__secao, .cardapio__grupo")) {
+    secao.hidden = !secao.querySelector(".item:not([hidden])");
+  }
+  el("busca-vazia").hidden = achados > 0;
+
+  // A busca olha o cardápio inteiro: acende "Todos" e esconde a linha de categorias
+  acenderBotao(el("linha-grupos"), "grupo", TODOS);
+  el("linha-subcategorias").hidden = true;
+  grupoAtual = null; // na próxima aba clicada, a linha de baixo é redesenhada
+}
+
 function mostrarCardapio(grupo, categoria = TODOS) {
+  // Trocar de aba limpa a busca e mostra de novo todos os cartões
+  el("busca").value = "";
+  el("busca-vazia").hidden = true;
+  for (const cartao of document.querySelectorAll(".item")) cartao.hidden = false;
+
   for (const secao of document.querySelectorAll(".cardapio__grupo")) {
     secao.hidden = grupo !== TODOS && secao.dataset.grupo !== grupo;
   }
@@ -523,3 +567,6 @@ desenharCardapio();
 mostrarCardapio(cardapioAtivo[0].grupo); // abre no primeiro grupo (Salgados)
 preencherPagamentos();
 atualizarCamposDoFormulario();
+
+// Busca no cardápio: filtra a cada letra digitada
+el("busca").addEventListener("input", buscar);

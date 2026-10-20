@@ -741,3 +741,21 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
   white-space: nowrap;
 }
 .aviso-demo__voltar:hover { background: rgba(255, 255, 255, 0.22); }
+
+/* ---------- BUSCA NO CARDÁPIO ---------- */
+.busca { position: relative; margin: 1rem 0 0; }
+.busca__icone { position: absolute; left: 0.95rem; top: 50%; translate: 0 -50%; color: var(--tinta-suave); pointer-events: none; }
+.busca__campo {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.7rem 1rem 0.7rem 2.7rem;   /* espaço à esquerda para a lupa */
+  border: 1px solid var(--borda-vidro);
+  border-radius: 999px;
+  background: var(--vidro);
+  color: var(--tinta);
+  font: inherit;
+  font-size: 1rem;                       /* 16px: evita o zoom automático do iPhone */
+}
+.busca__campo::placeholder { color: var(--tinta-suave); opacity: 0.8; }
+.busca__campo:focus { outline: none; border-color: var(--roxo-vivo); box-shadow: 0 0 0 4px rgba(166, 77, 255, 0.2); }
+.busca__vazia { margin: 1.5rem 0; padding: 1.5rem; text-align: center; color: var(--tinta-suave); }
