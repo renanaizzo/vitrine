@@ -208,19 +208,6 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   padding: 2.75rem 1rem 1.5rem;
   isolation: isolate;            /* as luzes ficam "presas" atrás do conteúdo do hero */
 }
-/* Grade fina de fundo, que vai sumindo nas bordas (a "máscara" controla a transparência) */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    linear-gradient(rgba(255, 214, 180, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 214, 180, 0.06) 1px, transparent 1px);
-  background-size: 44px 44px;
-  -webkit-mask-image: radial-gradient(ellipse at 60% 40%, #000 20%, transparent 70%);
-  mask-image: radial-gradient(ellipse at 60% 40%, #000 20%, transparent 70%);
-}
 /* Luzes desfocadas que se mexem devagar.
    "absolute" tira a caixa das luzes da grade do hero (senão ela ocuparia uma coluna) */
 .hero__luzes {
@@ -287,27 +274,12 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
 .hero__botoes { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 .hero__horario { margin: 1rem 0 0; color: var(--texto-suave); font-size: 0.88rem; }
 
-/* Vitrine de bolhas com emojis */
-.hero__vitrine { position: relative; height: 220px; }
-.bolha {
-  position: absolute;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: linear-gradient(145deg, rgba(255, 236, 220, 0.14), rgba(255, 236, 220, 0.03));
-  border: 1px solid var(--borda);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 20px 40px -18px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  animation: boiar 6s ease-in-out infinite;
-}
-.bolha--1 { width: 120px; height: 120px; font-size: 3.6rem; left: 8%;  top: 20%; }
-.bolha--2 { width: 92px;  height: 92px;  font-size: 2.7rem; left: 48%; top: 0;   animation-delay: -1.5s; }
-.bolha--3 { width: 78px;  height: 78px;  font-size: 2.3rem; left: 70%; top: 52%; animation-delay: -3s; }
-.bolha--4 { width: 66px;  height: 66px;  font-size: 1.9rem; left: 38%; top: 66%; animation-delay: -4.2s; }
-.bolha--5 { width: 56px;  height: 56px;  font-size: 1.6rem; left: 84%; top: 8%;  animation-delay: -2.2s; }
-@keyframes boiar {
-  50% { transform: translateY(-14px) rotate(4deg); }
+/* Espaço da foto do topo. Enquanto não houver foto real, mostra o aviso [PREENCHER] */
+.hero__foto { width: 100%; aspect-ratio: 4 / 3; border-radius: var(--raio); object-fit: cover; }
+.hero__foto--vazia {
+  display: grid; place-items: center; padding: 1rem;
+  border: 1px dashed var(--borda); background: var(--vidro);
+  color: var(--texto-suave); font-size: 0.9rem; text-align: center;
 }
 
 /* ---------- 6. BLOCOS DE GRUPO ("O que vai ser hoje?") ---------- */
@@ -975,10 +947,6 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
     align-items: center;
     padding: 4.5rem 2rem 2rem;
   }
-  .hero__vitrine { height: 380px; }
-  .bolha--1 { width: 170px; height: 170px; font-size: 5rem; }
-  .bolha--2 { width: 130px; height: 130px; font-size: 3.8rem; }
-  .bolha--3 { width: 110px; height: 110px; font-size: 3.2rem; }
 
   .grupos { padding-inline: 2rem; }
   .grupos__grade {

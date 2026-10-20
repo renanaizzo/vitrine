@@ -66,14 +66,10 @@
       <p class="hero__horario" id="horario"></p>
     </div>
 
-    <!-- Emojis flutuando em "bolhas de vidro": só decoração -->
-    <div class="hero__vitrine" aria-hidden="true">
-      <span class="bolha bolha--1">🥟</span>
-      <span class="bolha bolha--2">🍕</span>
-      <span class="bolha bolha--3">🍗</span>
-      <span class="bolha bolha--4">🥤</span>
-      <span class="bolha bolha--5">🍫</span>
-    </div>
+    <!-- [PREENCHER: foto real de salgado]
+         Troque este bloco por: <img class="hero__foto" src="img/salgados.webp" alt="..." width="800" height="600">
+         (sem loading="lazy": a foto do topo deve carregar logo) -->
+    <div class="hero__foto hero__foto--vazia">[PREENCHER: foto real de salgado]</div>
   </section>
 
   <!-- ATALHOS POR GRUPO: um bloco por grupo do cardápio (app.js preenche) -->
@@ -163,7 +159,7 @@
     <div class="festas">
       <div class="festas__texto">
         <p class="sobretitulo">Festas e eventos</p>
-        <h2 id="titulo-festas" class="titulo-secao">Aniversário, reunião ou <span class="degrade">festa da firma</span>?</h2>
+        <h2 id="titulo-festas" class="titulo-secao">Aniversário, reunião ou festa da firma?</h2>
         <p class="secao__intro">
           Mini salgados por cento, fritos na hora da retirada<span data-secao="congelados"> ou congelados para você fritar em casa</span>.
           Encomende com <strong data-config="antecedenciaFesta">24 horas</strong> de antecedência.
@@ -191,7 +187,7 @@
           <button type="button" class="contador__botao contador__mais" id="mais-convidados" data-convidados="10" aria-label="Mais 10 convidados">+</button>
         </div>
         <p class="calculadora__resultado" aria-live="polite">
-          <span class="calculadora__numero degrade" id="calc-salgados">360</span>
+          <span class="calculadora__numero" id="calc-salgados">360</span>
           <span>salgados</span>
         </p>
         <p class="calculadora__dica">Conta usada: 12 salgados por convidado.</p>
@@ -251,7 +247,7 @@
     <div class="sobre">
       <div>
         <p class="sobretitulo">Nossa história</p>
-        <h2 id="titulo-sobre" class="titulo-secao">Começou com uma fritadeira e <span class="degrade">uma fila na calçada</span>.</h2>
+        <h2 id="titulo-sobre" class="titulo-secao">Começou com uma fritadeira e uma fila na calçada.</h2>
         <p class="secao__intro">
           A Esquina do Salgado abriu em 2011 com uma receita de coxinha de família e um balcão de dois metros.
           A fila cresceu, o cardápio também, mas o jeito continua o mesmo: massa feita todo dia,
@@ -259,9 +255,9 @@
         </p>
       </div>
       <ul class="numeros">
-        <li><strong class="degrade">2011</strong><span>desde</span></li>
-        <li><strong class="degrade" data-config="totalItens">60</strong><span>opções no cardápio</span></li>
-        <li><strong class="degrade">0</strong><span>salgado requentado</span></li>
+        <li><strong>2011</strong><span>desde</span></li>
+        <li><strong data-config="totalItens">60</strong><span>opções no cardápio</span></li>
+        <li><strong>0</strong><span>salgado requentado</span></li>
       </ul>
     </div>
     <div class="valores">
