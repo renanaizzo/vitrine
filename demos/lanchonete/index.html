@@ -397,12 +397,21 @@
   <!--
     ORDEM IMPORTA:
     1. config.js       → cria o objeto CONFIG
-    2. config.local.js → (só no seu computador) troca o número; se não existir, o navegador ignora
+    2. config.local.js → (só no seu computador) troca o número. Só é carregado quando a página
+                         está aberta pelo arquivo (file://) ou por um servidor local (localhost),
+                         para o site publicado não pedir um arquivo que não existe (erro 404).
     3. cardapio.js     → cria a lista CARDAPIO
     4. app.js          → usa CONFIG e CARDAPIO para desenhar a página
   -->
   <script src="js/config.js"></script>
-  <script src="js/config.local.js"></script>
+  <script>
+    // location.protocol "file:" = aberto direto do disco; localhost/127.0.0.1 = servidor no seu PC
+    if (location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(location.hostname)) {
+      // document.write insere o <script> AQUI, na mesma posição: ele roda antes do cardapio.js,
+      // exatamente como hoje. (O "<\/script>" com barra invertida evita fechar este script por engano.)
+      document.write('<script src="js/config.local.js"><\/script>');
+    }
+  </script>
   <script src="js/cardapio.js"></script>
   <script src="js/app.js"></script>
 </body>
