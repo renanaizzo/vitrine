@@ -88,6 +88,22 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   letter-spacing: -0.02em;
 }
 
+/* ÍCONES (desenhos da biblioteca Lucide, em SVG dentro do HTML).
+   Só o desenho fica no HTML; a espessura e o arredondamento do traço ficam aqui,
+   iguais aos da sacola e das redes sociais. "currentColor" = a cor do texto ao redor. */
+.icone {
+  width: 1.15em;
+  height: 1.15em;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* "Entrega / Retirar": ícone e texto lado a lado, centralizados */
+.opcao span { display: inline-flex; align-items: center; gap: 0.4rem; }
+
 /* ---------- 3. BOTÕES ---------- */
 .botao {
   display: inline-flex;
@@ -98,7 +114,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   padding: 0.75rem 1.5rem;
   border: 1px solid transparent;
   border-radius: 999px;
-  font: 800 1rem var(--fonte-texto);
+  font: 700 1rem var(--fonte-texto);
   text-decoration: none;
   cursor: pointer;
   transition: transform 0.15s, box-shadow 0.2s, background-color 0.2s;
@@ -161,7 +177,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   border-radius: 12px;
   background: var(--degrade);
   color: var(--tinta-escura);
-  font: 800 0.9rem var(--fonte-titulo);
+  font: 700 0.9rem var(--fonte-titulo);
 }
 .topo__nome { font: 700 0.95rem var(--fonte-titulo); letter-spacing: -0.01em; }
 .topo__links { display: none; gap: 1.5rem; }  /* no celular some; aparece no computador */
@@ -189,7 +205,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   background: var(--degrade);
   color: var(--tinta-escura);
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 /* O "pulo" quando um item entra no carrinho (a classe é colocada pelo app.js) */
 .sacola--pulo { animation: pulo 0.45s ease; }
@@ -211,7 +227,11 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
 /* Luzes desfocadas que se mexem devagar.
    "absolute" tira a caixa das luzes da grade do hero (senão ela ocuparia uma coluna) */
 .hero__luzes {
-  position: absolute; inset: 0; z-index: -2; pointer-events: none;
+  position: absolute; top: 0; bottom: 0; z-index: -2; pointer-events: none;
+  /* A caixa das luzes ocupa a LARGURA DA TELA (100vw), não só a do conteúdo (1200px):
+     assim o corte acontece na borda da tela, onde não aparece como uma linha reta */
+  left: calc(50% - 50vw);
+  width: 100vw;
   overflow-x: clip;   /* corta só o que passa para os LADOS (evita a página "escorregar" no celular) */
 }
 .hero__luzes span {
@@ -260,7 +280,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
 
 .hero__titulo {
   font-family: var(--fonte-titulo);
-  font-weight: 800;
+  font-weight: 700;
   font-size: clamp(2.1rem, 8.5vw, 4.2rem);
   line-height: 1.04;
   letter-spacing: -0.035em;
@@ -409,7 +429,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   margin: 1.25rem 0 0.75rem;
   color: var(--ambar);
   font-size: 0.8rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -458,7 +478,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   overflow: hidden;
 }
 .item__foto img { width: 100%; height: 100%; object-fit: cover; }
-.item__nome { font-size: 1rem; font-weight: 800; }
+.item__nome { font-size: 1rem; font-weight: 700; }
 .item__descricao { margin: 0.25rem 0 0; color: var(--texto-suave); font-size: 0.86rem; line-height: 1.45; }
 .item__acao {
   display: flex;
@@ -472,7 +492,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   border-radius: 999px;
   background: rgba(255, 84, 64, 0.12);
   color: #ff9a8d;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 0.8rem;
 }
 .item--indisponivel { opacity: 0.5; }
@@ -504,7 +524,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
 .contador__menos,
 .contador__qtd { display: none; }
 .item--no-carrinho .contador__menos { display: grid; }
-.item--no-carrinho .contador__qtd { display: block; min-width: 1.4rem; text-align: center; font-weight: 800; }
+.item--no-carrinho .contador__qtd { display: block; min-width: 1.4rem; text-align: center; font-weight: 700; }
 
 /* ---------- 9. COMANDA (o carrinho) ---------- */
 .comanda {
@@ -530,7 +550,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   padding: 0.65rem 0;
   border-bottom: 1px solid var(--borda);
 }
-.comanda__qtd { font-weight: 800; color: var(--ambar); }
+.comanda__qtd { font-weight: 700; color: var(--ambar); }
 .comanda__valor { font-weight: 700; }
 .comanda__controles { grid-column: 2 / -1; display: flex; gap: 0.4rem; }
 .comanda__controles button {
@@ -636,7 +656,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   from { transform: translateY(120%); }
 }
 .barra-pedido strong { font-family: var(--fonte-titulo); }
-.barra-pedido__ver { font-weight: 800; }
+.barra-pedido__ver { font-weight: 700; }
 
 /* ---------- 12. JANELA DE REVISÃO ---------- */
 .revisao {
@@ -670,7 +690,9 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
 
 /* Etiqueta "❄️ Congelado" no cartão */
 .etiqueta {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
   margin-bottom: 0.3rem;
   padding: 0.1rem 0.55rem;
   border-radius: 999px;
@@ -678,7 +700,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   border: 1px solid rgba(120, 200, 255, 0.35);
   color: #a9dcff;
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 /* ---------- 13. SEÇÕES INFORMATIVAS (festas, como fritar, sobre, visite, perguntas) ---------- */
@@ -692,12 +714,12 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   margin: 0 0 0.6rem;
   color: var(--ambar);
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 .secao__intro { max-width: 40rem; margin: 1rem 0 0; color: var(--texto-suave); font-size: 1.05rem; }
-.secao h3 { font-size: 1rem; font-weight: 800; }
+.secao h3 { font-size: 1rem; font-weight: 700; }
 .secao p { line-height: 1.55; }
 
 /* Painel com borda e brilho, reaproveitado por várias seções */
@@ -747,7 +769,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   background: rgba(255, 194, 61, 0.15);
   color: var(--ambar);
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .calculadora {
@@ -756,7 +778,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   background: rgba(0, 0, 0, 0.3);
   text-align: center;
 }
-.calculadora__rotulo { font-weight: 800; }
+.calculadora__rotulo { font-weight: 700; }
 .calculadora__campo { display: flex; justify-content: center; align-items: center; gap: 0.6rem; margin: 0.9rem 0; }
 .calculadora__campo input {
   width: 5.5rem;
@@ -769,7 +791,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   text-align: center;
 }
 .calculadora__resultado { margin: 0.5rem 0 0; display: grid; gap: 0.2rem; }
-.calculadora__numero { font: 800 3rem/1 var(--fonte-titulo); letter-spacing: -0.04em; }
+.calculadora__numero { font: 700 3rem/1 var(--fonte-titulo); letter-spacing: -0.04em; }
 .calculadora__dica { margin: 0.9rem 0 0; color: var(--texto-suave); font-size: 0.8rem; }
 
 /* Como fritar: passos numerados (o número vem de um "contador" do CSS) */
@@ -789,29 +811,30 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   border-radius: 12px;
   background: var(--degrade);
   color: var(--tinta-escura);
-  font: 800 1rem var(--fonte-titulo);
+  font: 700 1rem var(--fonte-titulo);
 }
 .passo p, .metodo p, .valor p { margin: 0.3rem 0 0; color: var(--texto-suave); font-size: 0.92rem; }
 .metodos { display: grid; gap: 0.75rem; }
 .metodo { display: flex; gap: 0.9rem; align-items: flex-start; padding: 1rem 1.1rem; }
-.metodo__icone { font-size: 1.6rem; line-height: 1; }
+.metodo__icone { width: 26px; height: 26px; color: var(--ambar); margin-top: 2px; }
 .metodo--evite { border-style: dashed; opacity: 0.8; }
 
 /* Sobre */
 .sobre { display: grid; gap: 2rem; }
 .numeros { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; align-self: end; }
 .numeros li { display: grid; gap: 0.2rem; }
-.numeros strong { font: 800 clamp(1.8rem, 7vw, 2.6rem)/1 var(--fonte-titulo); letter-spacing: -0.04em; }
+.numeros strong { font: 700 clamp(1.8rem, 7vw, 2.6rem)/1 var(--fonte-titulo); letter-spacing: -0.04em; }
 .numeros span { color: var(--texto-suave); font-size: 0.85rem; }
 .valores { display: grid; gap: 0.75rem; margin-top: 2rem; }
 .valor { padding: 1.25rem; }
-.valor > span { display: block; margin-bottom: 0.6rem; font-size: 1.8rem; }
+.valor__icone { display: block; width: 28px; height: 28px; margin-bottom: 0.6rem; color: var(--ambar); }
 
 /* Onde estamos */
 .visite { display: grid; gap: 1rem; margin-top: 1.75rem; }
 .infos { margin: 0; display: grid; gap: 0.75rem; }
 .info { padding: 1rem 1.1rem; }
-.info dt { font-weight: 800; }
+.info dt { display: flex; align-items: center; gap: 0.45rem; font-weight: 700; }
+.info dt .icone { color: var(--ambar); }
 .info dd { margin: 0.3rem 0 0; color: var(--texto-suave); }
 
 /* Mapa desenhado: ruas são faixas, a praça é um retângulo verde, o pino pulsa */
@@ -847,7 +870,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   background: var(--degrade);
   box-shadow: 0 0 0 0 rgba(255, 122, 26, 0.6);
   color: var(--tinta-escura);
-  font: 800 0.75rem var(--fonte-titulo);
+  font: 700 0.75rem var(--fonte-titulo);
   animation: pulsar-pino 2s infinite;
 }
 .mapa__pino > span { rotate: 45deg; } /* desfaz o giro só no texto, para o "ES" ficar reto */
@@ -875,7 +898,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   align-items: center;
   gap: 1rem;
   padding: 1rem 0;
-  font-weight: 800;
+  font-weight: 700;
   cursor: pointer;
   list-style: none;              /* tira o triângulo padrão... */
 }

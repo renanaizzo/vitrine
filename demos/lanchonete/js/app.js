@@ -94,7 +94,7 @@ function desenharItem(item, posicao) {
     <li class="item ${item.disponivel ? "" : "item--indisponivel"}" data-item="${item.id}" data-busca="${textoDeBusca(item)}" style="--posicao: ${posicao}">
       <div class="item__foto">${imagem}</div>
       <div class="item__texto">
-        ${item.congelado ? `<span class="etiqueta">❄️ Congelado</span>` : ""}
+        ${item.congelado ? `<span class="etiqueta"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12h20"/><path d="M12 2v20"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/></svg> Congelado</span>` : ""}
         <h5 class="item__nome">${item.nome}</h5>
         <p class="item__descricao">${item.descricao}</p>
       </div>
