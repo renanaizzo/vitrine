@@ -18,10 +18,10 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍔</text></svg>">
   <meta name="theme-color" content="#110d0b">
 
-  <!-- Fontes: Bowlby One (títulos, letreiro de diner) e DM Sans (texto) -->
+  <!-- Fontes: Bowlby One (títulos, letreiro de diner) e DM Sans 400/700 (texto). Só os pesos usados: menos para baixar -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=DM+Sans:opsz,wght@9..40,400;9..40,700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/estilos.css">
 </head>
@@ -58,33 +58,10 @@
       <p class="hero__horario" id="horario" data-config="horario"></p>
     </div>
 
-    <!-- "Pôster" do hero: só decoração -->
-    <div class="poster" aria-hidden="true">
-      <!-- Três labaredas em SVG, pintadas com um degradê de fogo (vermelho embaixo, amarelo na ponta) -->
-      <svg class="poster__chamas" viewBox="0 0 200 140" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="fogo" x1="0" y1="1" x2="0" y2="0">
-            <stop offset="0" stop-color="#e3261b"/>
-            <stop offset="0.5" stop-color="#ff6a00"/>
-            <stop offset="1" stop-color="#ffc300"/>
-          </linearGradient>
-        </defs>
-        <path class="chama chama--1" fill="url(#fogo)" stroke="#161210" stroke-width="2.5"
-              d="M30 140C2 140-4 104 14 82c2 14 10 18 12 8 3-16-4-30 8-52 6 20 22 30 22 58 5-5 7-12 6-20 12 16 14 64-32 64Z"/>
-        <path class="chama chama--2" fill="url(#fogo)" stroke="#161210" stroke-width="2.5"
-              d="M100 140c-40 0-50-40-28-70 3 16 13 18 14 6 2-20-6-40 14-76 8 28 30 40 30 76 6-6 9-15 8-26 16 22 18 90-38 90Z"/>
-        <path class="chama chama--3" fill="url(#fogo)" stroke="#161210" stroke-width="2.5"
-              d="M170 140c-30 0-38-30-22-54 2 12 9 14 10 4 2-14-3-26 9-46 5 18 20 28 20 52 4-4 6-10 5-17 12 15 14 61-22 61Z"/>
-      </svg>
-      <div class="poster__prato">🍔</div>
-      <!-- Selo redondo que gira: o texto segue um círculo (textPath do SVG) -->
-      <svg class="poster__giro" viewBox="0 0 200 200">
-        <defs><path id="circulo" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0"/></defs>
-        <text><textPath href="#circulo" textLength="545" lengthAdjust="spacing">BLEND 160 G • PÃO BRIOCHE • FEITO NA CHAPA •</textPath></text>
-      </svg>
-      <span class="adesivo adesivo--1">No ponto que você pede</span>
-      <span class="adesivo adesivo--2">Vira combo!</span>
-    </div>
+    <!-- [PREENCHER: foto real de hambúrguer]
+         Troque este bloco por: <img class="hero__foto" src="img/burger.webp" alt="..." width="800" height="600">
+         (sem loading="lazy": a foto do topo deve carregar logo) -->
+    <div class="hero__foto hero__foto--vazia">[PREENCHER: foto real de hambúrguer]</div>
   </section>
 
   <!-- Faixa de labaredas (desenhada só com CSS) -->
@@ -102,9 +79,9 @@
 
       <!-- MONTE EM 3 TOQUES: fica antes dos lanches, para o cliente já saber que é rápido -->
       <ol class="toques" aria-label="Como montar seu lanche em 3 toques">
-        <li class="toque"><span class="toque__emoji" aria-hidden="true">🥩</span><strong>Escolha o ponto</strong><span>mal, ao ponto ou bem passado</span></li>
-        <li class="toque"><span class="toque__emoji" aria-hidden="true">🥓</span><strong>Turbine</strong><span>bacon, cheddar, ovo… ou tire algo</span></li>
-        <li class="toque"><span class="toque__emoji" aria-hidden="true">🍟</span><strong>Vire combo</strong><span>batata + refri, escolha a bebida</span></li>
+        <li class="toque"><svg class="icone toque__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 13.7A6.5 6.5 0 1 0 6.28 6.6c-1.1 3.13-.78 3.9-3.18 6.08A3 3 0 0 0 5 18c4 0 8.4-1.8 11.4-4.3"/><path d="m18.5 6 1.754 3.5a6.48 6.48 0 0 1-1.854 8.2C15.4 20.2 11 22 7 22a3 3 0 0 1-2.68-1.66L2.4 16.5"/><circle cx="12.5" cy="8.5" r="2.5"/></svg><strong>Escolha o ponto</strong><span>mal, ao ponto ou bem passado</span></li>
+        <li class="toque"><svg class="icone toque__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg><strong>Turbine</strong><span>bacon, cheddar, ovo… ou tire algo</span></li>
+        <li class="toque"><svg class="icone toque__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8"/><path d="M5 8h14"/><path d="M7 15a6.47 6.47 0 0 1 5 0 6.47 6.47 0 0 0 5 0"/><path d="m12 8 1-6h2"/></svg><strong>Vire combo</strong><span>batata + refri, escolha a bebida</span></li>
       </ol>
 
       <!-- BUSCA: filtra o cardápio enquanto a pessoa digita (ignora acentos e maiúsculas) -->
@@ -140,8 +117,8 @@
         <fieldset>
           <legend>Como quer receber?</legend>
           <div class="alternar">
-            <label class="opcao-receber"><input type="radio" name="recebimento" value="entrega" checked> <span>🛵 Entrega</span></label>
-            <label class="opcao-receber"><input type="radio" name="recebimento" value="retirada"> <span>🏪 Retirar</span></label>
+            <label class="opcao-receber"><input type="radio" name="recebimento" value="entrega" checked> <span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg> Entrega</span></label>
+            <label class="opcao-receber"><input type="radio" name="recebimento" value="retirada"> <span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2 2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"/></svg> Retirar</span></label>
           </div>
         </fieldset>
 
@@ -173,10 +150,10 @@
     <p class="sobretitulo">Onde estamos</p>
     <h2 id="titulo-visite" class="titulo-secao">Vem comer na chapa</h2>
     <dl class="infos">
-      <div class="info"><dt>📍 Endereço</dt><dd><span data-config="endereco"></span><br><span data-config="cidade"></span></dd></div>
-      <div class="info"><dt>🕘 Horário</dt><dd data-config="horario"></dd></div>
-      <div class="info"><dt>🛵 Entrega</dt><dd>Taxa de <span data-config="taxaEntrega"></span> na região.</dd></div>
-      <div class="info"><dt>💳 Pagamento</dt><dd data-config="formasPagamento"></dd></div>
+      <div class="info"><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 15 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Endereço</dt><dd><span data-config="endereco"></span><br><span data-config="cidade"></span></dd></div>
+      <div class="info"><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Horário</dt><dd data-config="horario"></dd></div>
+      <div class="info"><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg> Entrega</dt><dd>Taxa de <span data-config="taxaEntrega"></span> na região.</dd></div>
+      <div class="info"><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg> Pagamento</dt><dd data-config="formasPagamento"></dd></div>
     </dl>
   </section>
 
@@ -269,9 +246,18 @@
     </div>
   </dialog>
 
-  <!-- ORDEM IMPORTA: config → config.local (só no seu PC) → cardápio → lógica -->
+  <!-- ORDEM IMPORTA: config → config.local (só no seu PC: file:// ou localhost) → cardápio → lógica -->
   <script src="js/config.js"></script>
-  <script src="js/config.local.js"></script>
+  <script>
+    // config.local.js (seu número de teste) só é carregado no seu computador:
+    // "file:" = aberto direto do disco; localhost/127.0.0.1 = servidor no seu PC.
+    // Online ele não existe, e assim o site publicado não pede um arquivo inexistente (erro 404).
+    if (location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(location.hostname)) {
+      // document.write insere o <script> AQUI, na mesma posição: ele roda antes do cardapio.js.
+      // (O "<\/script>" com barra invertida evita fechar este script por engano.)
+      document.write('<script src="js/config.local.js"><\/script>');
+    }
+  </script>
   <script src="js/cardapio.js"></script>
   <script src="js/app.js"></script>
 </body>

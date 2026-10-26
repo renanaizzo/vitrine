@@ -69,7 +69,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
 
 .titulo-secao {
   font-family: var(--fonte-titulo);
-  font-weight: 800;
+  font-weight: 700;
   font-size: clamp(1.6rem, 5.5vw, 2.4rem);
   letter-spacing: -0.035em;
 }
@@ -80,12 +80,28 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
   margin: 0 0 0.7rem;
   color: var(--roxo-vivo);
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 .sobretitulo::before { content: ""; width: 18px; height: 3px; border-radius: 3px; background: var(--holo); }
 .secao__intro { max-width: 40rem; margin: 1.25rem 0 1.5rem; color: var(--tinta-suave); font-size: 1.05rem; }
+
+/* ÍCONES (desenhos da biblioteca Lucide, em SVG dentro do HTML), no lugar dos emojis da interface.
+   Só o desenho fica no HTML; espessura e arredondamento do traço ficam aqui, iguais aos da sacola.
+   "currentColor" = a cor do texto ao redor. */
+.icone {
+  width: 1.15em;
+  height: 1.15em;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* "Entrega / Retirar": ícone e texto lado a lado, centralizados */
+.opcao-receber span { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; }
 
 /* ---------- 3. BOTÕES ---------- */
 .botao {
@@ -97,7 +113,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
   padding: 0.75rem 1.6rem;
   border: 0;
   border-radius: 999px;
-  font: 800 1rem var(--fonte-texto);
+  font: 700 1rem var(--fonte-texto);
   text-decoration: none;
   cursor: pointer;
   transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
@@ -138,9 +154,10 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
   border-radius: 14px;
   background: var(--roxo-escuro);
   box-shadow: 0 0 0 2px var(--limao);
-  font-size: 1.3rem;
+  color: var(--limao);
+  font: 700 1.15rem var(--fonte-titulo);
 }
-.topo__nome { font: 800 1.05rem var(--fonte-titulo); letter-spacing: -0.03em; }
+.topo__nome { font: 700 1.05rem var(--fonte-titulo); letter-spacing: -0.03em; }
 .topo__links { display: none; gap: 1.5rem; }
 .topo__links a { color: var(--tinta-suave); font-weight: 700; text-decoration: none; }
 .topo__links a:hover { color: var(--roxo-vivo); }
@@ -164,7 +181,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
   background: var(--limao);
   color: var(--roxo-escuro);
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
   box-shadow: 0 0 12px rgba(198, 244, 50, 0.9);
 }
 .sacola--pulo { animation: pulo 0.45s ease; }
@@ -207,7 +224,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
   border: 1px solid var(--borda-vidro);
   box-shadow: var(--sombra);
   font-size: 0.85rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 .selo__ponto { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); animation: pulsar 1.8s infinite; }
 @keyframes pulsar { 70% { box-shadow: 0 0 0 9px rgba(34, 197, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); } }
@@ -215,7 +232,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
 
 .hero__titulo {
   font-family: var(--fonte-titulo);
-  font-weight: 800;
+  font-weight: 700;
   font-size: clamp(2.6rem, 11vw, 5rem);
   letter-spacing: -0.055em;
   line-height: 0.98;
@@ -240,77 +257,20 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
 }
 .hero__fatos strong { color: var(--roxo); }
 
-/* Copo desenhado com CSS */
-.copo {
-  position: relative;
-  justify-self: center;
-  width: 210px;
-  height: 300px;
-  margin-top: 1rem;
-  animation: boiar 6s ease-in-out infinite;
+/* Espaço da foto do topo. Enquanto não houver foto real, mostra o aviso [PREENCHER] */
+.hero__foto {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--raio);
+  border: 1px solid var(--borda-vidro);
+  box-shadow: var(--sombra);
+  object-fit: cover;
 }
-@keyframes boiar { 50% { transform: translateY(-12px) rotate(-1.5deg); } }
-/* Brilho roxo em volta do copo, para ele "acender" no fundo escuro.
-   drop-shadow segue o FORMATO do desenho (box-shadow seria um retângulo) */
-.copo { filter: drop-shadow(0 0 36px rgba(166, 77, 255, 0.5)); }
-.copo__corpo {
-  position: absolute;
-  inset: 40px 0 0;
-  display: flex;
-  flex-direction: column;
-  /* clip-path recorta a caixa em formato de copo (mais largo em cima) */
-  clip-path: polygon(0 0, 100% 0, 86% 100%, 14% 100%);
-  background: rgba(255, 255, 255, 0.35);
-}
-.copo__camada--acai { flex: 3; background: linear-gradient(180deg, #7b2a9e, var(--acai) 60%, #3d0f55); }
-.copo__camada--granola {
-  flex: 1;
-  background:
-    radial-gradient(circle, #8a5a2b 2px, transparent 2.5px) 0 0 / 12px 10px,
-    radial-gradient(circle, #f2c88a 2.5px, transparent 3px) 6px 5px / 12px 10px,
-    #d9a35f;
-}
-.copo__camada--acai2 { flex: 2.4; background: linear-gradient(180deg, var(--acai), var(--roxo-escuro)); }
-/* Reflexo de luz no "vidro" do copo */
-.copo__corpo::after {
-  content: "";
-  position: absolute;
-  top: 6%; left: 16%;
-  width: 14%; height: 80%;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
-  transform: skewX(-6deg);
-}
-.copo__rotulo {
-  position: absolute;
-  left: 50%; top: 52%;
-  translate: -50% -50%;
-  padding: 0.25rem 0.8rem;
-  border-radius: 999px;
-  background: var(--limao);
-  color: var(--roxo-escuro);
-  font: 800 0.9rem var(--fonte-titulo);
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-}
-.copo__frutas {
-  position: absolute;
-  top: 0; left: 6%; right: 6%;
-  z-index: 1;
-  display: flex;
-  justify-content: space-around;
-  font-size: 2.2rem;
-}
-.copo__frutas span:nth-child(odd) { transform: translateY(14px) rotate(-12deg); }
-.copo__frutas span:nth-child(even) { transform: translateY(4px) rotate(10deg); }
-.copo__canudo {
-  position: absolute;
-  z-index: -1;
-  top: -34px; right: 30%;
-  width: 14px; height: 140px;
-  border-radius: 8px;
-  background: repeating-linear-gradient(180deg, var(--limao) 0 14px, #fff 14px 28px);
-  transform: rotate(14deg);
+.hero__foto--vazia {
+  display: grid; place-items: center; padding: 1rem;
+  border-style: dashed;
+  background: var(--vidro);
+  color: var(--tinta-suave); font-size: 0.9rem; text-align: center;
 }
 
 /* Onda que separa o hero da faixa roxa */
@@ -399,8 +359,8 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
 .categorias__botao--ativo,
 .categorias__botao--ativo:hover { background: var(--limao); border-color: var(--limao); color: var(--roxo-escuro); box-shadow: 0 0 18px rgba(198, 244, 50, 0.45); }
 
-.cardapio__grupo-titulo { margin: 2rem 0 0.9rem; font: 800 1.45rem var(--fonte-titulo); letter-spacing: -0.03em; }
-.cardapio__categoria { margin: 0.6rem 0 0.8rem; color: var(--roxo-vivo); font-size: 0.8rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+.cardapio__grupo-titulo { margin: 2rem 0 0.9rem; font: 700 1.45rem var(--fonte-titulo); letter-spacing: -0.03em; }
+.cardapio__categoria { margin: 0.6rem 0 0.8rem; color: var(--roxo-vivo); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
 .cardapio__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; }
 
 .item {
@@ -435,8 +395,8 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
 .item__nome { font: 700 1.02rem var(--fonte-titulo); letter-spacing: -0.02em; }
 .item__descricao { margin: 0.25rem 0 0; color: var(--tinta-suave); font-size: 0.87rem; line-height: 1.45; }
 .item__acao { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
-.item__preco { font-weight: 800; color: var(--roxo); }
-.item__esgotado { padding: 0.2rem 0.7rem; border-radius: 999px; background: rgba(255, 79, 163, 0.14); color: #ff7ab8; font-weight: 800; font-size: 0.78rem; }
+.item__preco { font-weight: 700; color: var(--roxo); }
+.item__esgotado { padding: 0.2rem 0.7rem; border-radius: 999px; background: rgba(255, 79, 163, 0.14); color: #ff7ab8; font-weight: 700; font-size: 0.78rem; }
 .item--indisponivel { opacity: 0.55; }
 .item--indisponivel .item__foto { filter: grayscale(1); }
 .etiqueta {
@@ -447,7 +407,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
   background: var(--limao);
   color: var(--roxo-escuro);
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 /* Contador */
@@ -467,7 +427,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
 .contador__mais { border: 0; background: var(--holo); color: #fff; box-shadow: 0 8px 18px -8px rgba(139, 44, 245, 0.9); }
 .contador__menos, .contador__qtd { display: none; }
 .item--no-carrinho .contador__menos { display: grid; }
-.item--no-carrinho .contador__qtd { display: block; min-width: 1.4rem; text-align: center; font-weight: 800; }
+.item--no-carrinho .contador__qtd { display: block; min-width: 1.4rem; text-align: center; font-weight: 700; }
 .item--no-carrinho .contador__qtd--selo {
   display: grid; place-items: center;
   min-width: 28px; height: 28px;
@@ -476,7 +436,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
   color: var(--roxo-escuro);
   font-size: 0.85rem;
 }
-.contador--janela .contador__qtd { display: block; min-width: 1.6rem; text-align: center; font-weight: 800; font-size: 1.1rem; }
+.contador--janela .contador__qtd { display: block; min-width: 1.6rem; text-align: center; font-weight: 700; font-size: 1.1rem; }
 
 /* ---------- 9. COMANDA ---------- */
 .comanda {
@@ -489,7 +449,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
-.comanda__titulo { font: 800 1.4rem var(--fonte-titulo); letter-spacing: -0.03em; }
+.comanda__titulo { font: 700 1.4rem var(--fonte-titulo); letter-spacing: -0.03em; }
 .comanda__itens { list-style: none; margin: 1rem 0 0; padding: 0; }
 .comanda__item {
   display: grid;
@@ -499,8 +459,8 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
   padding: 0.7rem 0;
   border-bottom: 1px solid var(--linha);
 }
-.comanda__qtd { font-weight: 800; color: var(--roxo-vivo); }
-.comanda__nome, .comanda__valor { font-weight: 800; }
+.comanda__qtd { font-weight: 700; color: var(--roxo-vivo); }
+.comanda__nome, .comanda__valor { font-weight: 700; }
 .comanda__detalhe { grid-column: 2 / -1; color: var(--tinta-suave); font-size: 0.84rem; line-height: 1.35; }
 .comanda__controles { grid-column: 2 / -1; display: flex; gap: 0.4rem; margin-top: 0.3rem; }
 .comanda__controles button { width: 34px; height: 34px; border: 1px solid var(--linha); border-radius: 50%; background: var(--painel); font-size: 1.1rem; cursor: pointer; }
@@ -508,11 +468,11 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
 .comanda__totais { margin: 1rem 0 1.5rem; color: var(--tinta-suave); }
 .comanda__totais div { display: flex; justify-content: space-between; padding: 0.2rem 0; }
 .comanda__totais dt, .comanda__totais dd { margin: 0; }
-.comanda__total { margin-top: 0.5rem; padding-top: 0.6rem !important; border-top: 1px solid var(--linha); color: var(--tinta); font: 800 1.3rem var(--fonte-titulo); }
+.comanda__total { margin-top: 0.5rem; padding-top: 0.6rem !important; border-top: 1px solid var(--linha); color: var(--tinta); font: 700 1.3rem var(--fonte-titulo); }
 
 /* ---------- 10. FORMULÁRIO ---------- */
 .formulario { display: grid; gap: 0.35rem; }
-.formulario label, .formulario legend { font-weight: 800; font-size: 0.9rem; margin-top: 0.6rem; padding: 0; }
+.formulario label, .formulario legend { font-weight: 700; font-size: 0.9rem; margin-top: 0.6rem; padding: 0; }
 .formulario input[type="text"],
 .formulario select,
 .formulario textarea,
@@ -537,7 +497,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
 .opcao-receber input { position: absolute; opacity: 0; pointer-events: none; }
 .opcao-receber:has(input:checked) { background: rgba(198, 244, 50, 0.12); border-color: var(--limao); color: var(--limao); }
 .opcao-receber:has(input:focus-visible) { outline: 3px solid var(--roxo-vivo); outline-offset: 2px; }
-.formulario__erro { min-height: 1.4em; margin: 0.4rem 0 0; color: #ff7ab8; font-weight: 800; }
+.formulario__erro { min-height: 1.4em; margin: 0.4rem 0 0; color: #ff7ab8; font-weight: 700; }
 
 /* ---------- 11. JANELA "MONTE SEU PEDIDO" ---------- */
 /* No celular ela sobe de baixo, como uma "gaveta" */
@@ -571,11 +531,11 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
   color: #fff;
 }
 .montar__emoji { display: grid; place-items: center; width: 58px; height: 58px; border-radius: 18px; background: rgba(255, 255, 255, 0.14); font-size: 2rem; }
-.montar__nome { font: 800 1.35rem var(--fonte-titulo); letter-spacing: -0.03em; }
+.montar__nome { font: 700 1.35rem var(--fonte-titulo); letter-spacing: -0.03em; }
 .montar__descricao { margin: 0.25rem 0 0; font-size: 0.88rem; color: rgba(255, 255, 255, 0.78); }
 .montar__fechar { width: 40px; height: 40px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.16); color: #fff; font-size: 1.5rem; line-height: 1; cursor: pointer; }
 .montar__corpo { flex: 1; overflow-y: auto; padding: 0.5rem 1.2rem 1rem; }
-.montar__rotulo { display: block; margin: 1rem 0 0.4rem; font-weight: 800; }
+.montar__rotulo { display: block; margin: 1rem 0 0.4rem; font-weight: 700; }
 .montar__rodape { padding: 0.5rem 1.2rem 1rem; border-top: 1px solid var(--linha); background: var(--painel); }
 .montar__acoes { display: flex; gap: 0.75rem; align-items: center; }
 .montar__confirmar { flex: 1; }
@@ -587,7 +547,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
   border-radius: 999px;
   background: rgba(139, 44, 245, 0.1);
   color: var(--roxo);
-  font: 800 0.72rem var(--fonte-texto);
+  font: 700 0.72rem var(--fonte-texto);
   white-space: nowrap;
 }
 /* Passou do limite grátis: o aviso fica rosa */
@@ -606,7 +566,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
 }
 .opcao input { width: 20px; height: 20px; margin: 0; accent-color: var(--roxo-vivo); flex-shrink: 0; }
 .opcao__nome { flex: 1; }
-.opcao__preco { font-weight: 800; font-size: 0.86rem; color: var(--roxo); white-space: nowrap; }
+.opcao__preco { font-weight: 700; font-size: 0.86rem; color: var(--roxo); white-space: nowrap; }
 .opcao:has(input:checked) { border-color: var(--roxo-vivo); background: rgba(139, 44, 245, 0.07); font-weight: 700; }
 .opcao--desativada { opacity: 0.45; cursor: not-allowed; }
 
@@ -632,19 +592,20 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
   border: 2px solid transparent;
   background: linear-gradient(var(--painel), var(--painel)) padding-box, var(--holo) border-box;
 }
-.tamanho__ml { font: 800 clamp(1.8rem, 7vw, 2.6rem)/1 var(--fonte-titulo); letter-spacing: -0.05em; color: var(--roxo); }
+.tamanho__ml { font: 700 clamp(1.8rem, 7vw, 2.6rem)/1 var(--fonte-titulo); letter-spacing: -0.05em; color: var(--roxo); }
 .tamanho__ml small { font-size: 0.45em; letter-spacing: 0; margin-left: 2px; }
 .tamanho__gratis { color: var(--tinta-suave); font-size: 0.82rem; font-weight: 700; }
 
 .infos { margin: 1.5rem 0 0; display: grid; gap: 0.8rem; }
 .info { padding: 1rem 1.1rem; border-radius: var(--raio); background: var(--vidro); border: 1px solid var(--borda-vidro); box-shadow: var(--sombra); }
-.info dt { font-weight: 800; }
+.info dt { display: flex; align-items: center; gap: 0.45rem; font-weight: 700; }
+.info dt .icone { color: var(--roxo-vivo); }
 .info dd { margin: 0.3rem 0 0; color: var(--tinta-suave); }
 
 .perguntas { display: grid; gap: 0.6rem; margin-top: 1.5rem; max-width: 52rem; }
 .perguntas details { padding: 0 1.1rem; border-radius: 20px; background: var(--vidro); border: 1px solid var(--borda-vidro); }
 .perguntas details[open] { background: var(--painel); box-shadow: var(--sombra); }
-.perguntas summary { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem 0; font-weight: 800; cursor: pointer; list-style: none; }
+.perguntas summary { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem 0; font-weight: 700; cursor: pointer; list-style: none; }
 .perguntas summary::-webkit-details-marker { display: none; }
 .perguntas summary::after {
   content: "+";
@@ -654,7 +615,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
   border-radius: 50%;
   background: var(--roxo-escuro);
   color: var(--limao);
-  font-weight: 800;
+  font-weight: 700;
   transition: transform 0.2s;
 }
 .perguntas details[open] summary::after { transform: rotate(45deg); }
@@ -663,7 +624,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
 /* ---------- 13. RODAPÉ, BARRA FIXA E REVISÃO ---------- */
 .rodape { margin-top: 4rem; padding: 2.5rem 1rem 7rem; background: var(--roxo-escuro); color: #e9dcff; text-align: center; }
 .rodape p { margin: 0.3rem 0; }
-.rodape__marca { font: 800 1.5rem var(--fonte-titulo); letter-spacing: -0.03em; color: var(--limao); }
+.rodape__marca { font: 700 1.5rem var(--fonte-titulo); letter-spacing: -0.03em; color: var(--limao); }
 .rodape__base { margin-top: 1.25rem !important; opacity: 0.65; font-size: 0.82rem; }
 
 .barra-pedido {
@@ -676,7 +637,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
   border-radius: 999px;
   background: var(--roxo-escuro);
   color: #fff;
-  font-weight: 800;
+  font-weight: 700;
   text-decoration: none;
   box-shadow: 0 16px 36px -12px rgba(42, 11, 61, 0.8), 0 0 0 2px var(--limao);
   animation: subir 0.3s ease;
@@ -686,10 +647,10 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
 
 .revisao { width: min(92vw, 480px); padding: 1.5rem; border: 0; border-radius: 28px; background: var(--painel-escuro); color: var(--tinta); box-shadow: 0 40px 80px -30px rgba(42, 11, 61, 0.6); }
 .revisao::backdrop { background: rgba(42, 11, 61, 0.45); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-.revisao h2 { font: 800 1.35rem var(--fonte-titulo); letter-spacing: -0.03em; }
+.revisao h2 { font: 700 1.35rem var(--fonte-titulo); letter-spacing: -0.03em; }
 .revisao__dica { color: var(--tinta-suave); font-size: 0.9rem; }
 .revisao__mensagem { max-height: 45vh; overflow: auto; padding: 1rem; border-radius: 18px; background: #0f2a1a; border: 1px solid rgba(37, 211, 102, 0.3); font: 0.9rem/1.5 var(--fonte-texto); white-space: pre-wrap; }
-.revisao__nota { color: #ff7ab8; font-weight: 800; }
+.revisao__nota { color: #ff7ab8; font-weight: 700; }
 .revisao__botoes { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: flex-end; margin-top: 1rem; }
 
 /* ---------- 14. TELAS MAIORES ---------- */
@@ -705,7 +666,6 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.12; }
   .topo__links { display: flex; }
   .topo__links + .sacola { margin-left: 0.5rem; }
   .hero { grid-template-columns: 1.2fr 0.8fr; align-items: center; padding: 4rem 2rem 2rem; }
-  .copo { width: 260px; height: 370px; }
   .grupos { padding-inline: 2rem; }
   .grupos__grade { grid-auto-flow: row; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); margin-inline: 0; padding-inline: 0; overflow: visible; }
   .conteudo { display: grid; grid-template-columns: 1fr 380px; gap: 2.5rem; align-items: start; padding: 3rem 2rem 1rem; }

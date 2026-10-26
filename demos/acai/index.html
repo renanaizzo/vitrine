@@ -18,10 +18,10 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍇</text></svg>">
   <meta name="theme-color" content="#0e0616">
 
-  <!-- Fontes: Sora (títulos geométricos, cara futurista) e Plus Jakarta Sans (texto) -->
+  <!-- Fontes: Sora 700 (títulos geométricos) e Plus Jakarta Sans 400/700 (texto). Só os pesos usados: menos para baixar -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/estilos.css">
 </head>
@@ -32,7 +32,7 @@
   <!-- TOPO FIXO -->
   <header class="topo">
     <a class="topo__marca" href="#inicio" aria-label="Açaí da Praça, voltar ao início">
-      <span class="topo__logo" aria-hidden="true">🍇</span>
+      <span class="topo__logo" aria-hidden="true">A</span>
       <span class="topo__nome">Açaí da Praça</span>
     </a>
     <nav class="topo__links" aria-label="Atalhos">
@@ -68,17 +68,10 @@
       </ul>
     </div>
 
-    <!-- Copo desenhado com CSS: camadas de açaí, granola e frutas -->
-    <div class="copo" aria-hidden="true">
-      <div class="copo__frutas"><span>🍓</span><span>🍌</span><span>🥝</span><span>🫐</span></div>
-      <div class="copo__corpo">
-        <span class="copo__camada copo__camada--acai"></span>
-        <span class="copo__camada copo__camada--granola"></span>
-        <span class="copo__camada copo__camada--acai2"></span>
-        <span class="copo__rotulo">da Praça</span>
-      </div>
-      <span class="copo__canudo"></span>
-    </div>
+    <!-- [PREENCHER: foto real de copo de açaí]
+         Troque este bloco por: <img class="hero__foto" src="img/acai.webp" alt="..." width="800" height="600">
+         (sem loading="lazy": a foto do topo deve carregar logo) -->
+    <div class="hero__foto hero__foto--vazia">[PREENCHER: foto real de copo de açaí]</div>
   </section>
 
   <!-- Onda separando o hero do resto -->
@@ -113,7 +106,7 @@
       <h2 id="titulo-comanda" class="comanda__titulo">Seu pedido</h2>
 
       <ul id="itens-comanda" class="comanda__itens"><!-- app.js preenche --></ul>
-      <p id="comanda-vazia" class="comanda__vazia">Sua sacola está vazia. Que tal montar um copo? 🍇</p>
+      <p id="comanda-vazia" class="comanda__vazia">Sua sacola está vazia. Que tal montar um copo?</p>
 
       <dl class="comanda__totais">
         <div><dt>Subtotal</dt><dd id="subtotal">R$ 0,00</dd></div>
@@ -128,8 +121,8 @@
         <fieldset>
           <legend>Como quer receber?</legend>
           <div class="alternar">
-            <label class="opcao-receber"><input type="radio" name="recebimento" value="entrega" checked> <span>🛵 Entrega</span></label>
-            <label class="opcao-receber"><input type="radio" name="recebimento" value="retirada"> <span>🏪 Retirar</span></label>
+            <label class="opcao-receber"><input type="radio" name="recebimento" value="entrega" checked> <span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg> Entrega</span></label>
+            <label class="opcao-receber"><input type="radio" name="recebimento" value="retirada"> <span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2 2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"/></svg> Retirar</span></label>
           </div>
         </fieldset>
 
@@ -174,10 +167,10 @@
     <p class="sobretitulo">Onde estamos</p>
     <h2 id="titulo-visite" class="titulo-secao">Na praça, todo dia</h2>
     <dl class="infos">
-      <div class="info"><dt>📍 Endereço</dt><dd><span data-config="endereco"></span><br><span data-config="cidade"></span></dd></div>
-      <div class="info"><dt>🕘 Horário</dt><dd data-config="horario"></dd></div>
-      <div class="info"><dt>🛵 Entrega</dt><dd>Taxa de <span data-config="taxaEntrega"></span> na região.</dd></div>
-      <div class="info"><dt>💳 Pagamento</dt><dd data-config="formasPagamento"></dd></div>
+      <div class="info"><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 15 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Endereço</dt><dd><span data-config="endereco"></span><br><span data-config="cidade"></span></dd></div>
+      <div class="info"><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Horário</dt><dd data-config="horario"></dd></div>
+      <div class="info"><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg> Entrega</dt><dd>Taxa de <span data-config="taxaEntrega"></span> na região.</dd></div>
+      <div class="info"><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg> Pagamento</dt><dd data-config="formasPagamento"></dd></div>
     </dl>
   </section>
 
@@ -210,7 +203,7 @@
   </section>
 
   <footer class="rodape">
-    <p class="rodape__marca">🍇 Açaí da Praça</p>
+    <p class="rodape__marca">Açaí da Praça</p>
     <p><span data-config="endereco"></span> · <span data-config="cidade"></span></p>
     <p data-config="horario"></p>
     <p class="rodape__base">© <span data-config="ano"></span> Açaí da Praça · Negócio fictício, criado para demonstração. Site por Renan Aizzo.</p>
@@ -267,9 +260,18 @@
     </div>
   </dialog>
 
-  <!-- ORDEM IMPORTA: config → config.local (só no seu PC) → cardápio → lógica -->
+  <!-- ORDEM IMPORTA: config → config.local (só no seu PC: file:// ou localhost) → cardápio → lógica -->
   <script src="js/config.js"></script>
-  <script src="js/config.local.js"></script>
+  <script>
+    // config.local.js (seu número de teste) só é carregado no seu computador:
+    // "file:" = aberto direto do disco; localhost/127.0.0.1 = servidor no seu PC.
+    // Online ele não existe, e assim o site publicado não pede um arquivo inexistente (erro 404).
+    if (location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(location.hostname)) {
+      // document.write insere o <script> AQUI, na mesma posição: ele roda antes do cardapio.js.
+      // (O "<\/script>" com barra invertida evita fechar este script por engano.)
+      document.write('<script src="js/config.local.js"><\/script>');
+    }
+  </script>
   <script src="js/cardapio.js"></script>
   <script src="js/app.js"></script>
 </body>
