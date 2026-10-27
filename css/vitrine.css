@@ -157,4 +157,18 @@ body {
   color: transparent;
 }
 
+/* Barbearia: carvão quente com letras cobre (mesmas cores da demo) */
+.miniatura--barbearia {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(200, 145, 90, 0.22), transparent 65%),
+    #111010;
+}
+.miniatura--barbearia .miniatura__nome {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  letter-spacing: -0.03em;
+  color: #c8915a;
+}
+
 .rodape { padding: 1rem 1rem 3rem; text-align: center; color: var(--marinho-suave); }

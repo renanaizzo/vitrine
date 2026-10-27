@@ -21,10 +21,11 @@ vitrine/
             ├── cardapio.js              → só os dados do cardápio
             └── app.js                   → a lógica (carrinho, mensagem, WhatsApp)
     ├── hamburgueria/          → mesma estrutura, com produtos que têm OPÇÕES
-    └── acai/                  → mesma estrutura e mesmo app.js da hamburgueria
+    ├── acai/                  → mesma estrutura e mesmo app.js da hamburgueria
+    └── barbearia/             → AGENDAMENTO em vez de sacola (servicos.js no lugar de cardapio.js)
 ```
 
-As três demos são independentes: para fazer o site de um cliente, copie a pasta da demo
+As quatro demos são independentes: para fazer o site de um cliente, copie a pasta da demo
 mais parecida (sem o `config.local.js`) e troque `config.js`, `cardapio.js` e as cores.
 
 ## Produtos com opções (hamburgueria e açaí)
@@ -35,6 +36,14 @@ muda conforme as escolhas. Todos os campos estão explicados no começo de
 `demos/hamburgueria/js/cardapio.js`.
 
 O `app.js` é **o mesmo arquivo** nas duas pastas. Mudou um? Copie para o outro.
+
+## Barbearia (agendamento)
+
+Em vez de sacola, o cliente escolhe serviços, barbeiro, dia e período, e a mensagem de
+agendamento sai pronta para o WhatsApp. Os dados ficam em `demos/barbearia/js/servicos.js`
+(serviços com preço em centavos e duração em minutos, e barbeiros). O `app.js` dela é
+próprio, não é o mesmo da hamburgueria/açaí. O horário em números (`funcionamento`) aceita
+regras diferentes por dia, por exemplo sábado com horário menor.
 
 ## Como abrir
 

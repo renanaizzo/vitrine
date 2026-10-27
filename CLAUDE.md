@@ -20,6 +20,8 @@ Todos os negócios são fictícios. Estrutura e instruções: ver README.md.
 - Também prontas: `demos/hamburgueria` ("Brasa Burger": adicionais e combos que mudam o preço) e
   `demos/acai` ("Açaí da Praça": monte seu copo, complementos grátis até um limite, extras pagos).
   As duas usam o mesmo `app.js` (motor de opções); mudou num, copie para o outro.
+- `demos/barbearia` ("Barbearia do Largo"): agendamento pelo WhatsApp (serviços, barbeiro, dia, período).
+  Dados em `servicos.js`; `app.js` próprio. Fotos de barbeiros, galeria e hero estão como `[PREENCHER]`.
 - Demos podem se inspirar em negócios reais (produtos, faixa de preço), mas nunca copiar
   nome, marca, textos ou fotos.
 
