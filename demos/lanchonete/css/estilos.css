@@ -340,7 +340,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
   border-color: rgba(255, 122, 26, 0.55);
   box-shadow: 0 18px 40px -20px rgba(255, 122, 26, 0.7);
 }
-.grupo__emoji {
+.grupo__icone {
   display: grid;
   place-items: center;
   width: 52px; height: 52px;
@@ -446,7 +446,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
 
 .item {
   display: grid;
-  grid-template-columns: 80px 1fr;   /* emoji | texto */
+  grid-template-columns: 80px 1fr;   /* foto | texto */
   grid-template-rows: 1fr auto;      /* texto em cima, preço e contador embaixo */
   gap: 0.5rem 0.95rem;
   padding: 0.85rem;
@@ -688,7 +688,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
 .revisao__nota { color: #ff9a8d; font-weight: 700; }
 .revisao__botoes { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: flex-end; margin-top: 1rem; }
 
-/* Etiqueta "❄️ Congelado" no cartão */
+/* Etiqueta "Congelado" no cartão */
 .etiqueta {
   display: inline-flex;
   align-items: center;
@@ -1049,3 +1049,6 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.15; }
 .busca__campo::placeholder { color: var(--texto-suave); opacity: 0.8; }
 .busca__campo:focus { outline: none; border-color: var(--brasa); box-shadow: 0 0 0 4px rgba(255, 122, 26, 0.18); }
 .busca__vazia { margin: 1.5rem 0; padding: 1.5rem; text-align: center; color: var(--texto-suave); }
+
+/* Ícone do grupo no lugar da foto (cartão, atalhos e janela de montar) */
+.item__foto .icone, .grupo__icone .icone, .montar__icone .icone { color: #ffc23d; stroke-width: 1.6; }

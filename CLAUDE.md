@@ -26,6 +26,7 @@ Todos os negócios são fictícios. Estrutura e instruções: ver README.md.
   nome, marca, textos ou fotos.
 
 ## Regras do projeto
+- Sem emojis na interface: produto sem foto usa o ícone do grupo (`ICONES` no `cardapio.js`, Lucide).
 - Preços sempre em **centavos** (1800 = R$ 18,00).
 - `config.js` tem número **fictício** e `modoDemo: true`. É o que vai online.
 - `config.local.js` tem o número real, está no `.gitignore` e **NUNCA** pode entrar no Git.

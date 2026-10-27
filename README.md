@@ -73,6 +73,10 @@ Em `cardapio.js`, copie um item parecido e mude os campos. Dois deles definem as
 
 As abas aparecem na ordem dos itens no arquivo. Um grupo novo vira aba e bloco de atalho sozinho.
 
+Sem foto, o produto mostra o **ícone do grupo** (desenhos Lucide). Os ícones ficam no objeto
+`ICONES`, no começo da lista em `cardapio.js`: grupo novo sem linha em `ICONES` usa o `padrao`.
+Emojis não são usados em nenhum lugar da interface.
+
 ## Como ligar e desligar partes da página
 
 Em `config.js`, o objeto `secoes` mostra (`true`) ou esconde (`false`) partes inteiras:

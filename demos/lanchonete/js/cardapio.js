@@ -11,12 +11,11 @@
     grupo       → aba de cima (ex.: "Pastéis")
     categoria   → aba de baixo, dentro do grupo (ex.: "Pastéis especiais").
                   O nome da categoria precisa ser ÚNICO no cardápio inteiro.
-    foto        → caminho da imagem (ex.: "img/coxinha.webp"); vazio = usa o emoji
-    emoji       → reserva enquanto não há foto
+    foto        → caminho da imagem (ex.: "img/coxinha.webp"); vazio = usa o ícone do grupo (ICONES, abaixo)
     disponivel  → true (aparece para pedir) ou false (aparece como "esgotado")
     secao       → (opcional) liga o item a uma chave de CONFIG.secoes, no config.js.
                   Ex.: secao: "congelados" → o item some se congelados estiver false.
-    congelado   → (opcional) true mostra a etiqueta "❄️ Congelado" no cartão
+    congelado   → (opcional) true mostra a etiqueta "Congelado" no cartão
 
   As abas aparecem na mesma ordem dos itens aqui: para mudar a ordem, mude os itens de lugar.
 
@@ -25,6 +24,18 @@
 
   Cardápio FICTÍCIO para demonstração.
 */
+
+// Ícone de cada GRUPO (desenhos Lucide). Mostrado no lugar da foto enquanto ela não existe.
+// Grupo novo? Acrescente uma linha aqui; sem linha, usa "padrao".
+const ICONES = {
+  "Salgados": '<path d="M15.4 15.63a7.875 6 135 1 1 6.23-6.23 4.3 3.43 135 0 0-6.23 6.23"/><path d="m8.29 12.71-2.6 2.6a2.5 2.5 0 1 0-1.65 4.65A2.5 2.5 0 1 0 8.7 18.3l2.59-2.59"/>',
+  "Pastéis": '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
+  "Pizzas e fogaças": '<path d="m12 14-1 1"/><path d="m13.75 18.25-1.25 1.42"/><path d="M17.775 5.654a15.68 15.68 0 0 0-12.121 12.12"/><path d="M18.8 9.3a1 1 0 0 0 2.1 7.7"/><path d="M21.964 20.732a1 1 0 0 1-1.232 1.232l-18-5a1 1 0 0 1-.695-1.232A19.68 19.68 0 0 1 15.732 2.037a1 1 0 0 1 1.232.695z"/>',
+  "Doces e tortas": '<path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 8v3"/><path d="M17 8v3"/><path d="M7 4h.01"/><path d="M12 4h.01"/><path d="M17 4h.01"/>',
+  "Sucos": '<path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8"/><path d="M5 8h14"/><path d="M7 15a6.47 6.47 0 0 1 5 0 6.47 6.47 0 0 0 5 0"/><path d="m12 8 1-6h2"/>',
+  "Para festas": '<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>',
+  padrao: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
+};
 
 const CARDAPIO = [
   /* ================= SALGADOS ================= */
@@ -36,7 +47,6 @@ const CARDAPIO = [
     grupo: "Salgados",
     categoria: "Fritos",
     foto: "",
-    emoji: "🍗",
     disponivel: true,
   },
   {
@@ -47,7 +57,6 @@ const CARDAPIO = [
     grupo: "Salgados",
     categoria: "Fritos",
     foto: "",
-    emoji: "🍗",
     disponivel: true,
   },
   {
@@ -58,7 +67,6 @@ const CARDAPIO = [
     grupo: "Salgados",
     categoria: "Fritos",
     foto: "",
-    emoji: "🧀",
     disponivel: true,
   },
   {
@@ -69,7 +77,6 @@ const CARDAPIO = [
     grupo: "Salgados",
     categoria: "Fritos",
     foto: "",
-    emoji: "🥙",
     disponivel: true,
   },
   {
@@ -80,7 +87,6 @@ const CARDAPIO = [
     grupo: "Salgados",
     categoria: "Fritos",
     foto: "",
-    emoji: "🧀",
     disponivel: true,
   },
   {
@@ -91,7 +97,6 @@ const CARDAPIO = [
     grupo: "Salgados",
     categoria: "Fritos",
     foto: "",
-    emoji: "🌭",
     disponivel: true,
   },
   {
@@ -102,7 +107,6 @@ const CARDAPIO = [
     grupo: "Salgados",
     categoria: "Assados",
     foto: "",
-    emoji: "🧀",
     disponivel: true,
   },
   {
@@ -113,7 +117,6 @@ const CARDAPIO = [
     grupo: "Salgados",
     categoria: "Assados",
     foto: "",
-    emoji: "🥟",
     disponivel: true,
   },
   {
@@ -124,7 +127,6 @@ const CARDAPIO = [
     grupo: "Salgados",
     categoria: "Assados",
     foto: "",
-    emoji: "🥟",
     disponivel: true,
   },
   {
@@ -135,7 +137,6 @@ const CARDAPIO = [
     grupo: "Salgados",
     categoria: "Assados",
     foto: "",
-    emoji: "🥧",
     disponivel: true,
   },
   {
@@ -146,7 +147,6 @@ const CARDAPIO = [
     grupo: "Salgados",
     categoria: "Assados",
     foto: "",
-    emoji: "🥐",
     disponivel: true,
   },
 
@@ -159,7 +159,6 @@ const CARDAPIO = [
     grupo: "Pastéis",
     categoria: "Pastéis tradicionais",
     foto: "",
-    emoji: "🥟",
     disponivel: true,
   },
   {
@@ -170,7 +169,6 @@ const CARDAPIO = [
     grupo: "Pastéis",
     categoria: "Pastéis tradicionais",
     foto: "",
-    emoji: "🧀",
     disponivel: true,
   },
   {
@@ -181,7 +179,6 @@ const CARDAPIO = [
     grupo: "Pastéis",
     categoria: "Pastéis tradicionais",
     foto: "",
-    emoji: "🥟",
     disponivel: true,
   },
   {
@@ -192,7 +189,6 @@ const CARDAPIO = [
     grupo: "Pastéis",
     categoria: "Pastéis tradicionais",
     foto: "",
-    emoji: "🍕",
     disponivel: true,
   },
   {
@@ -203,7 +199,6 @@ const CARDAPIO = [
     grupo: "Pastéis",
     categoria: "Pastéis tradicionais",
     foto: "",
-    emoji: "🥟",
     disponivel: true,
   },
   {
@@ -214,7 +209,6 @@ const CARDAPIO = [
     grupo: "Pastéis",
     categoria: "Pastéis especiais",
     foto: "",
-    emoji: "🥚",
     disponivel: true,
   },
   {
@@ -225,7 +219,6 @@ const CARDAPIO = [
     grupo: "Pastéis",
     categoria: "Pastéis especiais",
     foto: "",
-    emoji: "🌽",
     disponivel: true,
   },
   {
@@ -236,7 +229,6 @@ const CARDAPIO = [
     grupo: "Pastéis",
     categoria: "Pastéis especiais",
     foto: "",
-    emoji: "🥟",
     disponivel: true,
   },
   {
@@ -247,7 +239,6 @@ const CARDAPIO = [
     grupo: "Pastéis",
     categoria: "Pastéis especiais",
     foto: "",
-    emoji: "🐟",
     disponivel: true,
   },
   {
@@ -258,7 +249,6 @@ const CARDAPIO = [
     grupo: "Pastéis",
     categoria: "Pastéis especiais",
     foto: "",
-    emoji: "🦐",
     disponivel: true,
   },
   {
@@ -269,7 +259,6 @@ const CARDAPIO = [
     grupo: "Pastéis",
     categoria: "Pastéis doces",
     foto: "",
-    emoji: "🍫",
     disponivel: true,
   },
   {
@@ -280,7 +269,6 @@ const CARDAPIO = [
     grupo: "Pastéis",
     categoria: "Pastéis doces",
     foto: "",
-    emoji: "🍓",
     disponivel: true,
   },
   {
@@ -291,7 +279,6 @@ const CARDAPIO = [
     grupo: "Pastéis",
     categoria: "Pastéis doces",
     foto: "",
-    emoji: "🧀",
     disponivel: true,
   },
   {
@@ -302,7 +289,6 @@ const CARDAPIO = [
     grupo: "Pastéis",
     categoria: "Pastéis doces",
     foto: "",
-    emoji: "🥥",
     disponivel: true,
   },
 
@@ -315,7 +301,6 @@ const CARDAPIO = [
     grupo: "Pizzas e fogaças",
     categoria: "Mini pizzas",
     foto: "",
-    emoji: "🍕",
     disponivel: true,
   },
   {
@@ -326,7 +311,6 @@ const CARDAPIO = [
     grupo: "Pizzas e fogaças",
     categoria: "Mini pizzas",
     foto: "",
-    emoji: "🍕",
     disponivel: true,
   },
   {
@@ -337,7 +321,6 @@ const CARDAPIO = [
     grupo: "Pizzas e fogaças",
     categoria: "Mini pizzas",
     foto: "",
-    emoji: "🍕",
     disponivel: true,
   },
   {
@@ -348,7 +331,6 @@ const CARDAPIO = [
     grupo: "Pizzas e fogaças",
     categoria: "Mini pizzas",
     foto: "",
-    emoji: "🍕",
     disponivel: true,
   },
   {
@@ -359,7 +341,6 @@ const CARDAPIO = [
     grupo: "Pizzas e fogaças",
     categoria: "Mini pizzas doces",
     foto: "",
-    emoji: "🍫",
     disponivel: true,
   },
   {
@@ -370,7 +351,6 @@ const CARDAPIO = [
     grupo: "Pizzas e fogaças",
     categoria: "Mini pizzas doces",
     foto: "",
-    emoji: "🍌",
     disponivel: true,
   },
   {
@@ -381,7 +361,6 @@ const CARDAPIO = [
     grupo: "Pizzas e fogaças",
     categoria: "Mini pizzas doces",
     foto: "",
-    emoji: "🥥",
     disponivel: true,
   },
   {
@@ -392,7 +371,6 @@ const CARDAPIO = [
     grupo: "Pizzas e fogaças",
     categoria: "Fogaças",
     foto: "",
-    emoji: "🫓",
     disponivel: true,
   },
   {
@@ -403,7 +381,6 @@ const CARDAPIO = [
     grupo: "Pizzas e fogaças",
     categoria: "Fogaças",
     foto: "",
-    emoji: "🫓",
     disponivel: true,
   },
   {
@@ -414,7 +391,6 @@ const CARDAPIO = [
     grupo: "Pizzas e fogaças",
     categoria: "Fogaças",
     foto: "",
-    emoji: "🫓",
     disponivel: true,
   },
   {
@@ -425,7 +401,6 @@ const CARDAPIO = [
     grupo: "Pizzas e fogaças",
     categoria: "Fogaças",
     foto: "",
-    emoji: "🍯",
     disponivel: true,
   },
 
@@ -438,7 +413,6 @@ const CARDAPIO = [
     grupo: "Doces e tortas",
     categoria: "Doces",
     foto: "",
-    emoji: "🍫",
     disponivel: true,
   },
   {
@@ -449,7 +423,6 @@ const CARDAPIO = [
     grupo: "Doces e tortas",
     categoria: "Doces",
     foto: "",
-    emoji: "🥥",
     disponivel: true,
   },
   {
@@ -460,7 +433,6 @@ const CARDAPIO = [
     grupo: "Doces e tortas",
     categoria: "Doces",
     foto: "",
-    emoji: "🥥",
     disponivel: true,
   },
   {
@@ -471,7 +443,6 @@ const CARDAPIO = [
     grupo: "Doces e tortas",
     categoria: "Doces",
     foto: "",
-    emoji: "🍮",
     disponivel: true,
   },
   {
@@ -482,7 +453,6 @@ const CARDAPIO = [
     grupo: "Doces e tortas",
     categoria: "Doces",
     foto: "",
-    emoji: "🍰",
     disponivel: true,
   },
   {
@@ -493,7 +463,6 @@ const CARDAPIO = [
     grupo: "Doces e tortas",
     categoria: "Tortas",
     foto: "",
-    emoji: "🍋",
     disponivel: true,
   },
   {
@@ -504,7 +473,6 @@ const CARDAPIO = [
     grupo: "Doces e tortas",
     categoria: "Tortas",
     foto: "",
-    emoji: "🍓",
     disponivel: true,
   },
   {
@@ -515,7 +483,6 @@ const CARDAPIO = [
     grupo: "Doces e tortas",
     categoria: "Tortas",
     foto: "",
-    emoji: "🥧",
     disponivel: true,
   },
   {
@@ -526,7 +493,6 @@ const CARDAPIO = [
     grupo: "Doces e tortas",
     categoria: "Tortas",
     foto: "",
-    emoji: "🍌",
     disponivel: true,
   },
 
@@ -539,7 +505,6 @@ const CARDAPIO = [
     grupo: "Sucos",
     categoria: "Sucos naturais",
     foto: "",
-    emoji: "🍊",
     disponivel: false, // ← exemplo de item esgotado
   },
   {
@@ -550,7 +515,6 @@ const CARDAPIO = [
     grupo: "Sucos",
     categoria: "Sucos naturais",
     foto: "",
-    emoji: "🍋",
     disponivel: true,
   },
   {
@@ -561,7 +525,6 @@ const CARDAPIO = [
     grupo: "Sucos",
     categoria: "Sucos naturais",
     foto: "",
-    emoji: "🍍",
     disponivel: true,
   },
   {
@@ -572,7 +535,6 @@ const CARDAPIO = [
     grupo: "Sucos",
     categoria: "Sucos com água",
     foto: "",
-    emoji: "🥤",
     disponivel: true,
   },
   {
@@ -583,7 +545,6 @@ const CARDAPIO = [
     grupo: "Sucos",
     categoria: "Sucos com água",
     foto: "",
-    emoji: "🍓",
     disponivel: true,
   },
   {
@@ -594,7 +555,6 @@ const CARDAPIO = [
     grupo: "Sucos",
     categoria: "Sucos com água",
     foto: "",
-    emoji: "🍒",
     disponivel: true,
   },
   {
@@ -605,7 +565,6 @@ const CARDAPIO = [
     grupo: "Sucos",
     categoria: "Sucos com água",
     foto: "",
-    emoji: "🥤",
     disponivel: true,
   },
   {
@@ -616,7 +575,6 @@ const CARDAPIO = [
     grupo: "Sucos",
     categoria: "Sucos com água",
     foto: "",
-    emoji: "🥤",
     disponivel: true,
   },
   {
@@ -627,7 +585,6 @@ const CARDAPIO = [
     grupo: "Sucos",
     categoria: "Sucos com leite",
     foto: "",
-    emoji: "🥛",
     disponivel: true,
   },
   {
@@ -638,7 +595,6 @@ const CARDAPIO = [
     grupo: "Sucos",
     categoria: "Sucos com leite",
     foto: "",
-    emoji: "🍓",
     disponivel: true,
   },
   {
@@ -649,7 +605,6 @@ const CARDAPIO = [
     grupo: "Sucos",
     categoria: "Sucos com leite",
     foto: "",
-    emoji: "🥛",
     disponivel: true,
   },
   {
@@ -660,7 +615,6 @@ const CARDAPIO = [
     grupo: "Sucos",
     categoria: "Sucos com leite",
     foto: "",
-    emoji: "🥛",
     disponivel: true,
   },
 
@@ -674,7 +628,6 @@ const CARDAPIO = [
     grupo: "Para festas",
     categoria: "Cento pronto",
     foto: "",
-    emoji: "🍗",
     disponivel: true,
     secao: "festas",
   },
@@ -686,7 +639,6 @@ const CARDAPIO = [
     grupo: "Para festas",
     categoria: "Cento pronto",
     foto: "",
-    emoji: "🎉",
     disponivel: true,
     secao: "festas",
   },
@@ -698,7 +650,6 @@ const CARDAPIO = [
     grupo: "Para festas",
     categoria: "Cento pronto",
     foto: "",
-    emoji: "🥟",
     disponivel: true,
     secao: "festas",
   },
@@ -710,7 +661,6 @@ const CARDAPIO = [
     grupo: "Para festas",
     categoria: "Cento pronto",
     foto: "",
-    emoji: "🥟",
     disponivel: true,
     secao: "festas",
   },
@@ -722,7 +672,6 @@ const CARDAPIO = [
     grupo: "Para festas",
     categoria: "Cento pronto",
     foto: "",
-    emoji: "🍬",
     disponivel: true,
     secao: "festas",
   },
@@ -734,7 +683,6 @@ const CARDAPIO = [
     grupo: "Para festas",
     categoria: "Congelados",
     foto: "",
-    emoji: "🍗",
     disponivel: true,
     secao: "congelados",
     congelado: true,
@@ -747,7 +695,6 @@ const CARDAPIO = [
     grupo: "Para festas",
     categoria: "Congelados",
     foto: "",
-    emoji: "🎉",
     disponivel: true,
     secao: "congelados",
     congelado: true,
@@ -760,7 +707,6 @@ const CARDAPIO = [
     grupo: "Para festas",
     categoria: "Congelados",
     foto: "",
-    emoji: "🥟",
     disponivel: true,
     secao: "congelados",
     congelado: true,
@@ -773,7 +719,6 @@ const CARDAPIO = [
     grupo: "Para festas",
     categoria: "Congelados",
     foto: "",
-    emoji: "🧀",
     disponivel: true,
     secao: "congelados",
     congelado: true,

@@ -190,11 +190,17 @@ const TODOS = "Todos";
 // Qual grupo está aberto agora (para não redesenhar a barra de baixo à toa)
 let grupoAtual = null;
 
+// Ícone (Lucide, SVG) do grupo do item: aparece no lugar da foto enquanto ela não existe.
+// Os desenhos ficam em ICONES, no cardapio.js.
+function icone(grupo) {
+  return `<svg class="icone" viewBox="0 0 24 24" aria-hidden="true">${ICONES[grupo] || ICONES.padrao}</svg>`;
+}
+
 // O HTML de um cartão de produto. "posicao" atrasa a animação de entrada, em cascata.
 function desenharItem(item, posicao) {
   const imagem = item.foto
     ? `<img src="${item.foto}" alt="${item.nome}" loading="lazy" width="72" height="72">`
-    : `<span aria-hidden="true">${item.emoji}</span>`;
+    : `${icone(item.grupo)}`;
 
   // Com opções: o "+" abre a janela e o número mostra quantos já estão na sacola.
   // Sem opções: contador "− n +" direto no cartão.
@@ -259,7 +265,7 @@ function desenharCardapio() {
   }
   el("lista-cardapio").innerHTML = html;
 
-  // Blocos de atalho: um por grupo, com o emoji do primeiro item dele
+  // Blocos de atalho: um por grupo, com o ícone do grupo
   const grade = el("grade-grupos");
   if (grade) {
     grade.innerHTML = grupos
@@ -267,7 +273,7 @@ function desenharCardapio() {
         const itens = cardapioAtivo.filter((item) => item.grupo === grupo);
         return `
           <button type="button" class="grupo" data-grupo="${grupo}" data-rolar>
-            <span class="grupo__emoji" aria-hidden="true">${itens[0].emoji}</span>
+            <span class="grupo__icone" aria-hidden="true">${icone(grupo)}</span>
             <span class="grupo__nome">${grupo}</span>
             <span class="grupo__qtd">${itens.length} ${itens.length === 1 ? "opção" : "opções"}</span>
           </button>`;
@@ -368,7 +374,7 @@ function abrirMontagem(id) {
   const item = buscarItem(id);
   montando = { item, escolhas: escolhasIniciais(item), qtd: 1 };
 
-  el("montar-emoji").textContent = item.emoji;
+  el("montar-icone").innerHTML = icone(item.grupo);
   el("montar-nome").textContent = item.nome;
   el("montar-descricao").textContent = item.descricao;
   el("montar-obs").value = "";

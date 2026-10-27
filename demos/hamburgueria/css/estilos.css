@@ -15,7 +15,7 @@
 :root {
   --fundo: #110d0b;          /* carvão */
   --painel: #1c1613;         /* cartões, janelas, campos */
-  --painel-2: #29201b;       /* fundos internos (emoji, chips) */
+  --painel-2: #29201b;       /* fundos internos (ícones, chips) */
   --destaque-escuro: #3a2213; /* item/opção escolhida: um "brilho de brasa" escuro */
   --tinta: #fff1dc;          /* TEXTO principal (claro) */
   --tinta-suave: #c4ae99;
@@ -336,7 +336,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.1; }
   transition: transform 0.12s, box-shadow 0.12s, background-color 0.12s;
 }
 .grupo:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--cor-sombra); background: var(--destaque-escuro); }
-.grupo__emoji { font-size: 2rem; margin-bottom: 0.35rem; }
+.grupo__icone { font-size: 2rem; margin-bottom: 0.35rem; }
 .grupo__nome { font: 400 1rem var(--fonte-titulo); text-transform: uppercase; }
 .grupo__qtd { color: var(--tinta-suave); font-size: 0.8rem; font-weight: 400; }
 
@@ -574,7 +574,7 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.1; }
   background: var(--fogo);
   border-radius: 20px 20px 0 0;
 }
-.montar__emoji {
+.montar__icone {
   display: grid; place-items: center;
   width: 60px; height: 60px;
   border: var(--borda);
@@ -877,3 +877,6 @@ h1, h2, h3, h4, h5 { margin: 0; line-height: 1.1; }
 .busca__campo::placeholder { color: var(--tinta-suave); opacity: 0.8; }
 .busca__campo:focus { outline: none; box-shadow: var(--sombra); }
 .busca__vazia { margin: 1.5rem 0; padding: 1.5rem; text-align: center; color: var(--tinta-suave); }
+
+/* Ícone do grupo no lugar da foto (cartão, atalhos e janela de montar) */
+.item__foto .icone, .grupo__icone .icone, .montar__icone .icone { color: var(--mostarda); stroke-width: 1.6; }

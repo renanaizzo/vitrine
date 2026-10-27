@@ -8,7 +8,7 @@
     id, nome, descricao, preco (o preço BASE, sem adicionais)
     grupo       → aba de cima (ex.: "Burgers")
     categoria   → aba de baixo, dentro do grupo. Nome ÚNICO no cardápio inteiro.
-    emoji, foto (vazio = usa o emoji), disponivel (true/false)
+    foto (vazio = usa o ícone do grupo, em ICONES abaixo), disponivel (true/false)
     opcoes      → (opcional) lista de GRUPOS DE OPÇÕES. Com opções, o "+" abre a
                   janela "Monte seu pedido"; sem opções, o "+" já põe na sacola.
 
@@ -124,6 +124,17 @@ const OPCOES_BURGER = [PONTO, ADICIONAIS, RETIRAR, COMBO, BEBIDA_DO_COMBO];
 const OPCOES_SEM_PONTO = [ADICIONAIS, RETIRAR, COMBO, BEBIDA_DO_COMBO];
 
 /* ================= CARDÁPIO ================= */
+// Ícone de cada GRUPO (desenhos Lucide). Mostrado no lugar da foto enquanto ela não existe.
+// Grupo novo? Acrescente uma linha aqui; sem linha, usa "padrao".
+const ICONES = {
+  "Burgers": '<path d="M12 16H4a2 2 0 1 1 0-4h16a2 2 0 1 1 0 4h-4.25"/><path d="M5 12a2 2 0 0 1-2-2 9 7 0 0 1 18 0 2 2 0 0 1-2 2"/><path d="M5 16a2 2 0 0 0-2 2 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 2 2 0 0 0-2-2q0 0 0 0"/><path d="m6.67 12 6.13 4.6a2 2 0 0 0 2.8-.4l3.15-4.2"/>',
+  "Acompanhamentos": '<path d="M15.4 15.63a7.875 6 135 1 1 6.23-6.23 4.3 3.43 135 0 0-6.23 6.23"/><path d="m8.29 12.71-2.6 2.6a2.5 2.5 0 1 0-1.65 4.65A2.5 2.5 0 1 0 8.7 18.3l2.59-2.59"/>',
+  "Bebidas": '<path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8"/><path d="M5 8h14"/><path d="M7 15a6.47 6.47 0 0 1 5 0 6.47 6.47 0 0 0 5 0"/><path d="m12 8 1-6h2"/>',
+  "Sobremesas": '<path d="m7 11 4.08 10.35a1 1 0 0 0 1.84 0L17 11"/><path d="M17 7A5 5 0 0 0 7 7"/><path d="M17 7a2 2 0 0 1 0 4H7a2 2 0 0 1 0-4"/>',
+  "combo": '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
+  padrao: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
+};
+
 const CARDAPIO = [
   /* ---------- BURGERS ---------- */
   {
@@ -134,7 +145,6 @@ const CARDAPIO = [
     grupo: "Burgers",
     categoria: "Clássicos",
     foto: "",
-    emoji: "🍔",
     disponivel: true,
     opcoes: OPCOES_BURGER,
   },
@@ -146,7 +156,6 @@ const CARDAPIO = [
     grupo: "Burgers",
     categoria: "Clássicos",
     foto: "",
-    emoji: "🥓",
     disponivel: true,
     opcoes: OPCOES_BURGER,
   },
@@ -158,7 +167,6 @@ const CARDAPIO = [
     grupo: "Burgers",
     categoria: "Clássicos",
     foto: "",
-    emoji: "🥬",
     disponivel: true,
     opcoes: OPCOES_BURGER,
   },
@@ -170,7 +178,6 @@ const CARDAPIO = [
     grupo: "Burgers",
     categoria: "Especiais",
     foto: "",
-    emoji: "🔥",
     disponivel: true,
     opcoes: OPCOES_BURGER,
   },
@@ -182,7 +189,6 @@ const CARDAPIO = [
     grupo: "Burgers",
     categoria: "Especiais",
     foto: "",
-    emoji: "🧀",
     disponivel: true,
     opcoes: OPCOES_BURGER,
   },
@@ -194,7 +200,6 @@ const CARDAPIO = [
     grupo: "Burgers",
     categoria: "Especiais",
     foto: "",
-    emoji: "👹",
     disponivel: true,
     opcoes: OPCOES_BURGER,
   },
@@ -206,7 +211,6 @@ const CARDAPIO = [
     grupo: "Burgers",
     categoria: "Especiais",
     foto: "",
-    emoji: "🍗",
     disponivel: true,
     opcoes: OPCOES_SEM_PONTO,
   },
@@ -218,7 +222,6 @@ const CARDAPIO = [
     grupo: "Burgers",
     categoria: "Especiais",
     foto: "",
-    emoji: "🌱",
     disponivel: false, // ← exemplo de item esgotado
     opcoes: OPCOES_SEM_PONTO,
   },
@@ -230,7 +233,6 @@ const CARDAPIO = [
     grupo: "Burgers",
     categoria: "Smash",
     foto: "",
-    emoji: "🍔",
     disponivel: true,
     opcoes: OPCOES_SEM_PONTO,
   },
@@ -242,7 +244,6 @@ const CARDAPIO = [
     grupo: "Burgers",
     categoria: "Smash",
     foto: "",
-    emoji: "🍔",
     disponivel: true,
     opcoes: OPCOES_SEM_PONTO,
   },
@@ -254,7 +255,6 @@ const CARDAPIO = [
     grupo: "Burgers",
     categoria: "Smash",
     foto: "",
-    emoji: "🍔",
     disponivel: true,
     opcoes: OPCOES_SEM_PONTO,
   },
@@ -268,7 +268,6 @@ const CARDAPIO = [
     grupo: "Acompanhamentos",
     categoria: "Acompanhamentos",
     foto: "",
-    emoji: "🍟",
     disponivel: true,
     opcoes: [
       {
@@ -303,7 +302,6 @@ const CARDAPIO = [
     grupo: "Acompanhamentos",
     categoria: "Acompanhamentos",
     foto: "",
-    emoji: "🧅",
     disponivel: true,
     opcoes: [MOLHO],
   },
@@ -315,7 +313,6 @@ const CARDAPIO = [
     grupo: "Acompanhamentos",
     categoria: "Acompanhamentos",
     foto: "",
-    emoji: "🍗",
     disponivel: true,
     opcoes: [MOLHO],
   },
@@ -329,7 +326,6 @@ const CARDAPIO = [
     grupo: "Bebidas",
     categoria: "Bebidas",
     foto: "",
-    emoji: "🥤",
     disponivel: true,
     opcoes: [
       {
@@ -354,7 +350,6 @@ const CARDAPIO = [
     grupo: "Bebidas",
     categoria: "Bebidas",
     foto: "",
-    emoji: "💧",
     disponivel: true,
     opcoes: [
       {
@@ -377,7 +372,6 @@ const CARDAPIO = [
     grupo: "Bebidas",
     categoria: "Bebidas",
     foto: "",
-    emoji: "🍋",
     disponivel: true,
   },
   {
@@ -388,7 +382,6 @@ const CARDAPIO = [
     grupo: "Bebidas",
     categoria: "Milkshakes",
     foto: "",
-    emoji: "🍨",
     disponivel: true,
     opcoes: [
       {
@@ -427,7 +420,6 @@ const CARDAPIO = [
     grupo: "Sobremesas",
     categoria: "Sobremesas",
     foto: "",
-    emoji: "🍫",
     disponivel: true,
   },
   {
@@ -438,7 +430,6 @@ const CARDAPIO = [
     grupo: "Sobremesas",
     categoria: "Sobremesas",
     foto: "",
-    emoji: "🍰",
     disponivel: true,
   },
   {
@@ -449,7 +440,6 @@ const CARDAPIO = [
     grupo: "Sobremesas",
     categoria: "Sobremesas",
     foto: "",
-    emoji: "🍪",
     disponivel: true,
   },
 ];

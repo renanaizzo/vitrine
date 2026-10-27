@@ -99,6 +99,16 @@ const EXTRAS = {
 const OPCOES_COPO = [TAMANHO, BASE, COMPLEMENTOS, CALDA, EXTRAS];
 
 /* ================= CARDÁPIO ================= */
+// Ícone de cada GRUPO (desenhos Lucide). Mostrado no lugar da foto enquanto ela não existe.
+// Grupo novo? Acrescente uma linha aqui; sem linha, usa "padrao".
+const ICONES = {
+  "Monte o seu": '<path d="M12 17c5 0 8-2.69 8-6H4c0 3.31 3 6 8 6m-4 4h8m-4-3v3M5.14 11a3.5 3.5 0 1 1 6.71 0"/><path d="M12.14 11a3.5 3.5 0 1 1 6.71 0"/><path d="M15.5 6.5a3.5 3.5 0 1 0-7 0"/>',
+  "Copos da casa": '<path d="M12 17c5 0 8-2.69 8-6H4c0 3.31 3 6 8 6m-4 4h8m-4-3v3M5.14 11a3.5 3.5 0 1 1 6.71 0"/><path d="M12.14 11a3.5 3.5 0 1 1 6.71 0"/><path d="M15.5 6.5a3.5 3.5 0 1 0-7 0"/>',
+  "Para levar": '<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>',
+  "Bebidas": '<path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8"/><path d="M5 8h14"/><path d="M7 15a6.47 6.47 0 0 1 5 0 6.47 6.47 0 0 0 5 0"/><path d="m12 8 1-6h2"/>',
+  padrao: '<path d="M12 17c5 0 8-2.69 8-6H4c0 3.31 3 6 8 6m-4 4h8m-4-3v3M5.14 11a3.5 3.5 0 1 1 6.71 0"/><path d="M12.14 11a3.5 3.5 0 1 1 6.71 0"/><path d="M15.5 6.5a3.5 3.5 0 1 0-7 0"/>',
+};
+
 const CARDAPIO = [
   /* ---------- MONTE O SEU ---------- */
   {
@@ -109,7 +119,6 @@ const CARDAPIO = [
     grupo: "Monte o seu",
     categoria: "Monte o seu",
     foto: "",
-    emoji: "🍇",
     etiqueta: "Mais pedido",
     disponivel: true,
     opcoes: OPCOES_COPO,
@@ -125,7 +134,6 @@ const CARDAPIO = [
     grupo: "Copos da casa",
     categoria: "Copos da casa",
     foto: "",
-    emoji: "🍌",
     disponivel: true,
     opcoes: [EXTRAS], // receita fixa: só dá para acrescentar extras
   },
@@ -137,7 +145,6 @@ const CARDAPIO = [
     grupo: "Copos da casa",
     categoria: "Copos da casa",
     foto: "",
-    emoji: "🥝",
     disponivel: true,
     opcoes: [EXTRAS],
   },
@@ -149,7 +156,6 @@ const CARDAPIO = [
     grupo: "Copos da casa",
     categoria: "Copos da casa",
     foto: "",
-    emoji: "🍓",
     disponivel: true,
     opcoes: [EXTRAS],
   },
@@ -161,7 +167,6 @@ const CARDAPIO = [
     grupo: "Copos da casa",
     categoria: "Copos da casa",
     foto: "",
-    emoji: "🍫",
     disponivel: true,
     opcoes: [EXTRAS],
   },
@@ -173,7 +178,6 @@ const CARDAPIO = [
     grupo: "Copos da casa",
     categoria: "Copos da casa",
     foto: "",
-    emoji: "🥥",
     disponivel: false, // ← exemplo de item esgotado
     opcoes: [EXTRAS],
   },
@@ -187,7 +191,6 @@ const CARDAPIO = [
     grupo: "Para levar",
     categoria: "Para levar",
     foto: "",
-    emoji: "🫙",
     disponivel: true,
     opcoes: [{ ...BASE, titulo: "Sabor do pote" }],
   },
@@ -199,7 +202,6 @@ const CARDAPIO = [
     grupo: "Para levar",
     categoria: "Para levar",
     foto: "",
-    emoji: "🫙",
     disponivel: true,
     opcoes: [{ ...BASE, titulo: "Sabor do pote" }],
   },
@@ -211,7 +213,6 @@ const CARDAPIO = [
     grupo: "Para levar",
     categoria: "Para levar",
     foto: "",
-    emoji: "🥣",
     disponivel: true,
   },
 
@@ -224,7 +225,6 @@ const CARDAPIO = [
     grupo: "Bebidas",
     categoria: "Bebidas",
     foto: "",
-    emoji: "🥤",
     disponivel: true,
   },
   {
@@ -235,7 +235,6 @@ const CARDAPIO = [
     grupo: "Bebidas",
     categoria: "Bebidas",
     foto: "",
-    emoji: "🥥",
     disponivel: true,
   },
   {
@@ -246,7 +245,6 @@ const CARDAPIO = [
     grupo: "Bebidas",
     categoria: "Bebidas",
     foto: "",
-    emoji: "💧",
     disponivel: true,
   },
 ];

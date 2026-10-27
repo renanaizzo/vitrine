@@ -72,13 +72,19 @@ function categoriasDoGrupo(grupo) {
   return semRepetir(cardapioAtivo.filter((item) => item.grupo === grupo).map((item) => item.categoria));
 }
 
+// Ícone (Lucide, SVG) do grupo do item: aparece no lugar da foto enquanto ela não existe.
+// Os desenhos ficam em ICONES, no cardapio.js.
+function icone(grupo) {
+  return `<svg class="icone" viewBox="0 0 24 24" aria-hidden="true">${ICONES[grupo] || ICONES.padrao}</svg>`;
+}
+
 // O HTML de um cartão de produto.
 // "posicao" (0, 1, 2...) atrasa um pouquinho a animação de entrada de cada cartão, em cascata.
 function desenharItem(item, posicao) {
-  // Foto, se houver; senão, o emoji
+  // Foto, se houver; senão, o ícone do grupo
   const imagem = item.foto
     ? `<img src="${item.foto}" alt="${item.nome}" loading="lazy" width="72" height="72">`
-    : `<span aria-hidden="true">${item.emoji}</span>`;
+    : `${icone(item.grupo)}`;
 
   // Contador "− 0 +", ou aviso de esgotado.
   // O "−" e o número só aparecem (pelo CSS) quando o item já está no carrinho.
@@ -138,14 +144,14 @@ function desenharCardapio() {
   }
   el("lista-cardapio").innerHTML = html;
 
-  // Blocos de atalho acima do cardápio: um por grupo, com o emoji do primeiro item dele.
+  // Blocos de atalho acima do cardápio: um por grupo, com o ícone do grupo.
   // Têm data-grupo (abre a aba certa) e data-rolar (desce até o cardápio).
   el("grade-grupos").innerHTML = grupos
     .map((grupo) => {
       const itens = cardapioAtivo.filter((item) => item.grupo === grupo);
       return `
         <button type="button" class="grupo" data-grupo="${grupo}" data-rolar>
-          <span class="grupo__emoji" aria-hidden="true">${itens[0].emoji}</span>
+          <span class="grupo__icone" aria-hidden="true">${icone(grupo)}</span>
           <span class="grupo__nome">${grupo}</span>
           <span class="grupo__qtd">${itens.length} opções</span>
         </button>`;
