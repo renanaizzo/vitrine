@@ -172,4 +172,21 @@ body {
   color: #c8915a;
 }
 
+/* Peças gráficas: três cartões de visita em leque, nas cores das marcas */
+.miniatura--design {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 120%, rgba(143, 176, 255, 0.18), transparent 60%), #10131a;
+}
+.mini-cartao {
+  position: absolute;
+  width: 132px;
+  height: 77px;               /* proporção 90 × 50 mm */
+  border-radius: 6px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+.mini-cartao--1 { background: linear-gradient(115deg, #0B3B3C 62%, #2EC4B6 62%); transform: translate(-70px, 8px) rotate(-10deg); }
+.mini-cartao--2 { background: linear-gradient(135deg, #0A1F44, #06142E); border: 1px solid #5EC8F2; transform: translate(0, -6px); z-index: 1; }
+.mini-cartao--3 { background: #14213D; outline: 1px solid #C9A55C; outline-offset: -7px; transform: translate(70px, 8px) rotate(10deg); }
+
 .rodape { padding: 1rem 1rem 3rem; text-align: center; color: var(--marinho-suave); }
